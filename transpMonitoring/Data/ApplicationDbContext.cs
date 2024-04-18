@@ -12,7 +12,7 @@ namespace transpMonitoring.Data
 
         }
 
-        public DbSet<Category> Categories { get; set; }
+        /*public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,6 +29,6 @@ namespace transpMonitoring.Data
                 new Product { Id = 2, Title = "Roadside Picnic", Author = "Brothers Strugatski", Description = "Adventure on anomaly place \"Zona\"", Price = 350, CategoryId = 1, imageURL = "" },
                 new Product { Id = 3, Title = "Metro", Author = "Dmitry Glukhovsky", Description = "Radioactive adventure Russian metro", Price = 300, CategoryId = 2, imageURL = "" }
                 );
-        }
+        }*/
     }
 }

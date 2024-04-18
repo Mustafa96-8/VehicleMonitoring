@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using transpMonitoring.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
