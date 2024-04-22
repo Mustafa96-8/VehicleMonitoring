@@ -1,4 +1,4 @@
-namespace transpMonitoring.Models
+namespace vehicleMonitoring.Models
 {
     public class ErrorViewModel
     {

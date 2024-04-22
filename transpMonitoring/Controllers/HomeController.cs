@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using transpMonitoring.Models;
+using vehicleMonitoring.Models;
 
-namespace transpMonitoring.Controllers
+namespace vehicleMonitoring.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace transpMonitoring.Models
+namespace vehicleMonitoring.Models
 {
     public class VehicleDescription
     {

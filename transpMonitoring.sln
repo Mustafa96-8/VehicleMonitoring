@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "transpMonitoring", "transpMonitoring\transpMonitoring.csproj", "{2C1C7123-0A56-4878-BB58-75DF77E3C3F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vehicleMonitoring", "transpMonitoring\vehicleMonitoring.csproj", "{2C1C7123-0A56-4878-BB58-75DF77E3C3F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

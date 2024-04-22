@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using transpMonitoring.Data;
+using vehicleMonitoring.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseNpgsql
     (builder.Configuration.GetConnectionString("WebApiDatabase")
-    )
+    ));
 
 
 var app = builder.Build();

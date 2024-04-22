@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-namespace transpMonitoring.Models
+namespace vehicleMonitoring.Models
 {
     public class SensorValue
     {

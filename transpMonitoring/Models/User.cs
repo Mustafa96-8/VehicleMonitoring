@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
-namespace transpMonitoring.Models
+namespace vehicleMonitoring.Models
 {
     public class User
     {
@@ -8,9 +9,11 @@ namespace transpMonitoring.Models
         public int Id { get; set; }
         [Required]
         [MaxLength(50)]
+        [DisplayName("Имя")]
         public string FirstName { get; set; }
         [Required]
         [MaxLength(50)]
+        [DisplayName("Фамилия")]
         public string LastName { get; set; }
 
         public ICollection<int> VehiclesId { get; set; } = [];

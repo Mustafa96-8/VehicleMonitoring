@@ -2,8 +2,9 @@
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using vehicleMonitoring.Models;
 
-namespace transpMonitoring.Data
+namespace vehicleMonitoring.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -12,9 +13,18 @@ namespace transpMonitoring.Data
 
         }
 
-        /*public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Driver> Drivers { get; set; }
+        public DbSet<GPSData> GPSData { get; set; }
+        public DbSet<GPSReading> GPSReadings { get; set; }
+        public DbSet<Sensor> Sensors { get; set; }
+        public DbSet<SensorValue> SensorValues { get; set; }
+        public DbSet<SensorType> SensorTypes { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<VehicleDescription> VehicleDescriptions{ get; set; }
 
+
+
+        /*
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

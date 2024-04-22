@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace transpMonitoring.Models
+namespace vehicleMonitoring.Models
 {
     public class SensorType
     {
