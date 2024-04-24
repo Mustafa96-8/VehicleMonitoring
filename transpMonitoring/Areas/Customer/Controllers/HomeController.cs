@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using vehicleMonitoring.Models;
 
-namespace vehicleMonitoring.Controllers
+namespace vehicleMonitoring.Areas.Customer.Controllers
 {
     public class HomeController : Controller
     {

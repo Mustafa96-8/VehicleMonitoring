@@ -6,7 +6,7 @@ namespace vehicleMonitoring.Repository
 {
     public class SensorRepository : Repository<Sensor>, ISensorRepository
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public SensorRepository(ApplicationDbContext context):base(context)
         {

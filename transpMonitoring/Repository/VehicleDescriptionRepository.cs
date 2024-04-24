@@ -6,7 +6,7 @@ namespace vehicleMonitoring.Repository
 {
     public class VehicleDescriptionRepository:Repository<VehicleDescription>,IVehicleDescriptionRepository
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public VehicleDescriptionRepository(ApplicationDbContext context):base(context)
         {

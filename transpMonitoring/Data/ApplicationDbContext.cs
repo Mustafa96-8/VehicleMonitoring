@@ -16,6 +16,8 @@ namespace vehicleMonitoring.Data
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<GPSData> GPSData { get; set; }
         public DbSet<GPSReading> GPSReadings { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Report> Reports { get; set; }
         public DbSet<Sensor> Sensors { get; set; }
         public DbSet<SensorValue> SensorValues { get; set; }
         public DbSet<SensorType> SensorTypes { get; set; }
@@ -24,21 +26,20 @@ namespace vehicleMonitoring.Data
 
 
 
-        /*
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
-                new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
-                new Category { Id = 3, Name = "History", DisplayOrder = 3 }
+            modelBuilder.Entity<SensorType>().HasData(
+                new SensorType { Id = 1, Name = "Standart" },
+                new SensorType { Id = 2, Name = "Fuel level" },
+                new SensorType { Id = 3, Name = "Total Fuel level" },
+                new SensorType { Id = 4, Name = "Velocity" },
+                new SensorType { Id = 5, Name = "Acceleration sensor" },
+                new SensorType { Id = 6, Name = "Lambda sensor" },
+                new SensorType { Id = 7, Name = "Ignition" }
                 );
-            modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1, Title = "Slovo o Polku Igoreve", Author = "Victor Luninin", Description = "For Child", Price = 250, CategoryId = 3, imageURL = "" },
-                new Product { Id = 2, Title = "Roadside Picnic", Author = "Brothers Strugatski", Description = "Adventure on anomaly place \"Zona\"", Price = 350, CategoryId = 1, imageURL = "" },
-                new Product { Id = 3, Title = "Metro", Author = "Dmitry Glukhovsky", Description = "Radioactive adventure Russian metro", Price = 300, CategoryId = 2, imageURL = "" }
-                );
-        }*/
+        }
     }
 }

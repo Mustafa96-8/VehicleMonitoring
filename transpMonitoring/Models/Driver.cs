@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace vehicleMonitoring.Models
 {
@@ -8,7 +8,6 @@ namespace vehicleMonitoring.Models
     {
         [Key]
         public int Id { get; set; }
-
         [Required, MaxLength(50)]
         [DisplayName("Фамилия")]
         public string LastName { get; set; }
@@ -19,12 +18,12 @@ namespace vehicleMonitoring.Models
         [DisplayName("Отчество")]
         public string? MiddleName { get; set; }
         //Info about Driver  should be updated to more column
-        [AllowNull]
         [MaxLength(255)]
         [DisplayName("Общая информация")]
         public string? Information { get; set; }
+        // Vehicle One To One
         public int VehicleId {  get; set; }
+        [ForeignKey("VehicleId")]
         public Vehicle Vehicle { get; set; }
-
     }
 }

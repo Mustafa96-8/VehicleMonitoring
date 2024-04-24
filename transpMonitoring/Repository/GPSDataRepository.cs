@@ -7,7 +7,7 @@ namespace vehicleMonitoring.Repository
     public class GPSDataRepository : Repository<GPSData>, IGPSDataRepository
     {
 
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public GPSDataRepository(ApplicationDbContext context) : base(context)
         {

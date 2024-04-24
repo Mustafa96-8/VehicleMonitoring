@@ -3,20 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace vehicleMonitoring.Models
 {
-    public class VehicleDescription
+    public class Report
     {
         [Key]
         public int Id { get; set; }
-        [Required, MaxLength(50)]
-        public string Name { get; set; }
-        [Required, MaxLength(255)]
-        public string Content { get; set; }
+
+        [Required]
+        public DateTime CreationTime { get; private set; } = DateTime.Now;
         // Vehicle Many To One
         [Required]
         public int VehicleId { get; set; }
-        [Required]
         [ForeignKey("VehicleId")]
-        public Vehicle Vehicle { get; }
+        [Required]
+        public Vehicle Vehicle { get; set; }
+        // Message One To Many to Child
+        public IEnumerable<Message> Messages { get; set; } = new List<Message>();
 
     }
 }

@@ -15,7 +15,7 @@ namespace vehicleMonitoring.Models
         [MaxLength(50)]
         [DisplayName("Фамилия")]
         public string LastName { get; set; }
-
-        public ICollection<int> VehiclesId { get; set; } = [];
+        // Vehicles One To Many 
+        public ICollection<Vehicle> Vehicles { get; } = new List<Vehicle>();
     }
 }

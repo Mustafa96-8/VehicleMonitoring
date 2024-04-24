@@ -4,19 +4,16 @@ using vehicleMonitoring.Repository.IRepository;
 
 namespace vehicleMonitoring.Repository
 {
-    public class DriverRepository : Repository<Driver>,IDriverRepository
+    public class MessageRepository:Repository<Message>,IMessageRepository
     {
         private readonly ApplicationDbContext _context;
-
-        public DriverRepository(ApplicationDbContext context):base(context)
+        public MessageRepository(ApplicationDbContext context):base(context)
         {
             _context = context;
         }
-
-        public void Update(Driver driver)
+        public void Update(Message message)
         {
-            _context.Drivers.Update(driver);
+            _context.Messages.Update(message);
         }
-
     }
 }

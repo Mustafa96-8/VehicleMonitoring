@@ -6,7 +6,7 @@ namespace vehicleMonitoring.Repository
 {
     public class GPSReadingRepository:Repository<GPSReading>,IGPSReadingRepository
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public GPSReadingRepository(ApplicationDbContext context) : base(context)
         {
