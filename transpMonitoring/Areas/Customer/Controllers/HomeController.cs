@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using vehicleMonitoring.Models;
+using VehicleMonitoring.Domain.Entities;
 
-namespace vehicleMonitoring.Areas.Customer.Controllers
+namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
 {
     public class HomeController : Controller
     {

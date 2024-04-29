@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using vehicleMonitoring.Repository.IRepository;
+using VehicleMonitoring.Domain.Repository.IRepository;
 
-namespace vehicleMonitoring.Areas.Admin.Controllers
+namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
 {
     public class SensorTypeController : Controller
     {
