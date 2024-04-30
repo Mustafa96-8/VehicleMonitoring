@@ -1,0 +1,44 @@
+﻿@using VehicleMonitoring.mvc.Models;
+@model RegisterViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<form asp-controller="Account" asp-action="Login">
+    <div class="mb-3">
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="fa-solid fa-user"></i>
+            </span>
+            <div class="form-floating">
+                <input asp-for="Login" type="text" class="form-control" placeholder="Введите логин" />
+                <label asp-for="Login" class="form-label" >Login</label>
+            </div>
+        </div>
+        <span class="text-danger" asp-validation-for="Login"></span>
+    </div>        
+    <div class="mb-3">
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="fa-solid fa-lock"></i>
+            </span>
+            <div class="form-floating">
+                <input asp-for="Password" type="password" class="form-control" placeholder="Введите пароль" value="@Model?.Password" />
+                <label asp-for="Password" class="form-label">Пароль</label>
+            </div>
+        </div>
+        <span class="text-danger" asp-validation-for="Password">Пароль</span>
+    </div>
+    <div class="mb-3">
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="fa-solid fa-lock"></i>
+            </span>
+            <div class="form-floating">
+                <input asp-for="RepeatPassword" type="password" class="form-control" placeholder="Введите пароль" value="@Model?.RepeatPassword" />
+                <label asp-for="RepeatPassword" class="form-label">Пароль</label>
+            </div>
+        </div>
+        <span class="text-danger" asp-validation-for="RepeatPassword">Повторите пароль</span>
+    </div>
+    <div class="text-danger mb-2">@TempData["error"]</div>
+    <button type="submit" class="btn btn-primary w-100">Создать аккаунт</button>
+</form>

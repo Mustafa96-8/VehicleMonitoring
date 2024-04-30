@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using VehicleMonitoring.Domain.Entities;
 
 namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
 {
+    [Authorize]
+    //[Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,7 +20,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
         {
             return View();
         }
-
+        [Authorize("admin")]
         public IActionResult Privacy()
         {
             return View();

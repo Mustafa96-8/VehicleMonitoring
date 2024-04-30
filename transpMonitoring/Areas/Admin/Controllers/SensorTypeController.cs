@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VehicleMonitoring.Domain.Repository.IRepository;
 
 namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class SensorTypeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -11,7 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseNpgsql
     (builder.Configuration.GetConnectionString("WebApiDatabase")));
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/account");
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Customer/Account");
 builder.Services.AddAuthorization();
 
 var app = builder.Build();

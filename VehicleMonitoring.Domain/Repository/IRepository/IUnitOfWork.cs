@@ -10,6 +10,7 @@
         ISensorRepository Sensor { get; }
         ISensorTypeRepository  SensorType { get; }
         ISensorValueRepository SensorValue { get; }
+        IUserRepository User { get; }
         IVehicleRepository Vehicle { get; }
         IVehicleDescriptionRepository VehicleDescription { get; }
 

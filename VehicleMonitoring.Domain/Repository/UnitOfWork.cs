@@ -15,6 +15,7 @@ namespace VehicleMonitoring.Domain.Repository
         public ISensorRepository Sensor { get; private set; }
         public ISensorTypeRepository SensorType { get; private set; }
         public ISensorValueRepository SensorValue { get; private set; }
+        public IUserRepository User { get; private set; }
         public IVehicleRepository Vehicle { get; private set; }
         public IVehicleDescriptionRepository VehicleDescription { get; private set; }
 
@@ -29,6 +30,7 @@ namespace VehicleMonitoring.Domain.Repository
             Sensor = new SensorRepository(_context);
             SensorType = new SensorTypeRepository(_context);
             SensorValue = new SensorValueRepository(_context);
+            User = new UserRepository(_context);
             Vehicle = new VehicleRepository(_context);
             VehicleDescription = new VehicleDescriptionRepository(_context);
             

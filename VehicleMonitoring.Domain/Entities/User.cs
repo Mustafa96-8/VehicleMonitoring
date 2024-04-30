@@ -7,6 +7,7 @@ namespace VehicleMonitoring.Domain.Entities
     {
         public string Login { get; set; } = login;
         public string Password { get; set; } = password;
+        public string Role { get; set; } = "user";
 
         [Required]
         [MaxLength(50)]

@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using VehicleMonitoring.Domain.Entities;
 
 namespace VehicleMonitoring.Domain.Data
@@ -20,6 +21,7 @@ namespace VehicleMonitoring.Domain.Data
         public DbSet<Sensor> Sensors { get; set; }
         public DbSet<SensorValue> SensorValues { get; set; }
         public DbSet<SensorType> SensorTypes { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleDescription> VehicleDescriptions{ get; set; }
 
@@ -39,6 +41,10 @@ namespace VehicleMonitoring.Domain.Data
                 new SensorType { Id = 6, Name = "Lambda sensor" },
                 new SensorType { Id = 7, Name = "Ignition" }
                 );
+            modelBuilder.Entity<User>().HasData(
+                new User("Admin", "a123") { Id = 1,FirstName="AdminName",LastName="Adminlast",Role="admin" } ,
+                new User("User", "u123") { Id = 2, FirstName = "UserName", LastName = "UserLast", Role = "user" }
+                ) ;
         }
     }
 }
