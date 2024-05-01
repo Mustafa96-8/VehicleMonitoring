@@ -3,16 +3,18 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using System;
 using System.Security.Claims;
 using VehicleMonitoring.Domain.Data;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
+using VehicleMonitoring.mvc.Controllers;
 using VehicleMonitoring.mvc.Models;
 
 namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
 {
 
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         ApplicationDbContext _context;
 
@@ -54,7 +56,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimsIdentity.DefaultNameClaimType,user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType,user.Role)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
             };
             var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
@@ -79,7 +81,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
                     RegisterViewModel = model
                 });
             }
-            user = new User(model.Login, model.Password);
+            user = new User(model.Login, model.Password,model.Role,model.FirstName,model.LastName);
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 

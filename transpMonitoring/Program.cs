@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using VehicleMonitoring.Domain.Data;
+using VehicleMonitoring.Domain.Entities;
+
+string adminRole = "admin";
+string userRole = "user";
 
 var builder = WebApplication.CreateBuilder(args);
 

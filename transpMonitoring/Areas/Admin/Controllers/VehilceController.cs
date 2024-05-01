@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
+using VehicleMonitoring.mvc.Controllers;
 
 namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
 {
-    public class VehilceController : Controller
+    public class VehilceController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
 

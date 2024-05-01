@@ -25,6 +25,9 @@ namespace VehicleMonitoring.Domain.Data
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleDescription> VehicleDescriptions{ get; set; }
 
+        //public DbSet<Role> Roles { get; set; }
+
+        
 
 
         
@@ -41,9 +44,14 @@ namespace VehicleMonitoring.Domain.Data
                 new SensorType { Id = 6, Name = "Lambda sensor" },
                 new SensorType { Id = 7, Name = "Ignition" }
                 );
+            /*modelBuilder.Entity<Role>().HasData(
+                new Role("admin"),
+                new Role("user")
+                );*/
+
             modelBuilder.Entity<User>().HasData(
-                new User("Admin", "a123") { Id = 1,FirstName="AdminName",LastName="Adminlast",Role="admin" } ,
-                new User("User", "u123") { Id = 2, FirstName = "UserName", LastName = "UserLast", Role = "user" }
+                new User("Admin", "a123", "admin", "AdminName", "Adminlast") { Id = 1 },
+                new User("User", "u123", "user", "UserName", "UserLast") { Id = 2 }
                 ) ;
         }
     }

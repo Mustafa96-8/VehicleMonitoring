@@ -21,6 +21,11 @@ namespace VehicleMonitoring.mvc.Models
     {
         [Required(ErrorMessage = "Обязательное поле")]
         public string Login { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+
+        public string Role { get; set; } = "user";
+
         [Required(ErrorMessage = "Обязательное поле")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Обязательное поле")]

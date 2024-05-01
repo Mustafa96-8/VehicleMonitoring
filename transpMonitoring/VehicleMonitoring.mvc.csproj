@@ -39,7 +39,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Signup\Views\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

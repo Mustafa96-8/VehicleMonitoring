@@ -1,26 +1,34 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Diagnostics;
+using System.Security.Claims;
+using VehicleMonitoring.Domain.Data;
 using VehicleMonitoring.Domain.Entities;
+using VehicleMonitoring.Domain.Repository.IRepository;
+using VehicleMonitoring.mvc.Controllers;
 
 namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
 {
-    [Authorize]
-    //[Area("Customer")]
-    public class HomeController : Controller
+    [Authorize(Roles = "user,admin")]
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,IUnitOfWork unitOfWork)
         {
             _logger = logger;
+            _unitOfWork = unitOfWork; 
         }
 
         public IActionResult Index()
         {
-            return View();
+            User user = _unitOfWork.User.Get(u => u.Id == CurrentUserId);
+            return View(user);
         }
-        [Authorize("admin")]
+
+        [Authorize(Roles = "admin")]
         public IActionResult Privacy()
         {
             return View();
