@@ -28,9 +28,6 @@ namespace VehicleMonitoring.Domain.Data
         //public DbSet<Role> Roles { get; set; }
 
         
-
-
-        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,15 +41,6 @@ namespace VehicleMonitoring.Domain.Data
                 new SensorType { Id = 6, Name = "Lambda sensor" },
                 new SensorType { Id = 7, Name = "Ignition" }
                 );
-            /*modelBuilder.Entity<Role>().HasData(
-                new Role("admin"),
-                new Role("user")
-                );*/
-
-            modelBuilder.Entity<User>().HasData(
-                new User("Admin", "a123", "admin", "AdminName", "Adminlast") { Id = 1 },
-                new User("User", "u123", "user", "UserName", "UserLast") { Id = 2 }
-                ) ;
         }
     }
 }

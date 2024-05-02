@@ -12,8 +12,8 @@ using VehicleMonitoring.Domain.Data;
 namespace VehicleMonitoring.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240430085245_FirstAndSeedTestAuthorize")]
-    partial class FirstAndSeedTestAuthorize
+    [Migration("20240502145508_RecreateDBWithHasing")]
+    partial class RecreateDBWithHasing
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,36 +286,33 @@ namespace VehicleMonitoring.Domain.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
                     b.Property<string>("Login")
                         .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Salt")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "Name",
-                            LastName = "family",
-                            Login = "Admin",
-                            Password = "Password"
-                        });
                 });
 
             modelBuilder.Entity("VehicleMonitoring.Domain.Entities.Vehicle", b =>

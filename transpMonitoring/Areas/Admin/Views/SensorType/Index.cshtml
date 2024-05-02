@@ -1,11 +1,41 @@
-﻿
-@model SensorType
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-<div>
-    SENSOR TYPE ADMIN PAGE 
-    
-</div>
+﻿@model List<SensorType>
 @{
+
+    ViewData["Title"] = "SensorTypes";
 }
+
+<table class="container">
+    <thead class="tab-content table-primary">
+        <tr>
+            <th>
+                Название категории
+            </th>
+            <th>
+                Порядок вывода
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.OrderBy(u => u.Id))
+        {
+            <tr>
+                <td class="tab-content bg-light">
+                    <a asp-controller="SensorType" asp-action="Details" asp-route-id="@obj.Id">@obj.Name</a>
+                </td>
+                <td class="tab-content bg-light">
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="SensorType" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-outline-primary mx-1 rounded-2">
+                            <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+                        <a asp-controller="SensorType" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-outline-danger mx-1 rounded-2">
+                            <i class="bi bi-trash3"></i> Delete
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

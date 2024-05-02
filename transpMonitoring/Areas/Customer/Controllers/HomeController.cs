@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
 using System.Diagnostics;
 using System.Security.Claims;
 using VehicleMonitoring.Domain.Data;
@@ -24,7 +25,17 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
+            if(CurrentUserId == 0)
+            {
+                return RedirectToAction("logout", "Account", new { area = "Customer" });
+                    //asp - controller = "Account" asp - action = "Logout"
+            }
             User user = _unitOfWork.User.Get(u => u.Id == CurrentUserId);
+            if (user == null)
+            {
+                return RedirectToAction("logout", "Account", new { area = "Customer" });
+                //asp - controller = "Account" asp - action = "Logout"
+            }
             return View(user);
         }
 

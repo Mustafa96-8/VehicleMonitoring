@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VehicleMonitoring.mvc.Models
+namespace VehicleMonitoring.mvc.ViewModels
 {
     public class AccountViewModel
     {

@@ -292,9 +292,10 @@ namespace VehicleMonitoring.Domain.Migrations
 
                     b.Property<string>("Login")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -302,29 +303,13 @@ namespace VehicleMonitoring.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "AdminName",
-                            LastName = "Adminlast",
-                            Login = "Admin",
-                            Password = "a123",
-                            Role = "admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FirstName = "UserName",
-                            LastName = "UserLast",
-                            Login = "User",
-                            Password = "u123",
-                            Role = "user"
-                        });
                 });
 
             modelBuilder.Entity("VehicleMonitoring.Domain.Entities.Vehicle", b =>

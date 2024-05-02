@@ -5,11 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using VehicleMonitoring.Domain.Data;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Controllers;
-using VehicleMonitoring.mvc.Models;
+using VehicleMonitoring.mvc.ViewModels;
 
 namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
 {
@@ -35,12 +37,11 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
                     LoginViewModel = model
                 });
             }
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == model.Login && u.Password == model.Password);
-            /*_context.Users.Get(u=>u.Login==model.Login&&u.Password==model.Password);*/
-
-            if (user is null)
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
+            
+            if ((user is null )|| (!Encryption.Equals(model.Password, user.PasswordHash, user.Salt)))
             {
-                TempData["error"] = "Пользователь с таким логином не найден";
+                TempData["error"] = "Неверный логин или пароль";
                 return View("Index", new AccountViewModel
                 {
                     LoginViewModel = model
@@ -71,7 +72,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
                     RegisterViewModel = model
                 });
             }
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == model.Login && u.Password == model.Password);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
 
             if (user != null)
             {
@@ -81,7 +82,8 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
                     RegisterViewModel = model
                 });
             }
-            user = new User(model.Login, model.Password,model.Role,model.FirstName,model.LastName);
+            string salt = Encryption.CreateSalt(16);
+            user = new User {Login= model.Login,PasswordHash= Encryption.GenerateHash(model.Password, salt),Salt= salt, Role=model.Role,FirstName= model.FirstName,LastName= model.LastName };
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
@@ -94,6 +96,32 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Account");
+        }
+
+        internal static class Encryption
+        {
+            public static string CreateSalt(int size)
+            {
+                //Generate a cryptographic random number.
+                byte[] buff = new byte[size];
+                RandomNumberGenerator rng = RandomNumberGenerator.Create();
+                rng.GetBytes(buff);
+                return Convert.ToBase64String(buff);
+            }
+
+            public static string GenerateHash(string input, string salt)
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(input + salt);
+                SHA256 sha = SHA256.Create();
+                byte[] hash = sha.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
+
+            public static bool Equals(string plainTextInput, string hashedInput, string salt)
+            {
+                string newHashedPin = GenerateHash(plainTextInput, salt);
+                return newHashedPin.Equals(hashedInput);
+            }
         }
     }
 }

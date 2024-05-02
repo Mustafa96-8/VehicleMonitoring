@@ -3,9 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using VehicleMonitoring.Domain.Data;
 using VehicleMonitoring.Domain.Entities;
-
-string adminRole = "admin";
-string userRole = "user";
+using VehicleMonitoring.Domain.Repository.IRepository;
+using VehicleMonitoring.Domain.Repository;
+using VehicleMonitoring.mvc.Services.IServices;
+using VehicleMonitoring.mvc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,9 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseNpgsql
     (builder.Configuration.GetConnectionString("WebApiDatabase")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ISensorTypeService, SensorTypeService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Customer/Account");
 builder.Services.AddAuthorization();
