@@ -12,24 +12,33 @@ namespace VehicleMonitoring.mvc.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public string Create(VehicleDescription obj)
+        public string Create(VehicleDescription vehicleDescription)
         {
-            throw new NotImplementedException();
+            _unitOfWork.VehicleDescription.Add(vehicleDescription);
+            _unitOfWork.Save();
+            return "Описание успешно создано";
         }
 
-        public string Delete(VehicleDescription obj)
+        public string Delete(VehicleDescription vehicleDescription)
         {
-            throw new NotImplementedException();
+            _unitOfWork.VehicleDescription.Delete(vehicleDescription);
+            _unitOfWork.Save();
+            return "Описание успешно удалёно";
         }
 
         public VehicleDescription Get(int id)
         {
-            throw new NotImplementedException();
+            VehicleDescription? vehicleDescription = _unitOfWork.VehicleDescription.Get(u => u.Id == id);
+            if (vehicleDescription == null)
+            {
+                return null;
+            }
+            return vehicleDescription;
         }
 
         public IEnumerable<VehicleDescription> GetAll()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.VehicleDescription.GetAll().ToList();
         }
 
         public List<VehicleDescription> GetByVehicleId(int vehicleId)
@@ -39,9 +48,11 @@ namespace VehicleMonitoring.mvc.Services
             return _unitOfWork.VehicleDescription.GetAll().Where(n=>n.VehicleId==vehicleId).ToList();
         }
 
-        public string Update(VehicleDescription obj)
+        public string Update(VehicleDescription vehicleDescription)
         {
-            throw new NotImplementedException();
+            _unitOfWork.VehicleDescription.Update(vehicleDescription);
+            _unitOfWork.Save();
+            return "Описание успешно обновлено";
         }
     }
 }

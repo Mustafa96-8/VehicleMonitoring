@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VehicleMonitoring.Domain.Entities
@@ -19,6 +20,7 @@ namespace VehicleMonitoring.Domain.Entities
         [Required]
         public int GPSDataId{ get; set; }
         [ForeignKey("GPSDataId")]
+        [ValidateNever]
         public GPSData GPSData { get; set; }
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleMonitoring.mvc", "transpMonitoring\VehicleMonitoring.mvc.csproj", "{2C1C7123-0A56-4878-BB58-75DF77E3C3F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleMonitoring.Domain", "VehicleMonitoring.Domain\VehicleMonitoring.Domain.csproj", "{545A80DB-BF76-4BD7-BAC0-724F94BB499A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleMonitoring.Domain", "VehicleMonitoring.Domain\VehicleMonitoring.Domain.csproj", "{545A80DB-BF76-4BD7-BAC0-724F94BB499A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

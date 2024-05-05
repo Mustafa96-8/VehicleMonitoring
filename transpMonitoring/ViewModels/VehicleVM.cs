@@ -9,6 +9,6 @@ namespace VehicleMonitoring.mvc.ViewModels
         public Vehicle Vehicle { get; set; }
 
         [ValidateNever]               
-        public IEnumerable<VehicleDescription> vehicleDescriptions { get; set; }
+        public IEnumerable<int> VehicleDescriprionsId { get; set; }
     }
 }

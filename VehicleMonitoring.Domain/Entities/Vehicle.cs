@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace VehicleMonitoring.Domain.Entities
 {
@@ -18,6 +19,7 @@ namespace VehicleMonitoring.Domain.Entities
         [Required]
         public int UserId { get; set; }
         [ForeignKey("UserId")]
+        [ValidateNever]
         public User User { get; set; } = null!;
         
         // Vehicle Description One To Many
@@ -26,6 +28,7 @@ namespace VehicleMonitoring.Domain.Entities
         // Driver One To One
         public int? DriverId { get; set; } 
         [ForeignKey("DriverId")]
+
         public Driver? Driver { get; }
 
         // GPS Data One To One

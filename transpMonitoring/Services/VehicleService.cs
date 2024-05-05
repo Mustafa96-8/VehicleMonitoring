@@ -35,6 +35,7 @@ namespace VehicleMonitoring.mvc.Services
             {
                 vehicle.Descriptions.Add(item);
             }
+            vehicle.User = _unitOfWork.User.Get(u => u.Id == vehicle.UserId);
             _unitOfWork.Vehicle.Add(vehicle);
             _unitOfWork.Save();
             return "Транспорт успешно создан";
@@ -49,6 +50,7 @@ namespace VehicleMonitoring.mvc.Services
             {
                 vehicle.Descriptions.Add(item);
             }
+            vehicle.User = _unitOfWork.User.Get(u => u.Id==vehicle.UserId);
             _unitOfWork.Vehicle.Update(vehicle);
             _unitOfWork.Save();
             return "Транспорт успешно Обновлён";
@@ -56,6 +58,11 @@ namespace VehicleMonitoring.mvc.Services
 
         public string Delete(Vehicle vehicle)
         {
+            VehicleDescriptionService vehicleDescriptionService = new(_unitOfWork);
+            foreach (var item in vehicleDescriptionService.GetByVehicleId(vehicle.Id))
+            {
+                vehicle.Descriptions.Add(item);
+            }
             _unitOfWork.Vehicle.Delete(vehicle);
             _unitOfWork.Save();
             return "Транспорт успешно удалён";

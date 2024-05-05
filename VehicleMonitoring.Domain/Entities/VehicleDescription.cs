@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VehicleMonitoring.Domain.Entities
@@ -15,6 +16,7 @@ namespace VehicleMonitoring.Domain.Entities
         public int VehicleId { get; set; }
         [Required]
         [ForeignKey("VehicleId")]
+        [ValidateNever]
         public Vehicle Vehicle { get; }
 
     }
