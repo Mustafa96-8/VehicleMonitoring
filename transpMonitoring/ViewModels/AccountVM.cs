@@ -2,7 +2,7 @@
 
 namespace VehicleMonitoring.mvc.ViewModels
 {
-    public class AccountViewModel
+    public class AccountVM
     {
         public LoginViewModel LoginViewModel { get; set; }
         public RegisterViewModel RegisterViewModel { get; set; }

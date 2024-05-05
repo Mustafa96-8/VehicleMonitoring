@@ -32,7 +32,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Index", new AccountViewModel
+                return View("Index", new AccountVM
                 {
                     LoginViewModel = model
                 });
@@ -42,7 +42,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             if ((user is null )|| (!Encryption.Equals(model.Password, user.PasswordHash, user.Salt)))
             {
                 TempData["error"] = "Неверный логин или пароль";
-                return View("Index", new AccountViewModel
+                return View("Index", new AccountVM
                 {
                     LoginViewModel = model
                 });
@@ -67,7 +67,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Index", new AccountViewModel
+                return View("Index", new AccountVM
                 {
                     RegisterViewModel = model
                 });
@@ -77,7 +77,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             if (user != null)
             {
                 TempData["error"] = "Пользователь с таким логином уже существует";
-                return View("Index", new AccountViewModel
+                return View("Index", new AccountVM
                 {
                     RegisterViewModel = model
                 });

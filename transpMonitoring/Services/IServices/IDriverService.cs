@@ -2,7 +2,7 @@
 
 namespace VehicleMonitoring.mvc.Services.IServices
 {
-    public interface IVehicleService:IService<Vehicle>
+    public interface IDriverService : IService<Driver>
     {
     }
 }

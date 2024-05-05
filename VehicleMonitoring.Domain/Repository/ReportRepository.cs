@@ -13,7 +13,6 @@ namespace VehicleMonitoring.Domain.Repository
         {
             _context = context;
         }
-
         public void Update(Report report)
         {
             _context.Reports.Update(report);

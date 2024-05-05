@@ -19,6 +19,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ISensorTypeService, SensorTypeService>();
+builder.Services.AddScoped<IVehicleService,VehicleService>();
+builder.Services.AddScoped<IDriverService,DriverService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Customer/Account");
 builder.Services.AddAuthorization();

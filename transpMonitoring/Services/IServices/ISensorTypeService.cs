@@ -3,10 +3,7 @@ using VehicleMonitoring.Domain.Repository.IRepository;
 
 namespace VehicleMonitoring.mvc.Services.IServices
 {
-    public interface ISensorTypeService
+    public interface ISensorTypeService:IService<SensorType>
     {
-        IEnumerable<SensorType> GetSensorTypes();
-        SensorType GetSensorType(int id);
-        string DeleteSensorType(SensorType sensorType);
     }
 }

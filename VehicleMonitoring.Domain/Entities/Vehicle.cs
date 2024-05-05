@@ -24,14 +24,14 @@ namespace VehicleMonitoring.Domain.Entities
         public ICollection<VehicleDescription> Descriptions  { get; } = new List<VehicleDescription>();
 
         // Driver One To One
-        public int DriverId { get; set; }
+        public int? DriverId { get; set; } 
         [ForeignKey("DriverId")]
-        public Driver Driver { get;}
+        public Driver? Driver { get; }
 
         // GPS Data One To One
         public int? GPSDataId { get; set; }
         [ForeignKey("GPSDataId")]
-        public GPSData GPSData { get;}
+        public GPSData? GPSData { get;}
 
     }
 }

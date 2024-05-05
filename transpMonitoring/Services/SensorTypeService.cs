@@ -12,12 +12,12 @@ namespace VehicleMonitoring.mvc.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public IEnumerable<SensorType> GetSensorTypes()
+        public IEnumerable<SensorType> GetAll()
         {
             return _unitOfWork.SensorType.GetAll().ToList();
         }
 
-        public SensorType GetSensorType(int id) 
+        public SensorType Get(int id) 
         {
             SensorType? sensorTypeFromDb = _unitOfWork.SensorType.Get(u=>u.Id==id);
             if (sensorTypeFromDb == null)
@@ -27,11 +27,21 @@ namespace VehicleMonitoring.mvc.Services
             return sensorTypeFromDb;
         }
 
-        public string DeleteSensorType(SensorType sensorType)
+        public string Delete(SensorType sensorType)
         {
             _unitOfWork.SensorType.Delete(sensorType);
             _unitOfWork.Save();
             return "Категория датчиков успешно удалена";
+        }
+
+        public string Create(SensorType sensorType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Update(SensorType obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

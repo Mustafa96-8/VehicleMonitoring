@@ -1,0 +1,70 @@
+﻿@model Vehicle
+@{
+    ViewData["Title"] = "Vehicle";
+}<div class="row pb-2">
+    <h2 class="text-primary">@(Model.Id != 0 ? "Update" : "Create") product</h2>
+    <hr />
+</div>
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Id" hidden/>
+    <div class="row">
+        <div class=" d-flex align-content-center ">
+            <div class="border p-3 mt-4">
+                <div class="mb-3 row">
+                    <label asp-for="Brand" class="p-0"></label>
+                    <input asp-for="Brand" class="form-control" />
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Model" class="p-0"></label>
+                    <input asp-for="Model" class="form-control" />
+                    <span asp-validation-for="Model" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="StateRegisterNumber" class="p-0"></label>
+                    <input asp-for="StateRegisterNumber" class="form-control" />
+                    <span asp-validation-for="StateRegisterNumber" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="DriverId" class="p-0"></label>
+                    <input asp-for="DriverId" class="form-control" />
+                    <span asp-validation-for="DriverId" class="text-danger"></span>
+                </div>
+                @* <div class="mb-3 row">
+                    <label asp-for="" class="p-0"></label>
+                    <select asp-for="Product.CategoryId" class="form-select" asp-items="@Model.categoryList">
+                        <option disabled selected>--Select category--</option>#
+                    </select>
+                    <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                </div>
+                 *@
+                <div class="row">
+                    <div class="col-6 col-md-3">
+
+                        @if (@Model.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-outline-primary">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-outline-primary">Create</button>
+                        }
+
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Vehicle" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+                            Back to list
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
