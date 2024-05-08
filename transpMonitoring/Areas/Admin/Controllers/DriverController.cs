@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Controllers;
-using VehicleMonitoring.mvc.Services;
 using VehicleMonitoring.mvc.Services.IServices;
 using VehicleMonitoring.mvc.ViewModels;
 
@@ -17,11 +16,12 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
         {
             _driverService = driverService;
         }
+        [HttpGet]
         public IActionResult Index()
         {
             return View(_driverService.GetAll());
         }
-
+        [HttpGet]
         public IActionResult Details(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -37,7 +37,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             if (driverFromDb == null) { return NotFound(); }
             return View(driverFromDb);
         }
-        [HttpPost, ActionName("Delete")]
+        [HttpDelete, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
             if (id == null || id == 0)
@@ -64,12 +64,17 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             }
             else
             {
-                driverVM = _driverService.CreateVM(_driverService.Get((int)id), VehicleId != null);
+                Driver? driver = _driverService.Get((int)id);
+                if (driver == null)
+                {
+                    return NotFound();
+                }
+                driverVM = _driverService.CreateVM(driver, VehicleId != null);
 
             }
             return View(driverVM);
         }
-        [HttpPost]
+        [HttpPost]                        
         public IActionResult Upsert(DriverVM driverVM)
         {
             if (ModelState.IsValid)

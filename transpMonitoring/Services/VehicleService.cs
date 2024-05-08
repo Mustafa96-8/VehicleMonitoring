@@ -28,14 +28,9 @@ namespace VehicleMonitoring.mvc.Services
 
             return vehicleVMList;
         }
-        public Vehicle Get(int id)
+        public Vehicle? Get(int id)
         {
-            Vehicle? vehicleFromDb = _unitOfWork.Vehicle.Get(u => u.Id == id);
-            if (vehicleFromDb == null)
-            {
-                return null;
-            }
-            return vehicleFromDb;
+            return _unitOfWork.Vehicle.Get(u => u.Id == id);
         }
 
         public string Create(Vehicle vehicle) 

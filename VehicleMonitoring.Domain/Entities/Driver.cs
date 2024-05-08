@@ -23,8 +23,5 @@ namespace VehicleMonitoring.Domain.Entities
         public string? Information { get; set; }
         // Vehicle One To One
         public int? VehicleId {  get; set; }
-        [ForeignKey("VehicleId")]
-        [ValidateNever]
-        public Vehicle? Vehicle { get; set; }
     }
 }

@@ -14,9 +14,9 @@ namespace VehicleMonitoring.Domain.Repository
             _context = context;
         }
 
-        public void Update(GPSData gPSData)
+        public void Update(GPSData GPSData)
         {
-            _context.GPSData.Update(gPSData);
+            _context.GPSData.Update(GPSData);
         }
     }
 }

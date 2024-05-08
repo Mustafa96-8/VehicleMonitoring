@@ -58,7 +58,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
         public IActionResult Upsert(int? id)
         {
 
-            VehicleDescription vehicleDescription = new();
+            VehicleDescription? vehicleDescription = new();
             VehicleDescriptionVM vehicleDescriptionVM = _vehicleDescriptionService.CreateVM(vehicleDescription);
             if (id == null || id == 0)
             {
@@ -66,8 +66,13 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
                 return View(vehicleDescriptionVM);
             }
             else
-            {
-                return View(_vehicleDescriptionService.CreateVM(_vehicleDescriptionService.Get((int)id)));
+            {   
+                vehicleDescription = _vehicleDescriptionService.Get((int)id);
+                if (vehicleDescription == null)
+                {
+                    return NotFound();
+                }
+                return View(_vehicleDescriptionService.CreateVM(vehicleDescription));
             }
         }
         [HttpPost]

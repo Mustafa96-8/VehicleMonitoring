@@ -17,14 +17,9 @@ namespace VehicleMonitoring.mvc.Services
             return _unitOfWork.SensorType.GetAll().ToList();
         }
 
-        public SensorType Get(int id) 
+        public SensorType? Get(int id) 
         {
-            SensorType? sensorTypeFromDb = _unitOfWork.SensorType.Get(u=>u.Id==id);
-            if (sensorTypeFromDb == null)
-            {
-                return null;
-            }
-            return sensorTypeFromDb;
+            return _unitOfWork.SensorType.Get(u => u.Id == id);
         }
 
         public string Delete(SensorType sensorType)

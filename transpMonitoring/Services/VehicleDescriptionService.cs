@@ -29,14 +29,9 @@ namespace VehicleMonitoring.mvc.Services
             return "Описание успешно удалёно";
         }
 
-        public VehicleDescription Get(int id)
+        public VehicleDescription? Get(int id)
         {
-            VehicleDescription? vehicleDescription = _unitOfWork.VehicleDescription.Get(u => u.Id == id);
-            if (vehicleDescription == null)
-            {
-                return null;
-            }
-            return vehicleDescription;
+            return _unitOfWork.VehicleDescription.Get(u => u.Id == id);
         }
 
         public IEnumerable<VehicleDescription> GetAll()

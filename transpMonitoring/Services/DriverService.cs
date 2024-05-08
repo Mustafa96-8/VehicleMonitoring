@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Services.IServices;
@@ -19,9 +20,9 @@ namespace VehicleMonitoring.mvc.Services
             {
                 Vehicle? vehicle = _unitOfWork.Vehicle.Get(u => u.Id == driver.VehicleId);
                 if (vehicle == null) { return "Указанный водитель не найден"; }
-                driver.Vehicle = vehicle;
                 vehicle.Driver = driver;
                 vehicle.DriverId = driver.Id;
+                _unitOfWork.Vehicle.Update(vehicle);
             }
             _unitOfWork.Driver.Add(driver);
             _unitOfWork.Save();
@@ -36,14 +37,9 @@ namespace VehicleMonitoring.mvc.Services
             return "Водитель успешно удалён";
         }
 
-        public Driver Get(int id)
+        public Driver? Get(int id)
         {
-            Driver? driverFromDb = _unitOfWork.Driver.Get(u => u.Id == id);
-            if (driverFromDb == null)
-            {
-                return null;
-            }
-            return driverFromDb;
+            return _unitOfWork.Driver.Get(u => u.Id == id);
         }
 
         public IEnumerable<Driver> GetAll()
@@ -57,9 +53,9 @@ namespace VehicleMonitoring.mvc.Services
             {
                 Vehicle? vehicle = _unitOfWork.Vehicle.Get(u => u.Id == driver.VehicleId);
                 if (vehicle == null) { return "Указанный водитель не найден"; }
-                driver.Vehicle = vehicle;
                 vehicle.Driver = driver;
                 vehicle.DriverId = driver.Id;
+                _unitOfWork.Vehicle.Update(vehicle);
             }
             _unitOfWork.Driver.Update(driver);
             _unitOfWork.Save();

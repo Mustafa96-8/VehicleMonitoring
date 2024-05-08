@@ -4,6 +4,6 @@ namespace VehicleMonitoring.Domain.Repository.IRepository
 {
     public interface IGPSDataRepository:IRepository<GPSData>
     {
-        void Update(GPSData gpsData);
+        void Update(GPSData GPSData);
     }
 }

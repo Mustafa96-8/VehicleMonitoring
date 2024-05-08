@@ -51,15 +51,20 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
         }
         public IActionResult Upsert(int? id)
         {
-            SensorType sensorType = new();
             if (id == null || id == 0)
             {
-                //create
+                //create        
+                SensorType sensorType = new();
                 return View(sensorType);
             }
             else
             {
-                return View(_sensorTypeService.Get((int)id));
+                SensorType? sensorType = _sensorTypeService.Get((int)id);
+                if (sensorType == null)
+                {
+                    return NotFound();
+                }
+                return View(sensorType);
             }
         }
         [HttpPost]

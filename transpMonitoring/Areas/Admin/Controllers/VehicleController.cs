@@ -65,7 +65,12 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             }
             else
             {
-                return View(_vehicleService.CreateVM(_vehicleService.Get((int)id)));
+                Vehicle? vehicle = _vehicleService.Get((int)id);
+                if (vehicle == null)
+                {
+                    return NotFound();
+                }
+                return View(_vehicleService.CreateVM(vehicle));
             }
         }
         [HttpPost]

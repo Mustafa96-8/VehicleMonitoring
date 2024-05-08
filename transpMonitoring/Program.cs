@@ -22,6 +22,7 @@ builder.Services.AddScoped<ISensorTypeService, SensorTypeService>();
 builder.Services.AddScoped<IVehicleService,VehicleService>();
 builder.Services.AddScoped<IDriverService,DriverService>();
 builder.Services.AddScoped<IVehicleDescriptionService,VehicleDescriptionService>();
+builder.Services.AddScoped<IGPSDataService,GPSDataService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Customer/Account");
 builder.Services.AddAuthorization();
