@@ -17,7 +17,7 @@ namespace VehicleMonitoring.Domain.Entities
         [Required]
         [ForeignKey("VehicleId")]
         [ValidateNever]
-        public Vehicle Vehicle { get; }
+        public Vehicle Vehicle { get; set; }
 
     }
 }

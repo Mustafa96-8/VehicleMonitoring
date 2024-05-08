@@ -4,13 +4,12 @@ using VehicleMonitoring.Domain.Entities;
 
 namespace VehicleMonitoring.mvc.ViewModels
 {
-    public class VehicleVM
+    public class DriverVM
     {
-        public Vehicle Vehicle { get; set; }
-        [ValidateNever]
-        public IEnumerable<SelectListItem> UserList { get; set; }
-        [ValidateNever]
-
         public Driver Driver { get; set; }
+        [ValidateNever]
+        public bool isModifyFromVehicle { get; set; } = false;
+        [ValidateNever]
+        public IEnumerable<SelectListItem> VehicleList { get; set; }
     }
 }

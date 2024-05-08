@@ -1,18 +1,26 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+@{
+    bool IsAdmin = User.IsInRole("admin");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - transpMonitoring</title>
+    <title>@ViewData["Title"] - МониторТехТранспорт</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/transpMonitoring.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="https://kit.fontawesome.com/46354009ec.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">transpMonitoring</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">МониторТехТранспорт</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,33 +34,32 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item" >
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="SensorType" asp-action="Index">SensorTypes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Vehicle" asp-action="Index">Vehicles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="VehicleDescription" asp-action="Index">VehicleDescription</a>
-                        </li>
+                        @if(IsAdmin){
+                            <li>
+                                @{
+                                    await Html.RenderPartialAsync("_AdminPannelNavItem");
+                                }
+                            </li>
+                        }
                     </ul>
                 </div>
                 
             </div>
             <div class="navbar-collapse collapse d-sm-inline-flex">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
+                <a class="nav-link text-dark " asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <partial name="_Notification" />
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - transpMonitoring - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="text-center">
+            &copy; 2024 - МониторТехТранспорт - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

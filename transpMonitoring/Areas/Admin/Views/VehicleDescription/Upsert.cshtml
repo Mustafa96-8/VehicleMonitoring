@@ -1,29 +1,31 @@
-﻿@model VehicleDescription
+﻿@model VehicleDescriptionVM
 @{
     ViewData["Title"] = "VehicleDescription";
 }<div class="row pb-2">
-    <h2 class="text-primary">@(Model.Id != 0 ? "Изменить" : "Создать") Описание</h2>
+    <h2 class="text-primary">@(Model.VehicleDescription.Id != 0 ? "Изменить" : "Создать") Описание</h2>
     <hr />
 </div>
 <form method="post" enctype="multipart/form-data">
-    <input asp-for="Id" hidden />
+    <input asp-for="VehicleDescription.Id" hidden />
     <div class="row">
         <div class=" d-flex align-content-center ">
             <div class="border p-3 mt-4">
                 <div class="mb-3 row">
-                    <label asp-for="Name" class="p-0"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <label asp-for="VehicleDescription.Name" class="p-0"></label>
+                    <input asp-for="VehicleDescription.Name" class="form-control" />
+                    <span asp-validation-for="VehicleDescription.Name" class="text-danger"></span>
                 </div>
                 <div class="mb-3 row">
-                    <label asp-for="Content" class="p-0"></label>
-                    <textarea asp-for="Content" class="form-control">@Model.Content</textarea>
-                    <span asp-validation-for="Content" class="text-danger"></span>
+                    <label asp-for="VehicleDescription.Content" class="p-0"></label>
+                    <textarea asp-for="VehicleDescription.Content" class="form-control">@Model.VehicleDescription.Content</textarea>
+                    <span asp-validation-for="VehicleDescription.Content" class="text-danger"></span>
                 </div>
                 <div class="mb-3 row">
-                    <label asp-for="VehicleId" class="p-0"></label>
-                    <input asp-for="VehicleId" class="form-control" />
-                    <span asp-validation-for="VehicleId" class="text-danger"></span>
+                    <label asp-for="VehicleDescription.VehicleId" class="p-0"></label>
+                    <select asp-for="VehicleDescription.VehicleId" class="form-select" asp-items="@Model.vehicleList">
+                        <option disabled selected>--Выберете транпорт--</option>#
+                    </select>
+                    <span asp-validation-for="VehicleDescription.VehicleId" class="text-danger"></span>
                 </div>
                 @* <div class="mb-3 row">
                 <label asp-for="" class="p-0"></label>
@@ -36,7 +38,7 @@
                 <div class="row">
                     <div class="col-6 col-md-3">
 
-                        @if (@Model.Id != 0)
+                        @if (@Model.VehicleDescription.Id != 0)
                         {
                             <button type="submit" class="btn btn-outline-primary">Update</button>
                         }
@@ -47,8 +49,8 @@
 
                     </div>
                     <div class="col-6 col-md-3">
-                        <a asp-controller=" VehicleDescription" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
-                            Обратно к списку
+                        <a asp-controller="VehicleDescription" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+                            Back to list
                         </a>
                     </div>
                 </div>

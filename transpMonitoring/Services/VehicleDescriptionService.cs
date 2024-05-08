@@ -1,7 +1,9 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using VehicleMonitoring.mvc.Services.IServices;
+using VehicleMonitoring.mvc.ViewModels;
 
 namespace VehicleMonitoring.mvc.Services
 {
@@ -14,6 +16,7 @@ namespace VehicleMonitoring.mvc.Services
         }
         public string Create(VehicleDescription vehicleDescription)
         {
+            vehicleDescription.Vehicle = _unitOfWork.Vehicle.Get(u => u.Id == vehicleDescription.VehicleId);
             _unitOfWork.VehicleDescription.Add(vehicleDescription);
             _unitOfWork.Save();
             return "Описание успешно создано";
@@ -50,9 +53,23 @@ namespace VehicleMonitoring.mvc.Services
 
         public string Update(VehicleDescription vehicleDescription)
         {
+            vehicleDescription.Vehicle = _unitOfWork.Vehicle.Get(u => u.Id == vehicleDescription.VehicleId);
             _unitOfWork.VehicleDescription.Update(vehicleDescription);
             _unitOfWork.Save();
             return "Описание успешно обновлено";
+        }
+        public VehicleDescriptionVM CreateVM (VehicleDescription vehicleDescription)
+        {
+            VehicleDescriptionVM vehicleDescriptionVM = new VehicleDescriptionVM
+            {
+                VehicleDescription = vehicleDescription,
+                vehicleList = _unitOfWork.Vehicle.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Model +" | "+ u.StateRegisterNumber,
+                    Value = u.Id.ToString(),
+                }),
+            };
+            return vehicleDescriptionVM;
         }
     }
 }

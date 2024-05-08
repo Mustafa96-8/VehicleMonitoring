@@ -1,0 +1,53 @@
+﻿@model List<Driver>
+@{
+
+    ViewData["Title"] = "Водители";
+}
+
+<table class="container">
+    <div class="container d-flex justify-content-end">
+        <a asp-controller="Driver" asp-action="Upsert" type="button" class="btn btn-outline-primary btn">
+            <i class="bi bi-plus-circle"></i> Добавить новый транспорт
+        </a>
+    </div>
+    <thead class="tab-content table-primary">
+        <tr>
+            <th>
+                Имя
+            </th>
+            <th>
+                Фамилия
+            </th>
+            <th>
+                Номер транспорта
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.OrderBy(u => u.Id))
+        {
+            <tr>
+                <td class="tab-content bg-light">@obj.FirstName</td>
+                <td class="tab-content bg-light">@obj.LastName</td>
+                <td class="tab-content bg-light">@obj.VehicleId</td>
+
+                <td class="tab-content bg-light">
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Driver" asp-action="Details" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
+                            <i class="bi bi-pencil-square"></i> Подробнее
+                        </a>
+                        <a asp-controller="Driver" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
+                            <i class="bi bi-pencil-square"></i> Изменить
+                        </a>
+                        <a asp-controller="Driver" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-1 rounded-2">
+                            <i class="bi bi-trash3"></i> Удалить
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

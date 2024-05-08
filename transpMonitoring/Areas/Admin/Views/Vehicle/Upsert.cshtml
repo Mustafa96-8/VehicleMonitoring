@@ -1,118 +1,128 @@
-﻿@model Vehicle
+﻿@model VehicleVM
 @{
-    ViewData["Title"] = "Vehicle";
-}<div class="row pb-2">
-    <h2 class="text-primary">@(Model.Id != 0 ? "Изменить" : "Создать") транспорт</h2>
+    ViewData["Title"] = "Транспорт";
+}<div class="d-flex  justify-content-center">
+    <h2 class="text-primary ">@(Model.Vehicle.Id != 0 ? "Изменить" : "Создать") транспорт</h2>
     <hr />
 </div>
 <form method="post" enctype="multipart/form-data">
-    <input asp-for="Id" hidden/>
-    <div class="row">
-        <div class=" d-flex align-content-center ">
-            <div class="border p-3 mt-4">
-                <div class="mb-3 row">
-                    <label asp-for="UserId" class="p-0"></label>
-                    <input asp-for="UserId" class="form-control" />
-                    <span asp-validation-for="UserId" class="text-danger"></span>
-                </div>
-                <div class="mb-3 row">
-                    <label asp-for="Brand" class="p-0"></label>
-                    <input asp-for="Brand" class="form-control" />
-                    <span asp-validation-for="Brand" class="text-danger"></span>
-                </div>
-                <div class="mb-3 row">
-                    <label asp-for="Model" class="p-0"></label>
-                    <input asp-for="Model" class="form-control" />
-                    <span asp-validation-for="Model" class="text-danger"></span>
-                </div>
-                <div class="mb-3 row">
-                    <label asp-for="StateRegisterNumber" class="p-0"></label>
-                    <input asp-for="StateRegisterNumber" class="form-control" />
-                    <span asp-validation-for="StateRegisterNumber" class="text-danger"></span>
-                </div>
-                <div class="mb-3 row">
-                    <label asp-for="DriverId" class="p-0"></label>
-                    <input asp-for="DriverId" class="form-control" />
-                    <span asp-validation-for="DriverId" class="text-danger"></span>
-                </div>
-                @* <div class="row mb-3">
-                    <button type=""
-                </div>
-                <div class="mb-3 row">
-                    <ul>
-                        @foreach (VehicleDescription vehicleDescription in Model.Descriptions)
-                        {
-                            @await Html.PartialAsync("_Description", vehicleDescription);
-                        }
-                    </ul>
+    <input asp-for="Vehicle.Id" hidden/>
+    <div class="d-flex justify-content-center">
+        <div class="border d-flex flex-column w-50">
+            <div class="p-3">
+                <label asp-for="Vehicle.UserId" class="p-0"></label>
+                <select asp-for="Vehicle.UserId" class="form-select" asp-items="@Model.UserList">
+                    <option disabled selected>--Выберите ответственного--</option>#
+                </select>
+                <span asp-validation-for="Vehicle.UserId" class="text-danger"></span>
+            </div>
+            <div class="p-3">
+                <label asp-for="Vehicle.Brand" class="p-0"></label>
+                <input asp-for="Vehicle.Brand" class="form-control" />
+                <span asp-validation-for="Vehicle.Brand" class="text-danger"></span>
+            </div>
+            <div class="p-3">
+                <label asp-for="Vehicle.Model" class="p-0"></label>
+                <input asp-for="Vehicle.Model" class="form-control" />
+                <span asp-validation-for="Vehicle.Model" class="text-danger"></span>
+            </div>
+            <div class="p-3">
+                <label asp-for="Vehicle.StateRegisterNumber" class="p-0"></label>
+                <input asp-for="Vehicle.StateRegisterNumber" class="form-control" />
+                <span asp-validation-for="Vehicle.StateRegisterNumber" class="text-danger"></span>
+            </div>
+            <div class="p-3">
+                <a asp-controller="Driver" asp-action="Upsert" class="btn btn-outline-primary" style="padding-block-end">
+                    Перейти на страницу создания водителя
+                </a>
+
+            </div>
+            @* <div class="row mb-3">
+                <button type=""
+            </div>
+            <div class="mb-3 row">
+                <ul>
+                    @foreach (VehicleDescription vehicleDescription in Model.Descriptions)
+                    {
+                        @await Html.PartialAsync("_Description", vehicleDescription);
+                    }
+                </ul>
                     
-                </div> *@
-                <form method="post" action="">
-                    <ul id="fio-list">
-                        <li>
-                            ФИО родственника <input type="text" class="input-fio" name="fio[]" value="" />
-                            <input class="add-input" type="button" value="Добавить поле">
-                        </li>
-                    </ul>
-                    <p><input type="submit" value="Сохранить"></p>
-                </form>
+            </div> *@
+            @* <form method="post" action="">
+                <ul id="fio-list">
+                    <li>
+                        ФИО родственника <input type="text" class="input-fio" name="fio[]" value="" />
+                        <input class="add-input" type="button" value="Добавить поле">
+                    </li>
+                </ul>
+                <p><input type="submit" value="Сохранить"></p>
+            </form> *@
                 
 
 
-                @* <div>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Launch demo modal
-                    </button>
+            @* <div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Launch demo modal
+                </button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <textarea class="modal-body">
-                                    ...
-                                </textarea>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <textarea class="modal-body">
+                                ...
+                            </textarea>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
-                </div> *@
-                
-                @* <div class="mb-3 row">
-                    <label asp-for="" class="p-0"></label>
-                    <select asp-for="Product.CategoryId" class="form-select" asp-items="@Model.categoryList">
-                        <option disabled selected>--Select category--</option>#
-                    </select>
-                    <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                 </div>
-                 *@
-                <div class="row">
-                    <div class="col-6 col-md-3">
+            </div> *@
+                
+            @* <div class="mb-3 row">
+                <label asp-for="" class="p-0"></label>
+                <select asp-for="Product.CategoryId" class="form-select" asp-items="@Model.categoryList">
+                    <option disabled selected>--Select category--</option>#
+                </select>
+                <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+            </div>
+                *@
+            <div class="d-flex flex-lg-row justify-content-start">
+                <div class="p-3">
 
-                        @if (@Model.Id != 0)
-                        {
-                            <button type="submit" class="btn btn-outline-primary">Update</button>
-                        }
-                        else
-                        {
-                            <button type="submit" class="btn btn-outline-primary">Create</button>
-                        }
+                    @if (@Model.Vehicle.Id != 0)
+                    {
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-primary">Create</button>
+                    }
 
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-controller="Vehicle" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
-                            Back to list
+                </div>
+                <div class="p-3">
+                    <a asp-controller="Vehicle" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+                        Назад
+                    </a>
+                </div>
+                @if (@Model.Vehicle.Id != 0)
+                {
+                    <div class="p-3">
+                        <a asp-controller="Vehicle" asp-action="Delete" class="btn btn-outline-danger" style="padding-block-end">
+                            Удалить
                         </a>
                     </div>
-                </div>
+                }
             </div>
+            
         </div>
     </div>
 

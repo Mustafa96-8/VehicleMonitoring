@@ -23,7 +23,8 @@
         {
             <tr>
                 <td class="tab-content bg-light">
-                    <a asp-controller="SensorType" asp-action="Details" asp-route-id="@obj.Id">@obj.Name</a>
+                    @obj.Name
+                    <a asp-controller="SensorType" asp-action="Details" asp-route-id="@obj.Id"></a>
                 </td>
                 <td class="tab-content bg-light">
                     <div class="w-75 btn-group" role="group">

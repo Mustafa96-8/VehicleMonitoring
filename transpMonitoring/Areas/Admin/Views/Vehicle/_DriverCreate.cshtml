@@ -1,0 +1,40 @@
+﻿@model Driver
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Id" hidden />
+    <div class="d-flex justify-content-center">
+        <div class="border d-flex flex-column w-50">
+            <div class="p-3 ">
+                <label asp-for="FirstName" class="p-0"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="p-3 ">
+                <label asp-for="LastName" class="p-0"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="p-3">
+                <label asp-for="MiddleName" class="p-0"></label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+            <div class="p-3 ">
+                <label asp-for="Information" class="p-0"></label>
+                <input asp-for="Information" class="form-control" />
+                <span asp-validation-for="Information" class="text-danger"></span>
+            </div>
+            <div class="p-3 ">
+                <label asp-for="VehicleId" class="p-0"></label>
+                <input asp-for="VehicleId" class="form-control" />
+                <span asp-validation-for="VehicleId" class="text-danger"></span>
+            </div>
+            <div class=" d-flex flex-lg-row justify-content-start  ">
+                <div class="p-3">
+                    <button type="submit" class="btn btn-outline-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

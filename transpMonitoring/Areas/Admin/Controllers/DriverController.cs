@@ -5,6 +5,7 @@ using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Controllers;
 using VehicleMonitoring.mvc.Services;
 using VehicleMonitoring.mvc.Services.IServices;
+using VehicleMonitoring.mvc.ViewModels;
 
 namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
 {
@@ -53,38 +54,45 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Upsert(int? id)
+        public IActionResult Upsert(int? id,int? VehicleId)
         {
-            Driver driver = new();
+            DriverVM driverVM;
             if (id == null || id == 0)
             {
-                //create
-                return View(driver);
+                Driver driver = new() { VehicleId = VehicleId };
+                driverVM = _driverService.CreateVM(driver, VehicleId != null);
             }
             else
             {
-                return View(_driverService.Get((int)id));
+                driverVM = _driverService.CreateVM(_driverService.Get((int)id), VehicleId != null);
+
             }
+            return View(driverVM);
         }
         [HttpPost]
-        public IActionResult Upsert(Driver driver)
+        public IActionResult Upsert(DriverVM driverVM)
         {
             if (ModelState.IsValid)
             {
-                if (driver.Id == 0)
+                if (driverVM.Driver.Id == 0)
                 {
-                    TempData["succes"]= _driverService.Create(driver);
+                    TempData["success"]= _driverService.Create(driverVM.Driver);
                 }
                 else
                 {
-                    TempData["succes"]= _driverService.Update(driver);
+                    TempData["success"]= _driverService.Update(driverVM.Driver);
+                }
+                if (driverVM.isModifyFromVehicle)
+                {
+                    return RedirectToAction("Upsert", "Vehicle", new { area = "Admin" ,Id=driverVM.Driver.VehicleId});
                 }
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(driver);
+                return View(_driverService.CreateVM(driverVM.Driver, driverVM.isModifyFromVehicle));
             }
         }
+        
     }
 }

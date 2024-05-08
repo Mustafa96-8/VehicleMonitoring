@@ -69,11 +69,11 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             {
                 if (sensorType.Id == 0)
                 {
-                    TempData["succes"] = _sensorTypeService.Create(sensorType);
+                    TempData["success"] = _sensorTypeService.Create(sensorType);
                 }
                 else
                 {
-                    TempData["succes"] = _sensorTypeService.Update(sensorType);
+                    TempData["success"] = _sensorTypeService.Update(sensorType);
                 }
                 return RedirectToAction("Index");
             }

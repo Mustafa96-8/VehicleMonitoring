@@ -31,3 +31,8 @@
     <div class="text-danger mb-2">@TempData["error"]</div>
     <button type="submit" class="btn btn-primary w-100">Войти</button>
 </form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

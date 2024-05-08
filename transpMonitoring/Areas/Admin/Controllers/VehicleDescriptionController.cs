@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using VehicleMonitoring.Domain.Entities;
+using VehicleMonitoring.Domain.Repository;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Controllers;
+using VehicleMonitoring.mvc.Services;
 using VehicleMonitoring.mvc.Services.IServices;
+using VehicleMonitoring.mvc.ViewModels;
 
 namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
 {
@@ -53,35 +57,38 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
+
             VehicleDescription vehicleDescription = new();
+            VehicleDescriptionVM vehicleDescriptionVM = _vehicleDescriptionService.CreateVM(vehicleDescription);
             if (id == null || id == 0)
             {
                 //create
-                return View(vehicleDescription);
+                return View(vehicleDescriptionVM);
             }
             else
             {
-                return View(_vehicleDescriptionService.Get((int)id));
+                return View(_vehicleDescriptionService.CreateVM(_vehicleDescriptionService.Get((int)id)));
             }
         }
         [HttpPost]
-        public IActionResult Upsert(VehicleDescription vehicleDescription)
+        public IActionResult Upsert(VehicleDescriptionVM vehicleDescriptionVM)
         {
             if (ModelState.IsValid)
             {
-                if (vehicleDescription.Id == 0)
+                if (vehicleDescriptionVM.VehicleDescription.Id == 0)
                 {
-                    TempData["succes"] = _vehicleDescriptionService.Create(vehicleDescription);
+                    TempData["success"] = _vehicleDescriptionService.Create(vehicleDescriptionVM.VehicleDescription);
                 }
                 else
                 {
-                    TempData["succes"] = _vehicleDescriptionService.Update(vehicleDescription);
+                    TempData["success"] = _vehicleDescriptionService.Update(vehicleDescriptionVM.VehicleDescription);
                 }
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(vehicleDescription);
+
+                return View(vehicleDescriptionVM);
             }
         }
     }

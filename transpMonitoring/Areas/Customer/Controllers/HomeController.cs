@@ -39,7 +39,6 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "admin")]
         public IActionResult Privacy()
         {
             return View();

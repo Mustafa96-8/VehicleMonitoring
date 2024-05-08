@@ -25,15 +25,6 @@ namespace VehicleMonitoring.Domain.Entities
         public string? LastName { get; set; }
         // Vehicles One To Many 
         public ICollection<Vehicle> Vehicles { get; } = new List<Vehicle>();
-/*        public User(string login, string passwordhash, string salt, string role, string? firstName, string? lastName)
-        {
-            Login = login;
-            Passwordhash = passwordhash;
-            Salt = salt;
-            Role = role;
-            FirstName = firstName;
-            LastName = lastName;
-        }*/
     }
 
     

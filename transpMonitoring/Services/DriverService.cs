@@ -1,4 +1,5 @@
-﻿using VehicleMonitoring.Domain.Entities;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Services.IServices;
 using VehicleMonitoring.mvc.ViewModels;
@@ -14,6 +15,14 @@ namespace VehicleMonitoring.mvc.Services
         }
         public string Create(Driver driver)
         {
+            if(driver.VehicleId!=null)
+            {
+                Vehicle? vehicle = _unitOfWork.Vehicle.Get(u => u.Id == driver.VehicleId);
+                if (vehicle == null) { return "Указанный водитель не найден"; }
+                driver.Vehicle = vehicle;
+                vehicle.Driver = driver;
+                vehicle.DriverId = driver.Id;
+            }
             _unitOfWork.Driver.Add(driver);
             _unitOfWork.Save();
             return "Водитель успешно создан";
@@ -22,8 +31,9 @@ namespace VehicleMonitoring.mvc.Services
         public string Delete(Driver driver)
         {
             _unitOfWork.Driver.Delete(driver);
+            _unitOfWork.Vehicle.Get(u=>u.Id==driver.VehicleId).DriverId=null;
             _unitOfWork.Save();
-            return "Транспорт успешно удалён";
+            return "Водитель успешно удалён";
         }
 
         public Driver Get(int id)
@@ -43,9 +53,33 @@ namespace VehicleMonitoring.mvc.Services
 
         public string Update(Driver driver)
         {
+            if (driver.VehicleId != null)
+            {
+                Vehicle? vehicle = _unitOfWork.Vehicle.Get(u => u.Id == driver.VehicleId);
+                if (vehicle == null) { return "Указанный водитель не найден"; }
+                driver.Vehicle = vehicle;
+                vehicle.Driver = driver;
+                vehicle.DriverId = driver.Id;
+            }
             _unitOfWork.Driver.Update(driver);
             _unitOfWork.Save();
-            return "Информация о водителе успешно Обновлён";
+            return "Информация о водителе успешно обновлёна";
+        }
+
+        public DriverVM CreateVM(Driver driver,bool isModifyFromVehicle)
+        {
+            DriverVM driverVM = new DriverVM
+            {
+                Driver = driver,
+                isModifyFromVehicle= isModifyFromVehicle,
+                VehicleList = _unitOfWork.Vehicle.GetAll().Where(u=>u.DriverId==null||u.DriverId==driver.Id).Select(u => new SelectListItem
+                {
+                    Text = u.StateRegisterNumber + " | " + u.Model,
+                    Value = u.Id.ToString(),
+                }),
+                
+            };
+            return driverVM;
         }
     }
 }

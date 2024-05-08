@@ -29,12 +29,12 @@ namespace VehicleMonitoring.Domain.Entities
         public int? DriverId { get; set; } 
         [ForeignKey("DriverId")]
 
-        public Driver? Driver { get; }
+        public Driver? Driver { get; set; }
 
         // GPS Data One To One
         public int? GPSDataId { get; set; }
         [ForeignKey("GPSDataId")]
-        public GPSData? GPSData { get;}
+        public GPSData? GPSData { get; set; }
 
     }
 }
