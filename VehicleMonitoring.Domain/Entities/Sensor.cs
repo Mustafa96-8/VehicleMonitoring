@@ -15,6 +15,7 @@ namespace VehicleMonitoring.Domain.Entities
         public double ParametrUpper{ get; set; }
         
         public double ParametrLower { get; set; }
+        [DisplayName("Номер техники")]
         // Vehicle Many To One
         public int VehicleId { get; set; }
         [ForeignKey("VehicleId")]

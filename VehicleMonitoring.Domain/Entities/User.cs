@@ -7,8 +7,9 @@ namespace VehicleMonitoring.Domain.Entities
     {
         
         [MaxLength(30,ErrorMessage ="Max 30 symb")]
+        [DisplayName("Логин")]
         public string Login { get; set; }
-        
+
         public string PasswordHash { get; set; }
         
         public string Salt { get; set; }

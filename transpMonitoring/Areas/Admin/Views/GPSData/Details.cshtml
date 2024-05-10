@@ -10,12 +10,12 @@
         </div>
         <div class="mb-2 row">
             <span>
-                Название датчика: @Html.DisplayName(Model.Name)
+                <label asp-for="Name" class="p-0"></label>: @Html.DisplayName(Model.Name)
             </span>
         </div>
         <div class="mb-2 row">
             <span>
-                Название датчика: @Html.DisplayName(Model.VehicleId.ToString())
+                <label asp-for="VehicleId" class="p-0"></label>: @Html.DisplayName(Model.VehicleId.ToString())
             </span>
         </div>
         <div class="row">

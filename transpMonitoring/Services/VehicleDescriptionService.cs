@@ -58,7 +58,7 @@ namespace VehicleMonitoring.mvc.Services
             VehicleDescriptionVM vehicleDescriptionVM = new VehicleDescriptionVM
             {
                 VehicleDescription = vehicleDescription,
-                vehicleList = _unitOfWork.Vehicle.GetAll().Select(u => new SelectListItem
+                VehicleList = _unitOfWork.Vehicle.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Model +" | "+ u.StateRegisterNumber,
                     Value = u.Id.ToString(),

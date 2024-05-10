@@ -22,7 +22,7 @@
                 </div>
                 <div class="mb-3 row">
                     <label asp-for="VehicleDescription.VehicleId" class="p-0"></label>
-                    <select asp-for="VehicleDescription.VehicleId" class="form-select" asp-items="@Model.vehicleList">
+                    <select asp-for="VehicleDescription.VehicleId" class="form-select" asp-items="@Model.VehicleList">
                         <option disabled selected>--Выберете транпорт--</option>#
                     </select>
                     <span asp-validation-for="VehicleDescription.VehicleId" class="text-danger"></span>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
@@ -8,15 +9,19 @@ namespace VehicleMonitoring.Domain.Entities
     {
 
         [MaxLength(50)]
+        [DisplayName("Бренд")]
         public string? Brand { get; set; }
         [Required]
         [MaxLength(50)]
+        [DisplayName("Модель")]
         public string Model { get; set; }
         [MaxLength(10)]
+        [DisplayName("Регистрационный знак ТС")]
         public string? StateRegisterNumber { get; set; }
 
         // User One To Many
         [Required]
+        [DisplayName("Номер прикреплённого пользователя")]
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         [ValidateNever]

@@ -4,9 +4,9 @@ using VehicleMonitoring.Domain.Entities;
 
 namespace VehicleMonitoring.mvc.ViewModels
 {
-    public class VehicleDescriptionVM
+    public class ReportVM
     {
-        public VehicleDescription VehicleDescription { get; set; }
+        public Report Report { get; set; }
 
         [ValidateNever]
         public IEnumerable<SelectListItem> VehicleList { get; set; }
