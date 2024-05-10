@@ -5,7 +5,7 @@
     <h2 class="text-primary ">@(Model.Vehicle.Id != 0 ? "Изменить" : "Создать") транспорт</h2>
     <hr />
 </div>
-<form method="post" enctype="multipart/form-data">
+<form method="post">
     <input asp-for="Vehicle.Id" hidden/>
     <div class="d-flex justify-content-center">
         <div class="border d-flex flex-column w-50">
@@ -32,9 +32,11 @@
                 <span asp-validation-for="Vehicle.StateRegisterNumber" class="text-danger"></span>
             </div>
             <div class="p-3">
-                <a asp-controller="Driver" asp-action="Upsert" class="btn btn-outline-primary" style="padding-block-end">
-                    Перейти на страницу создания водителя
-                </a>
+                <button type="submit" class="btn btn-outline-primary">
+                    <a asp-controller="Driver" asp-action="Upsert" asp-route-id="Driver.Id" asp-route-VehicleId="Vehicle.Id" style="padding-block-end">
+                        Перейти на страницу создания водителя
+                    </a>
+                </button>
 
             </div>
             @* <div class="row mb-3">

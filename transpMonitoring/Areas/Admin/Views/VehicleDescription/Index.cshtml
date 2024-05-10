@@ -3,45 +3,52 @@
 
     ViewData["Title"] = "Описания транспорта";
 }
-
-<table class="container">
-    <div class="container flex justify-content-end">
+<div class="container">
+    <div class="container d-flex justify-content-end">
         <a asp-controller="VehicleDescription" asp-action="Upsert" type="button" class="btn btn-outline-primary btn">
             <i class="bi bi-plus-circle"></i> Добавить описание
         </a>
     </div>
-    <thead class="tab-content table-primary">
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Содержание
-            </th>
-            <th>
+    <table class="table table-light table-striped table-hover m-3 ">
 
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var obj in Model.OrderBy(u => u.Id))
-        {
+        <thead class="tab-content">
             <tr>
-                <td class="tab-content bg-light text-truncate">
-                    <a asp-controller="VehicleDescription" asp-action="Details" asp-route-id="@obj.Id">@obj.Name</a>
-                </td>
-                <td class="tab-content bg-light text-truncate">@obj.Content</td>
-                <td class="tab-content bg-light">
-                    <div class="w-75 btn-group" role="group">
-                        <a asp-controller="VehicleDescription" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-outline-primary mx-1 rounded-2">
-                            <i class="bi bi-pencil-square"></i> Edit
-                        </a>
-                        <a asp-controller="VehicleDescription" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-outline-danger mx-1 rounded-2">
-                            <i class="bi bi-trash3"></i> Delete
-                        </a>
-                    </div>
-                </td>
+                <th>
+                    Название
+                </th>
+                <th>
+                    Содержание
+                </th>
+                <th>
+
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model.OrderBy(u => u.Id))
+            {
+                <tr>
+                    <td class="tab-content ">
+                        <a class="" asp-controller="VehicleDescription" asp-action="Details" asp-route-id="@obj.Id">@obj.Name</a>
+                    </td>
+                    <td class="tab-content text-truncate " style="max-width: 300px;">
+                        @obj.Content
+                    </td>
+                    <td class="tab-content ">
+                        <div class="w-100 btn-group" role="group">
+                            <a asp-controller="VehicleDescription" asp-action="Details" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
+                                <i class="bi bi-pencil-square"></i> Подробнее
+                            </a>
+                            <a asp-controller="VehicleDescription" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
+                                <i class="bi bi-pencil-square"></i> Изменить
+                            </a>
+                            <a asp-controller="VehicleDescription" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-1 rounded-2">
+                                <i class="bi bi-trash3"></i> Удалить
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -6,7 +6,7 @@
     <h2 class="text-primary ">@(Model.Driver.Id != 0 ? "Изменить" : "Создать") информацию о водителе</h2>
     <hr />
 </div>
-<form method="post" enctype="multipart/form-data">
+<form method="post">
     <input asp-for="Driver.Id" hidden />
     <div class="d-flex justify-content-center">
         <div class="border d-flex flex-column w-50">
@@ -34,7 +34,7 @@
                 <label asp-for="Driver.VehicleId" class="p-0"></label>
                 <select asp-for="Driver.VehicleId" class="form-select" asp-items="@Model.VehicleList">
                     
-                    <option disabled selected>--Выберите водителя--</option>#
+                    <option disabled selected>--Выберите транпорт--</option>#
                 </select>
                 <span asp-validation-for="Driver.VehicleId" class="text-danger"></span>
             </div>

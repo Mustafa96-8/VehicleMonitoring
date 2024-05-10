@@ -9,15 +9,15 @@
         <div class="row pb-2">
             <h2 class="text-primary">@Html.DisplayName(Model.Name)</h2>
         </div>
-        <div class="mb-3 row">
-            <p>
-                <label asp-for="Name" class="p-0"></label> : @Html.DisplayName(Model.Name)
-            </p>
+        <div class="mb-2 row">
+            <span>
+                Название Описания: @Html.DisplayName(Model.Name)
+            </span>
         </div>
-        <div class="mb-3 row">
-            <label for="Description "></label>
-            <textarea id="Description" asp-for="Content">
-            </textarea> : @Html.DisplayName(Model.Content)
+        <div class="mb-3 form-floating">
+            <textarea class="form-control" readonly  id="Description" asp-for="Content">
+            </textarea>
+            <label for="Description ">Текст описания</label>
         </div>
         <div class="row">
             <div class="w-75 btn-group" role="group">

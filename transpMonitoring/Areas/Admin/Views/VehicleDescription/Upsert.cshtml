@@ -5,7 +5,7 @@
     <h2 class="text-primary">@(Model.VehicleDescription.Id != 0 ? "Изменить" : "Создать") Описание</h2>
     <hr />
 </div>
-<form method="post" enctype="multipart/form-data">
+<form method="post" >
     <input asp-for="VehicleDescription.Id" hidden />
     <div class="row">
         <div class=" d-flex align-content-center ">

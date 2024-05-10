@@ -14,7 +14,7 @@ namespace VehicleMonitoring.Domain.Entities
         public double speed { get; set; }
 
         [Required]
-        public DateTime CreationTime { get; private set; } = DateTime.Now;
+        public DateTime CreationTime { get; private set; } = DateTime.UtcNow ;
 
         // GPSData Many To One to Parent
         [Required]

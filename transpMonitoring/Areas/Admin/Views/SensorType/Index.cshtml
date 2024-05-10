@@ -3,40 +3,45 @@
 
     ViewData["Title"] = "SensorTypes";
 }
-
-<table class="container">
-    <thead class="tab-content table-primary">
-        <tr>
-            <th>
-                Название категории
-            </th>
-            <th>
-                Порядок вывода
-            </th>
-            <th>
-
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var obj in Model.OrderBy(u => u.Id))
-        {
+<div class="container">
+    <div class="container d-flex flex-row justify-content-end align-items-end ">
+        <div class="p-0 w-auto d-flex flex-column align-items-center">
+            <a asp-controller="GPSData" asp-action="Upsert" type="button" class="btn btn-outline-primary btn">
+                <i class="bi bi-plus-circle"></i> Добавить новый тип анализа
+            </a>
+            <div class="text-bg-danger text-danger"> ТОЛЬКО ПРИ РАЗРАБОТКЕ </div>
+        </div>
+    </div>
+    <table class="table table-light table-striped table-hover m-3 ">
+        <thead class="tab-content">
             <tr>
-                <td class="tab-content bg-light">
-                    @obj.Name
-                    <a asp-controller="SensorType" asp-action="Details" asp-route-id="@obj.Id"></a>
-                </td>
-                <td class="tab-content bg-light">
-                    <div class="w-75 btn-group" role="group">
-                        <a asp-controller="SensorType" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-outline-primary mx-1 rounded-2">
-                            <i class="bi bi-pencil-square"></i> Edit
-                        </a>
-                        <a asp-controller="SensorType" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-outline-danger mx-1 rounded-2">
-                            <i class="bi bi-trash3"></i> Delete
-                        </a>
-                    </div>
-                </td>
+                <th>
+                    Тип анализа показаний датчика
+                </th>
+                <th>
+
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model.OrderBy(u => u.Id))
+            {
+                <tr>
+                    <td class="tab-content ">
+                        <a asp-controller="SensorType" asp-action="Details" asp-route-id="@obj.Id">@obj.Name</a>
+                    </td>
+                    <td class="tab-content d-flex justify-content-end ">
+                        <div class="w-75 btn-group " role="group">
+                            <a asp-controller="SensorType" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
+                                <i class="bi bi-pencil-square"></i> Изменить
+                            </a>
+                            <a asp-controller="SensorType" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-1 rounded-2">
+                                <i class="bi bi-trash3"></i> Удалить
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

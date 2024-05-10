@@ -16,7 +16,7 @@ namespace VehicleMonitoring.mvc.Services
         public string Create(GPSData gPSData)
         {
             if (gPSData.VehicleId == 0)
-            { return "Указанный GPS логер не найден"; }
+            { return "Указанный Транспорт не найден"; }
 
             Vehicle? vehicle = _unitOfWork.Vehicle.Get(u => u.Id == gPSData.VehicleId);
 
