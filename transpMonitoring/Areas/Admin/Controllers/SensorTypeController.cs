@@ -1,20 +1,91 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using vehicleMonitoring.Repository.IRepository;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using VehicleMonitoring.Domain.Entities;
+using VehicleMonitoring.mvc.Controllers;
+using VehicleMonitoring.mvc.Services.IServices;
 
-namespace vehicleMonitoring.Areas.Admin.Controllers
+namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
 {
-    public class SensorTypeController : Controller
+    [Authorize(Roles ="admin")]
+    public class SensorTypeController : BaseController
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public SensorTypeController(IUnitOfWork unitOfWork)
+        private readonly ISensorTypeService _sensorTypeService;
+        public SensorTypeController(ISensorTypeService sensorTypeService)
         {
-            _unitOfWork = unitOfWork;
+            _sensorTypeService = sensorTypeService;
         }
         public IActionResult Index()
         {
-            var objSensorTypeList = _unitOfWork.SensorType.GetAll().ToList();
-            return View(objSensorTypeList);
+            return View(_sensorTypeService.GetAll());
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if(id == null||id==0) { return BadRequest(); }
+            SensorType? sensorType = _sensorTypeService.Get((int)id);
+            if (sensorType == null) { return NotFound(); }
+            return View(sensorType);
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0) { return BadRequest(); }
+            SensorType? sensorType = _sensorTypeService.Get((int)id);
+            if (sensorType == null) { return NotFound(); }
+            return View(sensorType);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return BadRequest();
+            }
+            SensorType? sensorType = _sensorTypeService.Get((int)id);
+            if (sensorType == null)
+            {
+                return NotFound();
+            }
+            TempData["success"] = _sensorTypeService.Delete(sensorType);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Upsert(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                //create        
+                SensorType sensorType = new();
+                return View(sensorType);
+            }
+            else
+            {
+                SensorType? sensorType = _sensorTypeService.Get((int)id);
+                if (sensorType == null)
+                {
+                    return NotFound();
+                }
+                return View(sensorType);
+            }
+        }
+        [HttpPost]
+        public IActionResult Upsert(SensorType sensorType)
+        {
+            if (ModelState.IsValid)
+            {
+                if (sensorType.Id == 0)
+                {
+                    TempData["success"] = _sensorTypeService.Create(sensorType);
+                }
+                else
+                {
+                    TempData["success"] = _sensorTypeService.Update(sensorType);
+                }
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(sensorType);
+            }
         }
     }
 }

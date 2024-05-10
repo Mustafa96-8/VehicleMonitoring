@@ -1,0 +1,46 @@
+﻿@model GPSReading
+@{
+
+    ViewData["Title"] = "показание GPS датчика";
+}
+<div class="d-flex justify-content-center">
+    <h2 class="text-primary ">Удалить запись</h2>
+    <hr />
+</div>
+<form method="post">
+    <input asp-for="Id" hidden />
+    <div class="d-flex justify-content-center">
+        <div class="border d-flex flex-column w-50">
+            <div class="p-3 pb-1">
+                <label asp-for="latitude" class="p-0"></label>:<p>@Model.latitude</p>
+            </div>
+            <div class="p-3 pb-1">
+                <label asp-for="longitude" class="p-0"></label>:<p>@Model.longitude</p>
+            </div>
+            <div class="p-3 pb-1">
+                <label asp-for="altitude" class="p-0"></label>:<p>@Model.altitude</p>
+            </div>
+            <div class="p-3 pb-1">
+                <label asp-for="speed" class="p-0"></label>:<p>@Model.speed</p>
+            </div>
+            <div class="p-3 pb-1">
+                <label asp-for="heading" class="p-0"></label>:<p>@Model.heading</p>
+            </div>
+            <div class="p-3 pb-1">
+                <label asp-for="CreationTime" class="p-0"></label>:<p>@Model.CreationTime</p>
+            </div>
+            <div class=" d-flex flex-lg-row justify-content-start  ">
+                <div class="p-3">
+                    <a asp-controller="GPSReading" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+                        К списку записей
+                    </a>
+                </div>
+                <div class="p-3">
+                    <button type="submit" class="btn btn-outline-danger" style="padding-block-end">
+                        Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

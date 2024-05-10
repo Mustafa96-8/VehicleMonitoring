@@ -1,0 +1,54 @@
+﻿@model List<GPSReading>
+@{
+
+    ViewData["Title"] = "Записи датчиков GPS";
+}
+<div class="container">
+    <div class="container d-flex justify-content-end">
+        <a asp-controller="GPSReading" asp-action="Upsert" type="button" class="btn btn-outline-primary btn">
+            <i class="bi bi-plus-circle"></i> Добавить новую запись
+        </a>
+    </div>
+    <table class="table table-light table-striped table-hover m-3 ">
+
+        <thead class="tab-content">
+            <tr>
+                <th>ID Датчика</th>
+                <th>Широта</th>
+                <th>Долгота</th>
+                <th>Высота</th>
+                <th>Скорость</th>
+                <th>Направление</th>
+                <th>Время считывания</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model.OrderBy(u => u.Id))
+            {
+                <tr>
+                    <td class="tab-content">@obj.GPSDataId</td>
+                    <td class="tab-content">@obj.latitude</td>
+                    <td class="tab-content">@obj.longitude</td>
+                    <td class="tab-content">@obj.altitude</td>
+                    <td class="tab-content">@obj.speed</td>
+                    <td class="tab-content">@obj.heading</td>
+                    <td class="tab-content">@obj.CreationTime</td>
+                    <td class="tab-content ">
+                        <div class="w-100 btn-group" role="group">
+                            <a asp-controller="GPSReading" asp-action="Details" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
+                                <i class="bi bi-pencil-square"></i> Подробнее
+                            </a>
+                            <a asp-controller="GPSReading" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
+                                <i class="bi bi-pencil-square"></i> Изменить
+                            </a>
+                            <a asp-controller="GPSReading" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-1 rounded-2">
+                                <i class="bi bi-trash3"></i> Удалить
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

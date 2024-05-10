@@ -1,8 +1,11 @@
-﻿@{
+﻿@model User
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome </h1><p>
+        <label asp-for="FirstName" class="p-0"></label> : @Html.DisplayName(Model.FirstName.ToString())
+    </p>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

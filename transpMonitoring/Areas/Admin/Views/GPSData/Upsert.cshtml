@@ -1,0 +1,60 @@
+﻿@model GPSDataVM
+@{
+
+    ViewData["Title"] = "GPS Датчик";
+}<div class="d-flex justify-content-center">
+    <h2 class="text-primary ">@(Model.GPSData.Id != 0 ? "Изменить" : "Создать") информацию о датчике GPS</h2>
+    <hr />
+</div>
+<form method="post">
+    <input asp-for="GPSData.Id" hidden />
+    <div class="d-flex justify-content-center">
+        <div class="border d-flex flex-column w-50">
+            <div class="p-3 ">
+                <label asp-for="GPSData.Name" class="p-0"></label>
+                <input asp-for="GPSData.Name" class="form-control" />
+                <span asp-validation-for="GPSData.Name" class="text-danger"></span>
+            </div>
+            <div class="p-3">
+                <label asp-for="GPSData.VehicleId" class="p-0"></label>
+                <select asp-for="GPSData.VehicleId" class="form-select" asp-items="@Model.VehicleList">
+
+                    <option disabled selected>--Выберите транспорт--</option>#
+                </select>
+                <span asp-validation-for="GPSData.VehicleId" class="text-danger"></span>
+            </div>
+            <div class=" d-flex flex-lg-row justify-content-start  ">
+                <div class="p-3">
+                    @if (@Model.GPSData.Id != 0)
+                    {
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-primary">Create</button>
+                    }
+                </div>
+                <div class="p-3">
+                    <a asp-controller="GPSData" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+                        К списку GPS датчиков
+                    </a>
+                </div>
+                @if (@Model.GPSData.Id != 0)
+                {
+                    <div class="p-3">
+                        <a asp-controller="GPSData" asp-action="Delete" asp-route-id="@Model.GPSData.Id" class="btn btn-outline-danger" style="padding-block-end">
+                            Удалить
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
