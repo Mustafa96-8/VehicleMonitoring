@@ -1,4 +1,5 @@
-﻿using VehicleMonitoring.Domain.Entities;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Services.IServices;
 using VehicleMonitoring.mvc.ViewModels;
@@ -38,27 +39,42 @@ namespace VehicleMonitoring.mvc.Services
 
             _unitOfWork.Report.Delete(report);
             _unitOfWork.Save();
-            return "Водитель успешно удалён"; 
+            return "Очтёт успешно удалён"; 
         }
 
         public Report? Get(int id)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Report.Get(u => u.Id == id);
         }
 
         public IEnumerable<Report> GetAll()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Report.GetAll().ToList();
         }
 
         public string Update(Report report)
         {
-            throw new NotImplementedException();
+            if (report.VehicleId == 0)
+            { return "Указанное ТС не найдено"; }
+            Vehicle? vehicle = _unitOfWork.Vehicle.Get(u => u.Id == report.VehicleId);
+            if (vehicle == null) { return "Указанное ТС не найдено"; }
+            _unitOfWork.Report.Update(report);
+            _unitOfWork.Save();
+            return "Отчёт изменён";
         }
 
         public ReportVM CreateVM(Report report) 
-        { 
-            throw new NotImplementedException();
+        {
+            ReportVM reportVM = new ReportVM
+            {
+                Report = report,
+                VehicleList = _unitOfWork.Vehicle.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Model + " | " + u.StateRegisterNumber,
+                    Value = u.Id.ToString(),
+                }),
+            };
+            return reportVM;
         }
     }
 }
