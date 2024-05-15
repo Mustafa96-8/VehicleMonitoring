@@ -18,11 +18,13 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
         {
             _vehicleService = vehicleService;
         }
+        [HttpGet]
         public IActionResult Index()
         {
             return View(_vehicleService.GetAllVM());
         }
 
+        [HttpGet]
         public IActionResult Details(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -30,6 +32,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             if (vehicle == null) { return NotFound(); }
             return View(vehicle);
         }
+        [HttpGet]
 
         public IActionResult Delete(int? id)
         {
@@ -55,6 +58,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult Upsert(int? id)
         {
             if (id == null || id == 0)

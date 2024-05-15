@@ -1,0 +1,69 @@
+﻿@model SensorValue
+@{
+
+    ViewData["Title"] = "Запись данных с датчика";
+}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
+<div class="d-flex justify-content-center">
+    <h2 class="text-primary ">@(Model.Id != 0 ? "Изменить" : "Создать") запись с датчика</h2>
+    <hr />
+</div>
+<form method="post">
+    <input asp-for="Id" hidden />
+    <div class="d-flex justify-content-center">
+        <div class="border d-flex flex-column w-50">
+            <div class="p-3 ">
+                <label asp-for="SensorId" class="p-0"></label>
+                <input asp-for="SensorId" class="form-control" />
+                <span asp-validation-for="SensorId" class="text-danger"></span>
+            </div>
+            <div class="p-3 ">
+                <label asp-for="Value" class="p-0"></label>
+                <input asp-for="Value" class="form-control" type="number" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class=" d-flex flex-lg-row justify-content-start  ">
+                <div class="p-3">
+                    @if (@Model.Id != 0)
+                    {
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-primary">Create</button>
+                    }
+                </div>
+                <div class="p-3">
+                    <a asp-controller="SensorValue" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+                        К списку записей
+                    </a>
+                </div>
+                @if (@Model.Id != 0)
+                {
+                    <div class="p-3">
+                        <a asp-controller="SensorValue" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger" style="padding-block-end">
+                            Удалить
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

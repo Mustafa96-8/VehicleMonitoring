@@ -29,6 +29,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             if (gPSData == null) { return NotFound(); }
             return View(gPSData);
         }
+        [HttpGet]
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -52,6 +53,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             TempData["success"] = _gpsdataService.Delete(gPSData);
             return RedirectToAction("Index");
         }
+        [HttpGet]
         public IActionResult Upsert(int? id)
         {
             GPSDataVM gPSDataVM;

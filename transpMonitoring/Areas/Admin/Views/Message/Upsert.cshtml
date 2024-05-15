@@ -1,0 +1,59 @@
+﻿@model MessageVM
+@{
+    ViewData["Title"] = "Сообщение";
+}<div class="row pb-2">
+    <h2 class="text-primary">@(Model.Message.Id != 0 ? "Изменить" : "Создать") сообщение</h2>
+    <hr />
+</div>
+<form method="post">
+    <input asp-for="Message.Id" hidden />
+    <div class="row">
+        <div class=" d-flex align-content-center ">
+            <div class="border p-3 mt-4">
+                <div class="mb-3 row">
+                    <label asp-for="Message.Grade" class="p-0"></label>
+                    <input asp-for="Message.Grade" class="form-control" />
+                    <span asp-validation-for="Message.Grade" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Message.Content" class="p-0"></label>
+                    <textarea asp-for="Message.Content" class="form-control">@Model.Message.Content</textarea>
+                    <span asp-validation-for="Message.Content" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row">
+                    <label asp-for="Message.ReportId" class="p-0"></label>
+                    <select asp-for="Message.ReportId" class="form-select" asp-items="@Model.ReportList">
+                        <option disabled selected>--Выберете отчёт--</option>#
+                    </select>
+                    <span asp-validation-for="Message.ReportId" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-md-3">
+
+                        @if (@Model.Message.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-outline-primary">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-outline-primary">Create</button>
+                        }
+
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Message" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+                            назад к списку
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

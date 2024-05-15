@@ -11,7 +11,7 @@ namespace VehicleMonitoring.Domain.Entities
 
         [DisplayName("Время создания отчёта")]
         [Required]
-        public DateTime CreationTime { get; private set; } = DateTime.Now;
+        public DateTime CreationTime { get; private set; } = DateTime.UtcNow;
         // Vehicle Many To One
         [DisplayName("Номер Техники")]
         [Required]

@@ -12,7 +12,7 @@ namespace VehicleMonitoring.Domain.Entities
         [Required]
         public double Value { get; set; }
         [DisplayName("Время считывания показания")]
-        public DateTime CreationTime { get; private set; } = DateTime.Now;
+        public DateTime CreationTime { get; private set; } = DateTime.UtcNow;
 
         // Sensor Many To One
         [DisplayName("Номер датчика")]

@@ -24,6 +24,10 @@ builder.Services.AddScoped<IDriverService,DriverService>();
 builder.Services.AddScoped<IVehicleDescriptionService,VehicleDescriptionService>();
 builder.Services.AddScoped<IGPSDataService,GPSDataService>();
 builder.Services.AddScoped<IGPSReadingService,GPSReadingService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<ISensorService, SensorService>();
+builder.Services.AddScoped<ISensorValueService, SensorValueService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Customer/Account");
 builder.Services.AddAuthorization();

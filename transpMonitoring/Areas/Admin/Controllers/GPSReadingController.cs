@@ -15,12 +15,13 @@ namespace GPSReadingMonitoring.mvc.Areas.Admin.Controllers
         {
             _gPSReadingService = gPSReadingService;
         }
-        
+        [HttpGet]
         public IActionResult Index()
         {
             return View(_gPSReadingService.GetAll());
         }
 
+        [HttpGet]
         public IActionResult Details(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -29,6 +30,7 @@ namespace GPSReadingMonitoring.mvc.Areas.Admin.Controllers
             return View(gPSReading);
         }
 
+        [HttpGet]
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -53,6 +55,7 @@ namespace GPSReadingMonitoring.mvc.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult Upsert(int? id)
         {
             if (id == null || id == 0)

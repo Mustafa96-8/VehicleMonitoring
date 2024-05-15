@@ -7,91 +7,91 @@ using VehicleMonitoring.mvc.ViewModels;
 
 namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
 {
-    public class ReportController : BaseController
+    public class SensorController : BaseController
     {
-        readonly public IReportService _reportService;
-        public ReportController(IReportService reportService)
+        private readonly ISensorService _sensorService;
+        public SensorController(ISensorService sensorService)
         {
-            _reportService = reportService;
+            _sensorService = sensorService;
         }
-
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_reportService.GetAll());
+            return View(_sensorService.GetAll());
         }
         [HttpGet]
         public IActionResult Details(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
-            Report? report = _reportService.Get((int)id);
-            if (report == null) { return NotFound(); }
-            return View(report);
+            Sensor? sensor = _sensorService.Get((int)id);
+            if (sensor == null) { return NotFound(); }
+            return View(sensor);
         }
         [HttpGet]
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
-            Report? report = _reportService.Get((int)id);
-            if (report == null) { return NotFound(); }
-            return View(report);
+            Sensor? driverFromDb = _sensorService.Get((int)id);
+            if (driverFromDb == null) { return NotFound(); }
+            return View(driverFromDb);
         }
-        [HttpDelete, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
             if (id == null || id == 0)
             {
                 return BadRequest();
             }
-            Report? report = _reportService.Get((int)id);
-            if (report == null)
+            Sensor? sensor = _sensorService.Get((int)id);
+            if (sensor == null)
             {
                 return NotFound();
             }
 
-            TempData["success"] = _reportService.Delete(report);
+            TempData["success"] = _sensorService.Delete(sensor);
             return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Upsert(int? id)
         {
-            ReportVM reportVM;
+
+            Sensor? sensor = new();
+            SensorVM sensorVM = _sensorService.CreateVM(sensor);
             if (id == null || id == 0)
             {
-                Report report = new();
-                reportVM = _reportService.CreateVM(report);
+                //create
+                return View(sensorVM);
             }
             else
             {
-                Report? report = _reportService.Get((int)id);
-                if (report == null)
+                sensor = _sensorService.Get((int)id);
+                if (sensor == null)
                 {
                     return NotFound();
                 }
-                reportVM = _reportService.CreateVM(report);
-
+                return View(_sensorService.CreateVM(sensor));
             }
-            return View(reportVM);
         }
         [HttpPost]
-        public IActionResult Upsert(ReportVM reportVM)
+        public IActionResult Upsert(SensorVM sensorVM)
         {
             if (ModelState.IsValid)
             {
-                if (reportVM.Report.Id == 0)
+                if (sensorVM.Sensor.Id == 0)
                 {
-                    TempData["success"] = _reportService.Create(reportVM.Report);
+                    TempData["success"] = _sensorService.Create(sensorVM.Sensor);
                 }
                 else
                 {
-                    TempData["success"] = _reportService.Update(reportVM.Report);
+                    TempData["success"] = _sensorService.Update(sensorVM.Sensor);
                 }
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(_reportService.CreateVM(reportVM.Report));
+                return View(sensorVM);
             }
         }
+
     }
 }

@@ -14,10 +14,12 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
         {
             _sensorTypeService = sensorTypeService;
         }
+        [HttpGet]
         public IActionResult Index()
         {
             return View(_sensorTypeService.GetAll());
         }
+        [HttpGet]
 
         public IActionResult Details(int? id)
         {
@@ -27,6 +29,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             return View(sensorType);
         }
 
+        [HttpGet]
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -49,6 +52,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             TempData["success"] = _sensorTypeService.Delete(sensorType);
             return RedirectToAction("Index");
         }
+        [HttpGet]
         public IActionResult Upsert(int? id)
         {
             if (id == null || id == 0)

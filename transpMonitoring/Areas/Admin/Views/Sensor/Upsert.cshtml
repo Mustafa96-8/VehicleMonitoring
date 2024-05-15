@@ -1,0 +1,88 @@
+﻿@model SensorVM
+@{
+
+    ViewData["Title"] = "Датчик";
+}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
+<div class="d-flex justify-content-center">
+    <h2 class="text-primary ">@(Model.Sensor.Id != 0 ? "Изменить" : "Создать") информацию об датчике</h2>
+    <hr />
+</div>
+<form method="post">
+    <input asp-for="Sensor.Id" hidden />
+    <div class="d-flex justify-content-center">
+        <div class="border d-flex flex-column w-50">
+            <div class="p-3 ">
+                <label asp-for="Sensor.Name" class="p-0"></label>
+                <input asp-for="Sensor.Name" class="form-control" />
+                <span asp-validation-for="Sensor.Name" class="text-danger"></span>
+            </div>
+            <div class="p-3">
+                <label asp-for="Sensor.VehicleId" class="p-0"></label>
+                <select asp-for="Sensor.VehicleId" class="form-select" asp-items="@Model.VehicleList">
+                    <option disabled selected>--Выберите транспорт--</option>#
+                </select>
+                <span asp-validation-for="Sensor.VehicleId" class="text-danger"></span>
+            </div>
+            <div class="p-3">
+                <label asp-for="Sensor.SensorTypeId" class="p-0"></label>
+                <select asp-for="Sensor.SensorTypeId" class="form-select" asp-items="@Model.SensorTypeList">
+                    <option disabled selected>--Выберите транспорт--</option>#
+                </select>
+                <span asp-validation-for="Sensor.SensorTypeId" class="text-danger"></span>
+            </div> 
+            <div class="p-3 ">
+                <label asp-for="Sensor.ParametrUpper" class="p-0"></label>
+                <input asp-for="Sensor.ParametrUpper" class="form-control" type="number" />
+                <span asp-validation-for="Sensor.ParametrUpper" class="text-danger"></span>
+            </div>
+            <div class="p-3 ">
+                <label asp-for="Sensor.ParametrLower" class="p-0"></label>
+                <input asp-for="Sensor.ParametrLower" class="form-control" type="number" />
+                <span asp-validation-for="Sensor.ParametrLower" class="text-danger"></span>
+            </div>
+            <div class=" d-flex flex-lg-row justify-content-start  ">
+                <div class="p-3">
+                    @if (@Model.Sensor.Id != 0)
+                    {
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-primary">Create</button>
+                    }
+                </div>
+                <div class="p-3">
+                    <a asp-controller="Sensor" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+                        К списку датчиков
+                    </a>
+                </div>
+                @if (@Model.Sensor.Id != 0)
+                {
+                    <div class="p-3">
+                        <a asp-controller="Sensor" asp-action="Delete" asp-route-id="@Model.Sensor.Id" class="btn btn-outline-danger" style="padding-block-end">
+                            Удалить
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

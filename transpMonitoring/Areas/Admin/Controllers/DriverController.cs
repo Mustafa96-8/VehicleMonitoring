@@ -30,6 +30,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             return View(driverFromDb);
         }
 
+        [HttpGet]
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -54,6 +55,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult Upsert(int? id,int? VehicleId)
         {
             DriverVM driverVM;
