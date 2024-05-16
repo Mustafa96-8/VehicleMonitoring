@@ -1,11 +1,60 @@
 ﻿@model User
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Ваши транспортные средства";
 }
+<div class="container">
+    <table class="table table-light table-striped table-hover m-3 ">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome </h1><p>
-        <label asp-for="FirstName" class="p-0"></label> : @Html.DisplayName(Model.FirstName.ToString())
-    </p>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <thead class="tab-content">
+            <tr>
+                <th>
+                    Номер
+                </th>
+                <th>
+                    Бренд
+                </th>
+                <th>
+                    Модель
+                </th>
+                <th>
+                    Водитель
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model.Vehicles.OrderBy(u => u.Id))
+            {
+                <tr>
+                    <td class="tab-content">
+                        <a asp-controller="Vehicle" asp-action="Details" asp-route-id="@obj.Id">@obj.StateRegisterNumber</a>
+                    </td>
+                    <td class="tab-content ">@obj.Brand</td>
+                    <td class="tab-content ">@obj.Model</td>
+                    @if (obj.Driver != null)
+                    {
+                        <td class="tab-content ">
+                            <a asp-controller="Driver" asp-action="Details" asp-route-id="@obj.Driver.Id" asp-route-VehicleId="@obj.Id">@obj.Driver.FirstName @obj.Driver.LastName</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="tab-content">
+                            <a asp-controller="Driver" asp-action="Upsert" asp-route-VehicleId="@obj.Id"> Добавить нового водителя</a>
+                        </td>
+                    }
+
+                    <td class="tab-content ">
+                        <div class="w-100 btn-group" role="group">
+                            <a asp-controller="Vehicle" asp-action="Details" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
+                                <i class="bi bi-pencil-square"></i> Подробнее
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

@@ -8,6 +8,7 @@ using VehicleMonitoring.Domain.Data;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Controllers;
+using VehicleMonitoring.mvc.Services.IServices;
 
 namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
 {
@@ -15,12 +16,12 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger,IUnitOfWork unitOfWork)
+        private readonly IUserService _userService;
+        public HomeController(ILogger<HomeController> logger,IUserService userService )
         {
             _logger = logger;
-            _unitOfWork = unitOfWork; 
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -28,13 +29,11 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             if(CurrentUserId == 0)
             {
                 return RedirectToAction("logout", "Account", new { area = "Customer" });
-                    //asp - controller = "Account" asp - action = "Logout"
             }
-            User user = _unitOfWork.User.Get(u => u.Id == CurrentUserId);
+            User? user = _userService.Get(CurrentUserId);
             if (user == null)
             {
                 return RedirectToAction("logout", "Account", new { area = "Customer" });
-                //asp - controller = "Account" asp - action = "Logout"
             }
             return View(user);
         }
