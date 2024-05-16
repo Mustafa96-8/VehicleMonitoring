@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Services.IServices;
@@ -37,7 +38,9 @@ namespace VehicleMonitoring.mvc.Services
 
         public Message? Get(int id)
         {
-            return _unitOfWork.Message.Get(u => u.Id == id);
+            Message? message = _unitOfWork.Message.Get(u => u.Id == id);
+            message.Report = _unitOfWork.Report.Get(u => u.Id == message.ReportId);
+            return message;
         }
 
         public IEnumerable<Message> GetAll()

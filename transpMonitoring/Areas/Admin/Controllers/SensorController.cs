@@ -10,7 +10,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
     public class SensorController : BaseController
     {
         private readonly ISensorService _sensorService;
-        public SensorController(ISensorService sensorService)
+        public SensorController(ISensorService sensorService, IVehicleService vehicleService)
         {
             _sensorService = sensorService;
         }
@@ -31,9 +31,9 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
-            Sensor? driverFromDb = _sensorService.Get((int)id);
-            if (driverFromDb == null) { return NotFound(); }
-            return View(driverFromDb);
+            Sensor? sensor = _sensorService.Get((int)id);
+            if (sensor == null) { return NotFound(); }
+            return View(sensor);
         }
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)

@@ -30,7 +30,22 @@ namespace VehicleMonitoring.mvc.Services
         }
         public Vehicle? Get(int id)
         {
-            return _unitOfWork.Vehicle.Get(u => u.Id == id);
+            Vehicle? vehicle = _unitOfWork.Vehicle.Get(u => u.Id == id);
+            if(vehicle.GPSDataId!=null && vehicle.GPSDataId != 0)
+            {
+                vehicle.GPSData= _unitOfWork.GPSData.Get(u=>u.Id==vehicle.GPSDataId);
+            }
+            if (vehicle.DriverId!= null && vehicle.DriverId!= 0)
+            {
+                vehicle.Driver = _unitOfWork.Driver.Get(u => u.Id == vehicle.DriverId);
+            }
+            if (vehicle.UserId != null && vehicle.UserId != 0)
+            {
+                vehicle.User = _unitOfWork.User.Get(u => u.Id == vehicle.UserId);
+            }
+            vehicle.Descriptions = _unitOfWork.VehicleDescription.GetAll().Where(u => u.VehicleId == vehicle.Id).ToList();
+            
+            return vehicle;
         }
 
         public string Create(Vehicle vehicle) 

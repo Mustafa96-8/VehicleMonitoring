@@ -49,12 +49,33 @@ namespace VehicleMonitoring.mvc.Services
 
         public Sensor? Get(int id)
         {
-            return _unitOfWork.Sensor.Get(u => u.Id == id);
+            Sensor? sensor = _unitOfWork.Sensor.Get(u => u.Id == id);
+            if (sensor.SensorTypeId!=0)
+            {
+                sensor.SensorType= _unitOfWork.SensorType.Get(u=>u.Id == sensor.SensorTypeId);   
+            }
+            if (sensor.VehicleId != 0)
+            {
+                sensor.Vehicle = _unitOfWork.Vehicle.Get(u => u.Id == sensor.VehicleId);
+            }
+            return sensor;
         }
 
         public IEnumerable<Sensor> GetAll()
         {
-            return _unitOfWork.Sensor.GetAll().ToList();
+            var sensorList= _unitOfWork.Sensor.GetAll().ToList();
+            foreach (var sensor in sensorList)
+            {
+                if (sensor.SensorTypeId != 0)
+                {
+                    sensor.SensorType = _unitOfWork.SensorType.Get(u => u.Id == sensor.SensorTypeId);
+                }
+                if (sensor.VehicleId != 0)
+                {
+                    sensor.Vehicle = _unitOfWork.Vehicle.Get(u => u.Id == sensor.VehicleId);
+                }
+            }
+            return sensorList;
         }
 
         public string Update(Sensor sensor)

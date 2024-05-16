@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <script src="https://kit.fontawesome.com/46354009ec.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body >
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -50,14 +50,14 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container ">
+        <main role="main" style="font-size:large " class="pb-3">
             <partial name="_Notification" />
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class=" fixed-bottom border-bottom border-top text-muted ">
         <div class="text-center">
             &copy; 2024 - МониторТехТранспорт - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Protocol.Plugins;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Services.IServices;
@@ -32,7 +33,7 @@ namespace VehicleMonitoring.mvc.Services
 
         public string Delete(Report report)
         {
-            foreach (Message obj in _unitOfWork.Message.GetAll().Where(u => u.ReportId == report.Id))
+            foreach (var obj in _unitOfWork.Message.GetAll().Where(u => u.ReportId == report.Id).ToList())
             {
                 _unitOfWork.Message.Delete(obj);
             }
@@ -44,7 +45,15 @@ namespace VehicleMonitoring.mvc.Services
 
         public Report? Get(int id)
         {
-            return _unitOfWork.Report.Get(u => u.Id == id);
+            Report? report = _unitOfWork.Report.Get(u => u.Id == id);
+
+            report.Messages = _unitOfWork.Message.GetAll().Where(u => u.ReportId == report.Id).ToList();
+
+            if (report.VehicleId != 0)
+            {
+                report.Vehicle = _unitOfWork.Vehicle.Get(u => u.Id == report.VehicleId);
+            }
+            return report;
         }
 
         public IEnumerable<Report> GetAll()

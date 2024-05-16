@@ -3,38 +3,54 @@
 
     ViewData["Title"] = "Отчёт";
 }
+<div class="d-flex justify-content-center">
+    <h2 class="text-primary ">Отчёт</h2>
+    <hr />
+</div>
 <form method="get">
-    <div class="container border p-3 mt-4">
-        <div class="p-3 pb-1">
-            <label asp-for="Id" class="p-0"></label>:<p>@Model.Id</p>
-        </div>
-        <div class="p-3 pb-1">
-            <label asp-for="VehicleId" class="p-0"></label>:<p>@Model.VehicleId</p>
-        </div>
-        <div class="p-3 pb-1">
-            <label asp-for="CreationTime" class="p-0"></label>:<p>@Model.CreationTime</p>
-        </div>
-        <div class="d-flex">
-            @foreach (var message in Model.Messages)
-            {
-                <div class="p-3 pb-1">
-                    <textarea class="form-control" readonly id="Message" asp-for="@message">
-                    </textarea>
+    <div class="d-flex justify-content-center">
+        <div class="border d-flex flex-column w-50">
+
+            <div class="p-3 pb-0">
+                <label asp-for="Id" class="p-0"></label>:<p>@Model.Id</p>
+            </div>
+            <div class="p-3 pb-0">
+                <label asp-for="Vehicle.StateRegisterNumber" class="p-0"></label>:<p>@Model.Vehicle.StateRegisterNumber</p>
+            </div>
+            <div class="p-3 pb-0">
+                <label asp-for="Vehicle.Model" class="p-0"></label>:<p>@Model.Vehicle.Model</p>
+            </div>
+            <div class="p-3 pb-0">
+                <label asp-for="CreationTime" class="p-0"></label>:<p>@Model.CreationTime</p>
+            </div>
+            <div class="d-flex flex-column p-3 pb-1">
+                <div class="pb-2">
                     <label asp-for="Messages" class="p0" for="Message"></label>
                 </div>
-            }
-        </div>
-        <div class="row">
-            <div class="w-75 btn-group" role="group">
-                <a asp-controller="Report" asp-action="Index" class="btn btn-outline-primary mx-1 rounded-2">
-                    <i class="bi bi-box-arrow-in-left"></i> К списку отчётов
-                </a>
-                <a asp-controller="Report" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary mx-1 rounded-2">
-                    <i class="bi bi-pencil-square"></i> Изменить
-                </a>
-                <a asp-controller="Report" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mx-1 rounded-2">
-                    <i class="bi bi-trash3"></i> Удалить
-                </a>
+                @foreach (var message in Model.Messages)
+                {
+                    <div class="pb-2">
+                        <textarea class="form-control" readonly id="Message" asp-for="@message.Content">
+                                </textarea>
+                    </div>
+                }
+            </div>
+            <div class=" d-flex flex-lg-row justify-content-end  ">
+                <div class="p-3">
+                    <a asp-controller="Report" asp-action="Index" class="btn btn-outline-primary mx-1 rounded-2">
+                        <i class="bi bi-box-arrow-in-left"></i> К списку отчётов
+                    </a>
+                </div>
+                <div class="p-3">
+                    <a asp-controller="Report" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary mx-1 rounded-2">
+                        <i class="bi bi-pencil-square"></i> Изменить
+                    </a>
+                </div>
+                <div class="p-3">
+                    <a asp-controller="Report" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mx-1 rounded-2">
+                        <i class="bi bi-trash3"></i> Удалить
+                    </a>
+                </div>
             </div>
         </div>
     </div>

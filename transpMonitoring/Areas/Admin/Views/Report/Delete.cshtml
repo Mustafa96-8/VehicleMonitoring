@@ -15,22 +15,24 @@
                 <label asp-for="Id" class="p-0"></label>:<p>@Model.Id</p>
             </div>
             <div class="p-3 pb-1">
-                <label asp-for="VehicleId" class="p-0"></label>:<p>@Model.VehicleId</p>
+                <label asp-for="Vehicle.StateRegisterNumber" class="p-0"></label>:<p>@Model.Vehicle.StateRegisterNumber</p>
             </div>
             <div class="p-3 pb-1">
                 <label asp-for="CreationTime" class="p-0"></label>:<p>@Model.CreationTime</p>
             </div>
-            <div class="d-flex">
+            <div class="d-flex flex-column">
+                <div class="p-3 pb-0">
+                    <label asp-for="Messages" class="p0" for="Message"></label>
+                </div>
                 @foreach (var message in Model.Messages)
                 {
-                    <div class="p-3 pb-1">
-                        <textarea class="form-control" readonly id="Message" asp-for="@message">
+                    <div class="p-4 pb-1">
+                        <textarea class="form-control" readonly id="Message" asp-for="@message.Content">
                         </textarea>
-                        <label asp-for="Messages" class="p0" for="Message"></label>
                     </div>
                 }
             </div>
-            <div class=" d-flex flex-lg-row justify-content-start  ">
+            <div class=" d-flex justify-content-end  ">
                 <div class="p-3">
                     <a asp-controller="Report" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
                         К списку отчётов

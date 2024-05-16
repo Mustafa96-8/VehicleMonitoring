@@ -3,7 +3,7 @@
 
     ViewData["Title"] = "Список датчиков";
 }
-<div class="container">
+<div class="container " >
     <div class="container d-flex justify-content-end">
         <a asp-controller="Sensor" asp-action="Upsert" type="button" class="btn btn-outline-primary btn">
             <i class="bi bi-plus-circle"></i> Добавить датчик
@@ -17,16 +17,16 @@
                     Имя
                 </th>
                 <th>
-                    Id транспорта
-                </th>
-                <th>
-                    Id типа датчика
-                </th>
-                <th>
                     Верхний параметр
                 </th>
                 <th>
                     Нижний параметр
+                </th>
+                <th>
+                    Номер ТС
+                </th>
+                <th>
+                    Тип датчика
                 </th>
                 <th>
 
@@ -41,20 +41,20 @@
                         <a class="" asp-controller="Sensor" asp-action="Details" asp-route-id="@obj.Id">@obj.Name</a>
                     </td>
                     <td class="tab-content">
-                        @obj.VehicleId
-                    </td>
-                    <td class="tab-content">
-                        @obj.SensorTypeId
-                    </td>
-                    <td class="tab-content">
                         @obj.ParametrUpper
                     </td>
                     <td class="tab-content">
                         @obj.ParametrLower
                     </td>
+                    <td class="tab-content">
+                        @obj.Vehicle.StateRegisterNumber
+                    </td>
+                    <td class="tab-content">
+                        @obj.SensorType.Name
+                    </td>
 
                     <td class="tab-content ">
-                        <div class="w-100 btn-group" role="group">
+                        <div class="w-100 btn-group" role="group" >
                             <a asp-controller="Sensor" asp-action="Details" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
                                 <i class="bi bi-pencil-square"></i> Подробнее
                             </a>

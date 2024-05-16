@@ -29,7 +29,6 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             if (gPSData == null) { return NotFound(); }
             return View(gPSData);
         }
-        [HttpGet]
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -37,7 +36,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             if (gPSData == null) { return NotFound(); }
             return View(gPSData);
         }
-        [HttpDelete, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
             if (id == null || id == 0)

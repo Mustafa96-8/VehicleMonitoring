@@ -35,7 +35,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             if (message == null) { return NotFound(); }
             return View(message);
         }
-        [HttpDelete, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
             if (id == null || id == 0)

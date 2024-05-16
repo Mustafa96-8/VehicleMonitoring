@@ -1,0 +1,40 @@
+﻿@model User
+@{
+
+    ViewData["Title"] = "Пользователь";
+}
+<div class="d-flex justify-content-center">
+    <h2 class="text-primary ">Удалить пользователя</h2>
+    <hr />
+</div>
+<form method="post">
+    <input asp-for="Id" hidden />
+    <div class="d-flex justify-content-center">
+        <div class="border d-flex flex-column w-50">
+            <div class="p-3 pb-1">
+                <label asp-for="Login" class="p-0"></label>:<p>@Model.Login</p>
+            </div>
+            <div class="p-3 pb-1">
+                <label asp-for="FirstName" class="p-0"></label>:<p>@Model.FirstName</p>
+            </div>
+            <div class="p-3 pb-1">
+                <label asp-for="LastName" class="p-0"></label>:<p>@Model.LastName</p>
+            </div>
+            <div class="p-3 pb-1">
+                <label asp-for="Role" class="p-0"></label>:<p>@Model.Role</p>
+            </div>
+            <div class=" d-flex justify-content-end  ">
+                <div class="p-3">
+                    <a asp-controller="User" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+                        К списку пользователей
+                    </a>
+                </div>
+                <div class="p-3">
+                    <button type="submit" class="btn btn-outline-danger" style="padding-block-end">
+                        Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

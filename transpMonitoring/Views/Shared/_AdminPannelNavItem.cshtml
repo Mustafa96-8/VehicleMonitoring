@@ -2,34 +2,37 @@
     <a class="nav-link text-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Панель Администратора</a>
     <div class="dropdown-menu">
         <div class="dropdown-item">
-            <a class="nav-link text-dark" asp-area="Admin" asp-controller="SensorType" asp-action="Index">Типы датчиков</a>
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="Index">Пользователи системы</a>
         </div>
         <div class="dropdown-item">
-            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Vehicle" asp-action="Index">Транспорт</a>
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Driver" asp-action="Index">Водители</a>
         </div>
         <div class="dropdown-item">
-            <a class="nav-link text-dark" asp-area="Admin" asp-controller="VehicleDescription" asp-action="Index">Описания транспортов</a>
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Vehicle" asp-action="Index">Транспортные средства</a>
         </div>
         <div class="dropdown-item">
-            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Driver" asp-action="Index">Водитель</a>
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="VehicleDescription" asp-action="Index">Описания транспортных средств</a>
         </div>
         <div class="dropdown-item">
             <a class="nav-link text-dark" asp-area="Admin" asp-controller="GPSData" asp-action="Index">Датчики GPS</a>
         </div>
         <div class="dropdown-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Sensor" asp-action="Index">Датчики </a>
+        </div>
+        <div class="dropdown-item">
             <a class="nav-link text-dark" asp-area="Admin" asp-controller="GPSReading" asp-action="Index">Показания GPS</a>
+        </div>
+        <div class="dropdown-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="SensorValue" asp-action="Index">Показания датчиков</a>
+        </div>
+        <div class="dropdown-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="SensorType" asp-action="Index">Типы датчиков</a>
         </div>
         <div class="dropdown-item">
             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Report" asp-action="Index">Отчёты</a>
         </div>
         <div class="dropdown-item">
             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Message" asp-action="Index">Сообщения</a>
-        </div>
-        <div class="dropdown-item">
-            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Sensor" asp-action="Index">Датчик</a>
-        </div>
-        <div class="dropdown-item">
-            <a class="nav-link text-dark" asp-area="Admin" asp-controller="SensorValue" asp-action="Index">Показания датчиков</a>
         </div>
     </div>
 </div>

@@ -28,7 +28,7 @@ namespace VehicleMonitoring.Domain.Entities
         public User User { get; set; } = null!;
         
         // Vehicle Description One To Many
-        public ICollection<VehicleDescription> Descriptions  { get; } = new List<VehicleDescription>();
+        public ICollection<VehicleDescription> Descriptions  { get; set; } = new List<VehicleDescription>();
 
         // Driver One To One
         public int? DriverId { get; set; } 

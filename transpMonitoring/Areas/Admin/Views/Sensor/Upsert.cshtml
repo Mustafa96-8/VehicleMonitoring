@@ -37,7 +37,7 @@
             <div class="p-3">
                 <label asp-for="Sensor.SensorTypeId" class="p-0"></label>
                 <select asp-for="Sensor.SensorTypeId" class="form-select" asp-items="@Model.SensorTypeList">
-                    <option disabled selected>--Выберите транспорт--</option>#
+                    <option disabled selected>--Выберите тип датчика--</option>#
                 </select>
                 <span asp-validation-for="Sensor.SensorTypeId" class="text-danger"></span>
             </div> 

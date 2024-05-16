@@ -21,7 +21,6 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
         {
             return View(_driverService.GetAll());
         }
-        [HttpGet]
         public IActionResult Details(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -30,15 +29,14 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
             return View(driverFromDb);
         }
 
-        [HttpGet]
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0) { return BadRequest(); }
+            if (id == null || id == 0) { return BadRequest("wda"); }
             Driver? driverFromDb = _driverService.Get((int)id);
             if (driverFromDb == null) { return NotFound(); }
             return View(driverFromDb);
         }
-        [HttpDelete, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
             if (id == null || id == 0)

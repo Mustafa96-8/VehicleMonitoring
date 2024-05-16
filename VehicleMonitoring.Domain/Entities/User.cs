@@ -25,7 +25,7 @@ namespace VehicleMonitoring.Domain.Entities
         [DisplayName("Фамилия")]
         public string? LastName { get; set; }
         // Vehicles One To Many 
-        public ICollection<Vehicle> Vehicles { get; } = new List<Vehicle>();
+        public ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
     }
 
     
