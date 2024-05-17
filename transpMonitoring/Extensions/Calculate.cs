@@ -1,4 +1,5 @@
-﻿using VehicleMonitoring.Domain.Entities;
+﻿using System.Diagnostics;
+using VehicleMonitoring.Domain.Entities;
 
 namespace VehicleMonitoring.mvc.Extensions
 {
@@ -14,6 +15,14 @@ namespace VehicleMonitoring.mvc.Extensions
         {
             return (finalValue - initialValue) / initialValue * 100;
         }
+
+        private static int GradeCalc(double value, double firstGradeValue, double secondGradeValue)
+        {
+            if(value == 0) { return 0; }
+            if (value <= firstGradeValue) { return 1; }
+            if (value <= secondGradeValue) { return 2; }
+            return 3;
+        }
         /// <summary>
         /// Calculates the deviation of the sensor readings from the norms set by the maxFuelConsumption and lowerValue parameters
         /// </summary>
@@ -21,17 +30,27 @@ namespace VehicleMonitoring.mvc.Extensions
         /// <param name="lowerValue">The lower value of the norm</param>
         /// <param name="actualValue">The actual value</param>
         /// <returns>Returns a string with the percentage deviation of the reading from the norm</returns>
-        public static string? StandartSensorCalc(double upperValue,double lowerValue,double actualValue)
+        public static (string,int)? StandartSensorCalc(double upperValue,double lowerValue,double actualValue)
         {
+            string? content = null;
+            int grade = 0;
             if (upperValue < actualValue)
             {
-                return ("Показания выше нормы на {.00}%" ,PercentageDifference(upperValue, actualValue)).ToString();  
+                double difference = PercentageDifference(upperValue, actualValue);
+                content = "Показания выше нормы на" + difference.ToString() + " % ";
+                grade = GradeCalc(difference, 5, 15);
             }
             if (lowerValue > actualValue)
             {
-                return ("Показания ниже нормы на {.00}%", PercentageDifference(lowerValue, actualValue)*-1).ToString();
+                double difference = PercentageDifference(lowerValue, actualValue) * -1;
+                content="Показания ниже нормы на " + difference.ToString()+" % ";
+                grade = GradeCalc(difference, 5, 15);
             }
-            return null;
+            if (content == null || grade == 0)
+            {
+                return null;
+            }
+            return (content,grade);
 
         }
 
@@ -39,16 +58,23 @@ namespace VehicleMonitoring.mvc.Extensions
         /// Speeding check
         /// </summary>
         /// <param name="maxSpeed">maximum permissible speed</param>
-        /// <param name="actualSpeed">Vehicle speed</param>
+        /// <param name="actualSpeed">VehiclePage speed</param>
         /// <returns>Returns a string with the numerical value of the excess or null if there was no excess</returns>
-        public static string? VelocitySensorCalc(double maxSpeed, double actualSpeed)
+        public static (string, int)? VelocitySensorCalc(double maxSpeed, double actualSpeed)
         {
-
+            string? content = null;
+            int grade = 0;
             if (maxSpeed < actualSpeed)
             {
-                return ("Превышение скорости  на {.0}% км/ч", actualSpeed-maxSpeed).ToString();
+                double difference = actualSpeed - maxSpeed;
+                content = "Превышение скорости  на "+ difference.ToString() + "км/ч";
+                grade = GradeCalc(difference, 10, 20);
             }
-            return null;
+            if (content == null || grade == 0)
+            {
+                return null;
+            }
+            return (content, grade);
         }
 
         /// <summary>
@@ -58,12 +84,15 @@ namespace VehicleMonitoring.mvc.Extensions
         /// <param name="maxFuelConsumption">Maximum allowable fuel consumption per measurement</param>
         /// <param name="windowSize">The size of the time window for calculating the average fuel level in the tank (must match the number of incoming readings)</param>
         /// <returns>Returns a message indicating whether a fuel drain was noticed, if there was no drain, returns null</returns>
-        public static string? FuelLevelCalc(List<SensorValue> sensorValues,double maxFuelConsumption,bool ignition, int windowSize= 5)
+        public static (string, int)? FuelLevelCalc(List<SensorValue> sensorValues,double maxFuelConsumption,bool ignition, int windowSize= 5)
         {
             if (sensorValues == null || sensorValues.Count == 0)
             {
                 return null;
             }
+            string? content = null;
+            int grade = 0;
+
             sensorValues.Sort((x, y) => x.CreationTime.CompareTo(y.CreationTime));
             //Calculation of the average fuel level for the last time intervals window Size
             double sum = 0;
@@ -73,11 +102,17 @@ namespace VehicleMonitoring.mvc.Extensions
             }
             double average = sum / windowSize;
             SensorValue lastSensorValue = sensorValues[sensorValues.Count - 1];
-            if ((lastSensorValue.Value < average - maxFuelConsumption)|| (lastSensorValue.Value < average && !ignition))
+            double difference = average- lastSensorValue.Value ;
+            if ((difference > maxFuelConsumption)|| (difference>0 && !ignition))
             {
-                return "Обнаружен возможный слив топлива";
+                content = "Обнаружен возможный слив топлива";
+                grade = GradeCalc(difference, maxFuelConsumption, maxFuelConsumption * 1.5);
             }
-            return null;
+            if (content == null || grade == 0)
+            {
+                return null;
+            }
+            return (content,grade);
         }
 
         /// <summary>
@@ -86,13 +121,20 @@ namespace VehicleMonitoring.mvc.Extensions
         /// <param name="actualAcceleration"></param>
         /// <param name="maxAcceleration"></param>
         /// <returns>Returns a message indicating whether a sudden acceleration/deceleration was noticed, if not detected, returns null</returns>
-        public static string? AccelerationSensorСalc(double actualAcceleration,double maxAcceleration)
+        public static (string, int)? AccelerationSensorСalc(double actualAcceleration,double maxAcceleration)
         {
+            string? content = null;
+            int grade = 0;
             if (Math.Abs(actualAcceleration) > maxAcceleration)
             {
-                return "Обнаружено возможное происшествие";
+                content= "Обнаружено возможное происшествие";
+                grade = GradeCalc(actualAcceleration, maxAcceleration, maxAcceleration * 2);
             }
-            return null;
+            if (content == null || grade == 0)
+            {
+                return null;
+            }
+            return (content, grade);
         }
 
 

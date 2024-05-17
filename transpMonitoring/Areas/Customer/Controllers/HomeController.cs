@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -8,7 +9,10 @@ using VehicleMonitoring.Domain.Data;
 using VehicleMonitoring.Domain.Entities;
 using VehicleMonitoring.Domain.Repository.IRepository;
 using VehicleMonitoring.mvc.Controllers;
+using VehicleMonitoring.mvc.Extensions;
+using VehicleMonitoring.mvc.Services;
 using VehicleMonitoring.mvc.Services.IServices;
+using VehicleMonitoring.mvc.ViewModels;
 
 namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
 {
@@ -18,10 +22,14 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly IUserService _userService;
-        public HomeController(ILogger<HomeController> logger,IUserService userService )
+        private readonly IVehicleService _vehicleService;
+        private readonly IReportService _reportService;
+        public HomeController(ILogger<HomeController> logger,IUserService userService,IVehicleService vehicleService,IReportService reportService, ISensorService sensorService)
         {
             _logger = logger;
             _userService = userService;
+            _vehicleService = vehicleService;
+            _reportService = reportService;
         }
 
         public IActionResult Index()
@@ -36,6 +44,29 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
                 return RedirectToAction("logout", "Account", new { area = "Customer" });
             }
             return View(user);
+        }
+
+        public IActionResult VehiclePage(int? id)
+        {
+            if (id == null || id == 0) { return BadRequest(); }
+            Vehicle? vehicle = _vehicleService.Get((int)id);
+            if (vehicle == null) { return NotFound(); }
+            return View(vehicle);
+        }
+        
+
+        [HttpPost]
+        public IActionResult _Vehicle(int id)
+        {
+            Vehicle? vehicle = _vehicleService.Get(id);
+
+            if (vehicle == null) { return NotFound(); }
+            _reportService.ReportHandler.GenerateReport(id);
+            Report? report = _reportService.GetByVehicleId(id).OrderBy(u=>u.CreationTime).LastOrDefault();
+
+            HomePartialVM homePartialVM = new HomePartialVM(report,vehicle);
+
+            return PartialView(homePartialVM);
         }
 
         public IActionResult Privacy()

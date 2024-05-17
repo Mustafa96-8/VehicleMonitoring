@@ -89,7 +89,7 @@ namespace VehicleMonitoring.mvc.Areas.Admin.Controllers
                 }
                 if (driverVM.isModifyFromVehicle)
                 {
-                    return RedirectToAction("Upsert", "Vehicle", new { area = "Admin" ,Id=driverVM.Driver.VehicleId});
+                    return RedirectToAction("Upsert", "VehiclePage", new { area = "Admin" ,Id=driverVM.Driver.VehicleId});
                 }
                 return RedirectToAction("Index");
             }

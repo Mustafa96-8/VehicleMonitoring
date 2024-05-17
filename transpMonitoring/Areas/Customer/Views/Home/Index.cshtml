@@ -1,60 +1,57 @@
 ﻿@model User
 @{
-    ViewData["Title"] = "Ваши транспортные средства";
+    ViewData["Title"] = "Мои транспортные средства";
+    HomePartialVM partialVM = new HomePartialVM(null,null);
 }
+
 <div class="container">
-    <table class="table table-light table-striped table-hover m-3 ">
-
-        <thead class="tab-content">
-            <tr>
-                <th>
-                    Номер
-                </th>
-                <th>
-                    Бренд
-                </th>
-                <th>
-                    Модель
-                </th>
-                <th>
-                    Водитель
-                </th>
-                <th>
-
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var obj in Model.Vehicles.OrderBy(u => u.Id))
-            {
-                <tr>
-                    <td class="tab-content">
-                        <a asp-controller="Vehicle" asp-action="Details" asp-route-id="@obj.Id">@obj.StateRegisterNumber</a>
-                    </td>
-                    <td class="tab-content ">@obj.Brand</td>
-                    <td class="tab-content ">@obj.Model</td>
-                    @if (obj.Driver != null)
-                    {
-                        <td class="tab-content ">
-                            <a asp-controller="Driver" asp-action="Details" asp-route-id="@obj.Driver.Id" asp-route-VehicleId="@obj.Id">@obj.Driver.FirstName @obj.Driver.LastName</a>
-                        </td>
-                    }
-                    else
-                    {
-                        <td class="tab-content">
-                            <a asp-controller="Driver" asp-action="Upsert" asp-route-VehicleId="@obj.Id"> Добавить нового водителя</a>
-                        </td>
-                    }
-
-                    <td class="tab-content ">
-                        <div class="w-100 btn-group" role="group">
-                            <a asp-controller="Vehicle" asp-action="Details" asp-route-id="@obj.Id" class="btn btn-primary mx-1 rounded-2">
-                                <i class="bi bi-pencil-square"></i> Подробнее
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <h2>Мои транспортные средства</h2>
 </div>
+
+<div class="container d-flex justify-content-start">
+    <div>
+        <table class="w-auto table table-light table-striped table-hover m-3 ">
+            <thead class="tab-content">
+                <tr>
+                    <th>Номер</th>
+                    <th>Бренд</th>
+                    <th>Модель</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.Vehicles.OrderBy(u => u.Id))
+                {
+                    <tr href="#" class="vehicle-link" data-id="@obj.Id">
+                        <td class="tab-content">@obj.StateRegisterNumber</td>
+                        <td class="tab-content ">@obj.Brand</td>
+                        <td class="tab-content ">@obj.Model</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="container" id="partial">
+        @{
+            await Html.RenderPartialAsync("_Vehicle", partialVM);
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".vehicle-link").click(function () {
+                var vehicleId = $(this).data("id");
+                $.ajax({
+                    url: '@Url.Action("_Vehicle", "Home")',
+                    type: 'post',
+                    data: { id: vehicleId },
+                    success: function (result) {
+                        $("#partial").html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}

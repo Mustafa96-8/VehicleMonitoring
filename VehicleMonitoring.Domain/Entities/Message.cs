@@ -8,7 +8,7 @@ namespace VehicleMonitoring.Domain.Entities
     public class Message : Entity
     {
         [DisplayName("Текст сообщения")]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Content { get; set; }
         [DisplayName("Степень критичности сообщения")]
         [Required]

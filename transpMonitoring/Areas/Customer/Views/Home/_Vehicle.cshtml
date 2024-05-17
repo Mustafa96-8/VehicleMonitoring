@@ -1,0 +1,73 @@
+﻿@model HomePartialVM
+
+<div class="d-flex justify-content-start">
+    @if(Model.Vehicle!=null){
+        <div class="container p-3">
+            <div class="border d-flex flex-column">
+                <div class="p-3">
+                    <label asp-for="Vehicle.Brand" class="p-0"></label>
+                    <label class="form-control">@Model.Vehicle.Brand</label>
+                </div>
+                <div class="p-3">
+                    <label asp-for="Vehicle.Model" class="p-0"></label>
+                    <label class="form-control">@Model.Vehicle.Model</label>
+                </div>
+                <div class="p-3">
+                    <label asp-for="Vehicle.StateRegisterNumber" class="p-0"></label>
+                    <label class="form-control">@Model.Vehicle.StateRegisterNumber</label>
+                </div>
+                @if (Model.Vehicle.Driver != null)
+                {
+                    <div class="container m-3 p-2 border w-auto">
+                        <h4>Информация о водителе</h4>
+                        <div class="p-2">
+                            <label asp-for="Vehicle.Driver.FirstName" class="p-0"></label>
+                            <label class="form-control">@Model.Vehicle.Driver.FirstName</label>
+                        </div>
+                        <div class="p-2">
+                            <label asp-for="Vehicle.Driver.LastName" class="p-0"></label>
+                            <label class="form-control">@Model.Vehicle.Driver.LastName</label>
+                        </div>
+                        <div class="p-2">
+                            <label asp-for="Vehicle.Driver.MiddleName" class="p-0"></label>
+                            <label class="form-control">@Model.Vehicle.Driver.MiddleName</label>
+                        </div>
+                        <div class="p-2">
+                            <label asp-for="Vehicle.Driver.Information" class="p-0"></label>
+                            <label class="form-control">@Model.Vehicle.Driver.Information</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        @if(Model.Report!=null){
+            <div class="container p-3">
+                <div class="border d-flex flex-column">
+                    <div class="p-3 pb-0">
+                        <label asp-for="Report.CreationTime" class="p-0"></label>:<p>@Model.Report.CreationTime</p>
+                    </div>
+                    <div class="d-flex flex-column p-3 pb-1">
+                        <div class="pb-2">
+                            <label asp-for="Report.Messages" class="p0" for="Message"></label>
+                        </div>
+                        @foreach (var message in Model.Report.Messages)
+                        {
+                            <div class="pb-2">
+                                <textarea class="form-control" readonly id="Message" asp-for="@message.Content"></textarea>
+                            </div>
+                                <div class="pb-1">
+                                    <label class="form-control">@message.Grade</label>
+                                </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div>
+            Выберете технику для просмотра
+        </div>
+    }
+</div>

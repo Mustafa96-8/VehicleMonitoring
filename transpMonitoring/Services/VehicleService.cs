@@ -31,6 +31,7 @@ namespace VehicleMonitoring.mvc.Services
         public Vehicle? Get(int id)
         {
             Vehicle? vehicle = _unitOfWork.Vehicle.Get(u => u.Id == id);
+            if(vehicle == null) { return null; }
             if(vehicle.GPSDataId!=null && vehicle.GPSDataId != 0)
             {
                 vehicle.GPSData= _unitOfWork.GPSData.Get(u=>u.Id==vehicle.GPSDataId);

@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Protocol.Core.Types;
 using NuGet.Protocol.Plugins;
+using System.Composition;
 using VehicleMonitoring.Domain.Entities;
+using VehicleMonitoring.Domain.Repository;
 using VehicleMonitoring.Domain.Repository.IRepository;
+using VehicleMonitoring.mvc.Extensions;
 using VehicleMonitoring.mvc.Services.IServices;
 using VehicleMonitoring.mvc.ViewModels;
 
@@ -10,6 +14,8 @@ namespace VehicleMonitoring.mvc.Services
     public class ReportService : IReportService
     {
         private readonly IUnitOfWork _unitOfWork;
+        ReportHandler IReportService.ReportHandler => new ReportHandler(_unitOfWork);
+
         public ReportService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -55,6 +61,19 @@ namespace VehicleMonitoring.mvc.Services
             }
             return report;
         }
+        public IEnumerable<Report> GetByVehicleId(int vehicleId)
+        {
+            IEnumerable<Report> reports = _unitOfWork.Report.GetAll().Where(u => u.VehicleId == vehicleId).ToList();
+            if (vehicleId != 0)
+            {
+                foreach (Report report in reports)
+                {
+                    report.Messages = _unitOfWork.Message.GetAll().Where(u => u.ReportId == report.Id).ToList();
+                    report.Vehicle = _unitOfWork.Vehicle.Get(u => u.Id == report.VehicleId);
+                }
+            }
+            return reports;
+        }
 
         public IEnumerable<Report> GetAll()
         {
@@ -85,5 +104,7 @@ namespace VehicleMonitoring.mvc.Services
             };
             return reportVM;
         }
+
+
     }
 }

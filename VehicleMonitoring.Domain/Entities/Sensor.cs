@@ -12,9 +12,9 @@ namespace VehicleMonitoring.Domain.Entities
         [DisplayName("Название датчика")]
         public string Name { get; set; }
         
-        public double ParametrUpper{ get; set; }
+        public double? ParametrUpper{ get; set; }
         
-        public double ParametrLower { get; set; }
+        public double? ParametrLower { get; set; }
         [DisplayName("Номер техники")]
         // Vehicle Many To One
         public int VehicleId { get; set; }
