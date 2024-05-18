@@ -31,44 +31,81 @@ namespace VehicleMonitoring.mvc.Extensions
             _messageService = new MessageService(unitOfWork);
         }
 
+        private bool AreThereNewSensorValues(List<Sensor> sensors,Report? LastReport)
+        {
+            if(LastReport== null) return true;
+            List<SensorValue> lastValues=new List<SensorValue>();
+            foreach (Sensor sensor in sensors)
+            {
+                SensorValue? sensorValue = _sensorValueService.GetAll().Where(u => u.SensorId == sensor.Id).OrderBy(u => u.CreationTime).LastOrDefault();
+                if (sensorValue != null) { lastValues.Add(sensorValue); }
+            }
+            var newSensorValues = lastValues.Where(u => u.CreationTime > LastReport.CreationTime).ToList();
+            if (newSensorValues.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        
         public void GenerateReport(int VehicleId)
         {
-            List<Sensor> sensors = _sensorService.GetAll().Where(u=>u.VehicleId== VehicleId).ToList();
-            List<Message> messages = new List<Message>();
+            Report? LastReport = _reportService.GetByVehicleId(VehicleId).OrderBy(u => u.CreationTime).LastOrDefault();
             Report report = new Report
             {
-                VehicleId= VehicleId
+                VehicleId = VehicleId
             };
+            if (LastReport!=null &&(LastReport.CreationTime - report.CreationTime).Seconds < 15) { return; }
+
+            List<Sensor> sensors = _sensorService.GetAll().Where(u => u.VehicleId == VehicleId).ToList();
+            if (!AreThereNewSensorValues(sensors, LastReport)) { return; }
+
             _reportService.Create(report);
+
+            List<Message> messages = new List<Message>();
+
             foreach (Sensor sensor in sensors)
             {
                 ( string content, int grade)? result =null;
                 SensorValue? sensorValue = _sensorValueService.GetAll().Where(u=>u.SensorId==sensor.Id).OrderBy(u=>u.CreationTime).LastOrDefault();
+                if (sensorValue==null)
+                {
+                    break;
+                }
                 switch (sensor.SensorType.Name)
                 {
                     case "Standart":
-                        result = Calculate.StandartSensorCalc((double)sensor.ParametrUpper, (double)sensor.ParametrLower, sensorValue.Value);
+                        result = Calculate.StandartSensorCalc(sensorValue.Value, sensor.ParametrUpper, sensor.ParametrLower );
                         break;
                     case "Fuel Level":
+                        bool ignition = true; 
                         List<SensorValue> sensorValues = _sensorValueService.GetAll().Where(u => u.SensorId == sensor.Id).OrderBy(u => u.CreationTime).Take(5).ToList();
-                        SensorType ignitionType = _sensorTypeService.GetAll().Where(u => u.Name == "Ignition").FirstOrDefault();
-                        Sensor ignitionSensor = _sensorService.GetAll().Where(u => u.SensorTypeId == ignitionType.Id).FirstOrDefault();
-                        SensorValue ignitionValue = _sensorValueService.GetAll().Where(u => u.SensorId == ignitionSensor.Id).OrderBy(u => u.CreationTime).FirstOrDefault();
-                        bool ignition = ignitionValue.Value == 0 ? false : true;
-                        result = Calculate.FuelLevelCalc(sensorValues, (double)sensor.ParametrUpper,ignition);
+                        
+                        SensorType? ignitionType = _sensorTypeService.GetAll().FirstOrDefault(u => u.Name == "Ignition");
+                        Sensor? ignitionSensor = _sensorService.GetAll().FirstOrDefault(u => u.SensorTypeId == ignitionType.Id);
+                        if (ignitionSensor != null)
+                        {
+                            SensorValue? ignitionValue = _sensorValueService.GetAll()
+                             .Where(u => u.SensorId == ignitionSensor.Id)
+                             .OrderBy(u => u.CreationTime)
+                             .FirstOrDefault();
+
+                            ignition = ignitionValue == null ? true : ignitionValue.Value==0?false:true ;
+                        }
+                        result = Calculate.FuelLevelCalc(sensorValues, ignition, sensor.ParametrUpper,5);
                         break;
                     case "Velocity":
-                        result = Calculate.VelocitySensorCalc((double)sensor.ParametrUpper,sensorValue.Value);
+                        result = Calculate.VelocitySensorCalc(sensorValue.Value,sensor.ParametrUpper);
                         break;
                     case "Acceleration sensor":
-                        result = Calculate.AccelerationSensorСalc(sensorValue.Value, (double)sensor.ParametrUpper);
+                        result = Calculate.AccelerationSensorСalc(sensorValue.Value, sensor.ParametrUpper);
                         break;
                 }
                 if (result != null)
                 {
                     Message message = new Message
                     {
-                        Content = result.Value.content+" в датчике" +sensor.Name,
+                        Content = result.Value.content+" в датчике " +sensor.Name,
                         Grade = result.Value.grade,
                         ReportId = report.Id,
                     };

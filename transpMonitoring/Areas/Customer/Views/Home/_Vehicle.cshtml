@@ -1,4 +1,12 @@
 ﻿@model HomePartialVM
+@{
+    Dictionary<int, string> Colors = new Dictionary<int, string>
+        {
+            { 1, "bg-light" },
+            { 2, "bg-info" },
+            { 3, "bg-danger" }
+        };
+}
 
 <div class="d-flex justify-content-start">
     @if(Model.Vehicle!=null){
@@ -52,8 +60,8 @@
                         </div>
                         @foreach (var message in Model.Report.Messages)
                         {
-                            <div class="pb-2">
-                                <textarea class="form-control" readonly id="Message" asp-for="@message.Content"></textarea>
+                            <div class="pb-2  ">
+                                <textarea class="form-control @Colors[message.Grade]" readonly id="Message" asp-for="@message.Content"></textarea>
                             </div>
                                 <div class="pb-1">
                                     <label class="form-control">@message.Grade</label>
