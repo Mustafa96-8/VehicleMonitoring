@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleMonitoring.mvc", "tr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleMonitoring.Domain", "VehicleMonitoring.Domain\VehicleMonitoring.Domain.csproj", "{545A80DB-BF76-4BD7-BAC0-724F94BB499A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataGeneration", "DataGeneration\DataGeneration.csproj", "{99F23684-7C2A-435E-A2FA-B11B559A547B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{545A80DB-BF76-4BD7-BAC0-724F94BB499A} = {545A80DB-BF76-4BD7-BAC0-724F94BB499A}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +26,10 @@ Global
 		{545A80DB-BF76-4BD7-BAC0-724F94BB499A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{545A80DB-BF76-4BD7-BAC0-724F94BB499A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{545A80DB-BF76-4BD7-BAC0-724F94BB499A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99F23684-7C2A-435E-A2FA-B11B559A547B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99F23684-7C2A-435E-A2FA-B11B559A547B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99F23684-7C2A-435E-A2FA-B11B559A547B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99F23684-7C2A-435E-A2FA-B11B559A547B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,55 @@
+﻿@model List<Report>
+@{
+    ViewData["Title"] = "Отчёты";
+    Report? report = Model.FirstOrDefault();
+}
+
+<div class="container">
+    <h2>Отчёты</h2>
+</div>
+
+<div class="container d-flex justify-content-start">
+    <div>
+        <table class="w-auto table table-light table-striped table-hover m-3 ">
+            <thead class="tab-content  ">
+                <tr>
+                    <th>Номер</th>
+                    <th>Время создания отчёта</th>
+                </tr>
+            </thead>
+            <tbody >
+                @foreach (var obj in Model.OrderBy(u => u.Id))
+                {
+                    <tr href="#" class="report-link" data-id="@obj.Id">
+                        <td class="tab-content">@obj.Id</td>
+                        <td class="tab-content ">@obj.CreationTime</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="container" id="partial">
+        @{
+            await Html.RenderPartialAsync("_Report", report);
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".report-link").click(function () {
+                var reportId = $(this).data("id");
+                $.ajax({
+                    url: '@Url.Action("_Report", "Home")',
+                    type: 'post',
+                    data: { id: reportId },
+                    success: function (result) {
+                        $("#partial").html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}

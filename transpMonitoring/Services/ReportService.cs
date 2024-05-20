@@ -14,7 +14,7 @@ namespace VehicleMonitoring.mvc.Services
     public class ReportService : IReportService
     {
         private readonly IUnitOfWork _unitOfWork;
-        ReportHandler IReportService.ReportHandler => new ReportHandler(_unitOfWork);
+        public ReportHandler ReportHandler => new ReportHandler(_unitOfWork);
 
         public ReportService(IUnitOfWork unitOfWork)
         {
@@ -63,7 +63,7 @@ namespace VehicleMonitoring.mvc.Services
         }
         public IEnumerable<Report> GetByVehicleId(int vehicleId)
         {
-            IEnumerable<Report> reports = _unitOfWork.Report.GetAll().Where(u => u.VehicleId == vehicleId).ToList();
+            List<Report> reports = _unitOfWork.Report.GetAll().Where(u => u.VehicleId == vehicleId).ToList();
             if (vehicleId != 0)
             {
                 foreach (Report report in reports)

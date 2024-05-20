@@ -11,6 +11,12 @@
 <div class="d-flex justify-content-start">
     @if(Model.Vehicle!=null){
         <div class="container p-3">
+            <div class="p-2">
+                <a asp-controller="Home" asp-action="VehiclePage" asp-route-id="@Model.Vehicle.Id" type="button" class="btn btn-primary btn">
+                    Дополнительная информация
+                </a>
+            </div>
+            
             <div class="border d-flex flex-column">
                 <div class="p-3">
                     <label asp-for="Vehicle.Brand" class="p-0"></label>
@@ -50,22 +56,37 @@
         </div>
         @if(Model.Report!=null){
             <div class="container p-3">
+                <div class="p-2">
+                    <a asp-controller="Home" asp-action="ReportPage" asp-route-vehicleId="@Model.Vehicle.Id" type="button" class="btn btn-primary btn">
+                        Просмотреть все отчёты
+                    </a>
+                </div>
                 <div class="border d-flex flex-column">
                     <div class="p-3 pb-0">
                         <label asp-for="Report.CreationTime" class="p-0"></label>:<p>@Model.Report.CreationTime</p>
                     </div>
                     <div class="d-flex flex-column p-3 pb-1">
-                        <div class="pb-2">
-                            <label asp-for="Report.Messages" class="p0" for="Message"></label>
-                        </div>
+                        @if (Model.Report.Messages.Count() != 0)
+                        {
+                            <div class="pb-2">
+                                <label asp-for="Report.Messages" class="p0" for="Message"></label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="pb-2">
+                                <label class="p0">Техника работает в штатном режиме, отклонений нет</label>
+                            </div>
+                        }
                         @foreach (var message in Model.Report.Messages)
                         {
-                            <div class="pb-2  ">
-                                <textarea class="form-control @Colors[message.Grade]" readonly id="Message" asp-for="@message.Content"></textarea>
-                            </div>
-                                <div class="pb-1">
-                                    <label class="form-control">@message.Grade</label>
+                            <div class="d-flex">
+                                <div class="m-2 mt-0 border border-1 rounded-3 container @Colors[message.Grade] " style="width:30px">
                                 </div>
+                                <div class="pb-2 w-100">
+                                    <label class="form-control bg-light" readonly id="Message">@message.Content</label>
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>

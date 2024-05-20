@@ -69,6 +69,20 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             return PartialView(homePartialVM);
         }
 
+        public IActionResult ReportPage(int vehicleId)
+        {
+            _reportService.ReportHandler.GenerateReport(vehicleId);
+            List<Report> reports = _reportService.GetByVehicleId(vehicleId).OrderBy(u => u.CreationTime).ToList();
+
+            return View(reports);
+        }
+        [HttpPost]
+        public IActionResult _Report(int id)
+        {
+            Report? report = _reportService.Get(id);
+            return PartialView(report);
+        }
+
         public IActionResult Privacy()
         {
             return View();

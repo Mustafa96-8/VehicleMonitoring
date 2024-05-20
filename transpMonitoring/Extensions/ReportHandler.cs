@@ -55,7 +55,7 @@ namespace VehicleMonitoring.mvc.Extensions
             {
                 VehicleId = VehicleId
             };
-            if (LastReport!=null &&(LastReport.CreationTime - report.CreationTime).Seconds < 15) { return; }
+            if (LastReport!=null &&(report.CreationTime -LastReport.CreationTime).Seconds < 15) { return; }
 
             List<Sensor> sensors = _sensorService.GetAll().Where(u => u.VehicleId == VehicleId).ToList();
             if (!AreThereNewSensorValues(sensors, LastReport)) { return; }

@@ -1,0 +1,60 @@
+﻿@model Report?
+@{
+    Dictionary<int, string> Colors = new Dictionary<int, string>
+        {
+            { 1, "bg-light" },
+            { 2, "bg-info" },
+            { 3, "bg-danger" }
+        };
+}
+
+<div class="d-flex-column align-content-end ">
+    @if (Model != null)
+    {
+        <div class="container p-3">
+            <div class="border  rounded-2 d-flex flex-column">
+                <div class="p-3 pb-0">
+                    <label asp-for="CreationTime" class="p-0"></label>:<p>@Model.CreationTime</p>
+                </div>
+                <div class="d-flex flex-column p-3 pb-1">
+                    @if (Model.Messages.Count() != 0)
+                    {
+                        <div class="pb-2">
+                            <label asp-for="Messages" class="p0" for="Message"></label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="pb-2">
+                            <label  class="p0">Техника работает в штатном режиме, отклонений нет</label>
+                        </div>
+                    }
+                    @foreach (var message in Model.Messages)
+                    {
+                        <div class="d-flex">
+                            <div class="m-2 mt-0 border border-1 rounded-3 container @Colors[message.Grade] " style="width:30px">
+                           
+                            </div>
+                            <div class="pb-2 w-100">
+                                <label class="form-control bg-light" readonly id="Message" >@message.Content</label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class ="container p-3">
+            Выберите отчёт для просмотра
+        </div>
+
+    }   
+    <div class="p-3 d-flex justify-content-end">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
+            Назад
+        </a>
+    </div>
+</div>
