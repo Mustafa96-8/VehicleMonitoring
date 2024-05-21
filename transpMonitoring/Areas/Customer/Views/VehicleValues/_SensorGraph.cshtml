@@ -1,0 +1,93 @@
+﻿@model (Sensor, List<SensorValue>)
+
+<div class="d-flex justify-content-start">
+    @if (Model.Item1 != null)
+    {
+        @if (Model.Item2.Count > 0)
+        {@* 
+            <div>
+                <h3>Sensor Data for @Model.Item1.Name</h3>
+                <canvas id="sensorChart" width="400" height="200"></canvas>
+            </div> *@
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sensor Name</th>
+                        <th>Value</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Item2)
+                    {
+                        <tr>
+                            <td>@Model.Item1.Name</td>
+                            <td>@item.Value</td>
+                            <td>@item.CreationTime</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div>
+                Значений для построения графика нет
+            </div>
+        }
+    }
+    else
+    {
+        <div>
+            Выберите датчик для просмотра графика
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (@(Model.Item1 != null && Model.Item2.Count > 0)) {
+                var ctx = document.getElementById('sensorChart').getContext('2d');
+                var sensorData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Item2.Select(sv => new { sv.CreationTime, sv.Value })));
+
+                var labels = sensorData.map(function (item) {
+                    return new Date(item.CreationTime).toLocaleString();
+                });
+
+                var data = sensorData.map(function (item) {
+                    return item.Value;
+                });
+
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Sensor Values',
+                            data: data,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'minute'
+                                }
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+}

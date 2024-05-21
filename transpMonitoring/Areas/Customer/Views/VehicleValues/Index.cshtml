@@ -1,0 +1,54 @@
+﻿@model List<Vehicle>
+@{
+    ViewData["Title"] = "Мои транспортные средства";
+    List<(Sensor, SensorValue)> sensorValueList = new List<(Sensor, SensorValue)>();
+}
+
+<div class="container">
+    <h2>Датчики на Транспортных средствах</h2>
+</div>
+
+<div class="container d-flex justify-content-start">
+    <div class="container p-3" >
+        <table class="w-100 table table-light table-striped table-hover m-3">
+            <thead class="tab-content">
+                <tr>
+                    <th>Номер</th>
+                    <th>Бренд</th>
+                    <th>Модель</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.OrderBy(u => u.Id))
+                {
+                    <tr class="vehicle-link" data-id="@obj.Id" style="cursor:pointer;">
+                        <td class="tab-content">@obj.StateRegisterNumber</td>
+                        <td class="tab-content">@obj.Brand</td>
+                        <td class="tab-content">@obj.Model</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="container" id="partial">
+        @await Html.PartialAsync("_Sensor", sensorValueList)
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".vehicle-link").click(function () {
+                var id = $(this).data("id");
+                $.ajax({
+                    url: '@Url.Action("_Sensor", "VehicleValues")',
+                    type: 'post',
+                    data: { id: id },
+                    success: function (result) {
+                        $("#partial").html(result);
+                    }
+                });
+            });
+        });
+    </script>       
+}

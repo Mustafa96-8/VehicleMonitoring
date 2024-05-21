@@ -41,13 +41,13 @@ namespace VehicleMonitoring.mvc.Extensions
             if (upperValue < actualValue)
             {
                 double difference = PercentageDifference((double)upperValue, actualValue);
-                content = "Показания выше нормы на" + difference.ToString() + " % ";
+                content = "Показания выше нормы на " + difference.ToString("P2");
                 grade = GradeCalc(difference, 5, 15);
             }
             if (lowerValue > actualValue)
             {
                 double difference = PercentageDifference((double)lowerValue, actualValue) * -1;
-                content="Показания ниже нормы на " + difference.ToString()+" % ";
+                content="Показания ниже нормы на " + difference.ToString("P2");
                 grade = GradeCalc(difference, 5, 15);
             }
             if (content == null || grade == 0)
@@ -72,7 +72,7 @@ namespace VehicleMonitoring.mvc.Extensions
             if (_maxSpeed < actualSpeed)
             {
                 double difference = actualSpeed - _maxSpeed;
-                content = "Превышение скорости  на "+ difference.ToString() + "км/ч";
+                content = "Превышение скорости  на "+ difference.ToString("F2") + "км/ч";
                 grade = GradeCalc(difference, 10, 20);
             }
             if (content == null || grade == 0)
@@ -125,7 +125,7 @@ namespace VehicleMonitoring.mvc.Extensions
             double difference = average- lastSensorValue.Value ;
             if ((difference > allowableFuelConsumption) || (difference>0 && !ignition))
             {
-                content = "Обнаружен возможный слив топлива";
+                content = "Обнаружен возможный слив топлива ";
                 grade = GradeCalc(difference, allowableFuelConsumption, allowableFuelConsumption * 1.5);
             }
             if (content == null || grade == 0)
@@ -148,7 +148,7 @@ namespace VehicleMonitoring.mvc.Extensions
             int grade = 0;
             if (Math.Abs(actualAcceleration) > _maxAcceleration)
             {
-                content= "Обнаружено возможное происшествие";
+                content= "Обнаружено возможное происшествие ";
                 grade = GradeCalc(actualAcceleration, _maxAcceleration, _maxAcceleration * 2);
             }
             if (content == null || grade == 0)

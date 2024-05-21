@@ -53,7 +53,7 @@ namespace VehicleMonitoring.mvc.Services
         {
             Report? report = _unitOfWork.Report.Get(u => u.Id == id);
 
-            report.Messages = _unitOfWork.Message.GetAll().Where(u => u.ReportId == report.Id).ToList();
+            report.Messages = _unitOfWork.Message.GetAll().Where(u => u.ReportId == report.Id).OrderBy(u=>u.Grade).ToList();
 
             if (report.VehicleId != 0)
             {
@@ -68,7 +68,7 @@ namespace VehicleMonitoring.mvc.Services
             {
                 foreach (Report report in reports)
                 {
-                    report.Messages = _unitOfWork.Message.GetAll().Where(u => u.ReportId == report.Id).ToList();
+                    report.Messages = _unitOfWork.Message.GetAll().Where(u => u.ReportId == report.Id).OrderBy(u => u.Grade).ToList();
                     report.Vehicle = _unitOfWork.Vehicle.Get(u => u.Id == report.VehicleId);
                 }
             }

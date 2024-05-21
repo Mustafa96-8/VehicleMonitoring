@@ -24,7 +24,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
         private readonly IUserService _userService;
         private readonly IVehicleService _vehicleService;
         private readonly IReportService _reportService;
-        public HomeController(ILogger<HomeController> logger,IUserService userService,IVehicleService vehicleService,IReportService reportService, ISensorService sensorService)
+        public HomeController(ILogger<HomeController> logger,IUserService userService,IVehicleService vehicleService,IReportService reportService)
         {
             _logger = logger;
             _userService = userService;
@@ -32,6 +32,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             _reportService = reportService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             if(CurrentUserId == 0)
@@ -46,6 +47,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             return View(user);
         }
 
+        [HttpGet]
         public IActionResult VehiclePage(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
@@ -69,6 +71,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             return PartialView(homePartialVM);
         }
 
+        [HttpGet]
         public IActionResult ReportPage(int vehicleId)
         {
             _reportService.ReportHandler.GenerateReport(vehicleId);
@@ -83,6 +86,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             return PartialView(report);
         }
 
+        [HttpGet]
         public IActionResult Privacy()
         {
             return View();

@@ -1,0 +1,50 @@
+﻿@model List<(Sensor, SensorValue)>
+@{
+    (Sensor, List<SensorValue>) sensorValue = (null, new List<SensorValue>());
+}
+
+<div class="container d-flex-column justify-content-start">
+    @if (Model.Count != 0)
+    {
+        <div class="p-2 ">
+            <a asp-controller="VehicleValues" asp-action="SensorPage" asp-route-id="@Model.FirstOrDefault().Item1.VehicleId" type="button" class="btn btn-primary btn">
+                Дополнительная информация
+            </a>
+        </div>
+        <div class="border d-flex flex-column">
+            @foreach (var sensor in Model)
+            {
+                <div class="border-1 p-2 pb-1">
+                    <label>@sensor.Item1.Name</label>
+                    <label >@sensor.Item2.Value.ToString("F3")</label>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div>
+            Выберете технику для просмотра датчиков
+        </div>
+    }
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".sensor-link").click(function (e) {
+                e.preventDefault();
+                var id = $(this).data("id");
+                $.ajax({
+                    url: '@Url.Action("_SensorGraph", "VehicleValues")',
+                    type: 'post',
+                    data: { id: id },
+                    success: function (result) {
+                        $("#partial").html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}
