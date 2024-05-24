@@ -3,28 +3,44 @@
     (Sensor, List<SensorValue>) sensorValue = (null, new List<SensorValue>());
 }
 
-<div class="container d-flex-column justify-content-start">
+<div class="container d-flex-column justify-content-start p-3">
     @if (Model.Count != 0)
     {
-        <div class="p-2 ">
+        @* <div class="p-2 ">
             <a asp-controller="VehicleValues" asp-action="SensorPage" asp-route-id="@Model.FirstOrDefault().Item1.VehicleId" type="button" class="btn btn-primary btn">
                 Дополнительная информация
             </a>
-        </div>
+        </div> *@
         <div class="border d-flex flex-column">
+            <div class="container w-100 border-bottom p-1 ps-3">
+                Название датчика : Последнее показание датчика
+            </div>
             @foreach (var sensor in Model)
             {
-                <div class="border-1 p-2 pb-1">
-                    <label>@sensor.Item1.Name</label>
-                    <label >@sensor.Item2.Value.ToString("F3")</label>
+                <div class="border-1 p-2 pb-1 d-flex ">
+                    <div class="container w-100">
+                        <label>@sensor.Item1.Name</label>:  
+                        @if(sensor.Item2!=null){
+                            <label>@sensor.Item2.Value.ToString("F3")</label>
+                        }else
+                        {
+                            <label>Нет показаний</label>
+                        }
+                        
+                    </div>
+                    <div class="container d-flex justify-content-end ">
+                        <a asp-controller="VehicleValues" asp-action="SensorGraph" asp-route-id="@sensor.Item1.Id" type="button" class="btn btn-primary btn">
+                            История показаний
+                        </a>
+                    </div>
                 </div>
             }
         </div>
     }
     else
     {
-        <div>
-            Выберете технику для просмотра датчиков
+        <div style="font-size:larger">
+            Техника не имеет установленных датчиков или не выбрана
         </div>
     }
 </div>

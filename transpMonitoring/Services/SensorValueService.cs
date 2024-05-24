@@ -42,7 +42,13 @@ namespace VehicleMonitoring.mvc.Services
 
         public IEnumerable<SensorValue> GetAll()
         {
-            return _unitOfWork.SensorValue.GetAll();
+            List<SensorValue> result = new List<SensorValue>();
+            foreach (var sensorValue in _unitOfWork.SensorValue.GetAll())
+            {
+                sensorValue.Sensor = _unitOfWork.Sensor.Get(u => u.Id == sensorValue.SensorId);
+                result.Add(sensorValue);
+            };
+            return result;
         }
 
         public string Update(SensorValue sensorValue)

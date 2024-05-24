@@ -1,15 +1,16 @@
 ﻿@model List<SensorType>
 @{
 
-    ViewData["Title"] = "SensorTypes";
+    ViewData["Title"] = "Типы датчиков";
 }
+<h2>@ViewData["Title"]</h2>
 <div class="container">
     <div class="container d-flex flex-row justify-content-end align-items-end ">
         <div class="p-0 w-auto d-flex flex-column align-items-center">
             <a asp-controller="GPSData" asp-action="Upsert" type="button" class="btn btn-outline-primary btn">
                 <i class="bi bi-plus-circle"></i> Добавить новый тип анализа
             </a>
-            <div class="text-bg-danger text-danger"> ТОЛЬКО ПРИ РАЗРАБОТКЕ </div>
+            <div class="text-danger"> ТОЛЬКО ПРИ РАЗРАБОТКЕ </div>
         </div>
     </div>
     <table class="table table-light table-striped table-hover m-3 ">
@@ -28,7 +29,10 @@
             {
                 <tr>
                     <td class="tab-content ">
-                        <a asp-controller="SensorType" asp-action="Details" asp-route-id="@obj.Id">@obj.Name</a>
+                        <a asp-controller="SensorType" asp-action="Details" asp-route-id="@obj.Id">
+                            <i class="bi bi-info-square"></i>
+                            @obj.Name
+                        </a>
                     </td>
                     <td class="tab-content d-flex justify-content-end ">
                         <div class="w-75 btn-group " role="group">

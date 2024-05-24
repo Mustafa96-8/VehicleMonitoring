@@ -1,4 +1,4 @@
-namespace VehicleMonitoring.Domain.Entities
+namespace VehicleMonitoring.mvc.ViewModels
 {
     public class ErrorViewModel
     {

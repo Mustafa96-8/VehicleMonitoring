@@ -7,6 +7,7 @@ namespace VehicleMonitoring.Domain.Entities
     {
 
         [DisplayName("Название типа датчиков")]
+        [MaxLength(50)]
         [Required]
         public string Name { get; set; }
 

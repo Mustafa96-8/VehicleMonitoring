@@ -33,6 +33,7 @@ namespace VehicleMonitoring.mvc.Services
                 LastName = model.LastName 
             };
             _unitOfWork.User.Add(user);
+            _unitOfWork.Save();
             return "user Created Successfully";
         }
 

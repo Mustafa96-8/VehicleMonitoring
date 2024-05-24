@@ -1,8 +1,9 @@
 ﻿@model List<VehicleVM>
 @{
 
-    ViewData["Title"] = "Траспортное средство";
+    ViewData["Title"] = "Траспортные средства";
 }
+<h2>@ViewData["Title"]</h2>
 <div class="container">
     <div class="container d-flex justify-content-end">
         <a asp-controller="Vehicle" asp-action="Upsert" type="button" class="btn btn-outline-primary btn">
@@ -35,7 +36,7 @@
             {
                 <tr>
                     <td class="tab-content">
-                        <a asp-controller="Vehicle" asp-action="Details" asp-route-id="@obj.Vehicle.Id">@obj.Vehicle.StateRegisterNumber</a>
+                        @obj.Vehicle.StateRegisterNumber
                     </td>
                     <td class="tab-content ">@obj.Vehicle.Brand</td>
                     <td class="tab-content ">@obj.Vehicle.Model</td>
@@ -55,8 +56,8 @@
 
                     <td class="tab-content ">
                         <div class="w-100 btn-group" role="group">
-                            <a asp-controller="Vehicle" asp-action="Upsert" asp-route-id="@obj.Vehicle.Id" class="btn btn-primary mx-1 rounded-2">
-                                <i class="bi bi-pencil-square"></i> Подробнее
+                            <a asp-controller="Vehicle" asp-action="Details" asp-route-id="@obj.Vehicle.Id" class="btn btn-primary mx-1 rounded-2">
+                                <i class="bi bi-info-square"></i> Подробнее
                             </a>
                             <a asp-controller="Vehicle" asp-action="Upsert" asp-route-id="@obj.Vehicle.Id" class="btn btn-primary mx-1 rounded-2">
                                 <i class="bi bi-pencil-square"></i> Изменить

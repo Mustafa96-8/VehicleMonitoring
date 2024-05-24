@@ -1,8 +1,9 @@
 ﻿@model List<Message>
 @{
 
-    ViewData["Title"] = "Описания транспорта";
+    ViewData["Title"] = "Список сообщений отчётов";
 }
+<h2>@ViewData["Title"]</h2>
 <div class="container">
     <div class="container d-flex justify-content-end">
         <a asp-controller="Message" asp-action="Upsert" type="button" class="btn btn-outline-primary btn">

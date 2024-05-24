@@ -27,6 +27,7 @@ namespace VehicleMonitoring.mvc.ViewModels
         public string Role { get; set; } = "user";
 
         [Required(ErrorMessage = "Обязательное поле")]
+        [MinLength(8),MaxLength(30)]
         public string Password { get; set; }
         [Required(ErrorMessage = "Обязательное поле")]
         [Compare("Password",ErrorMessage ="Пароли не совпадают") ]

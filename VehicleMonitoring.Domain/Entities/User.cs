@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace VehicleMonitoring.Domain.Entities
@@ -9,12 +10,14 @@ namespace VehicleMonitoring.Domain.Entities
         [MaxLength(30,ErrorMessage ="Max 30 symb")]
         [DisplayName("Логин")]
         public string Login { get; set; }
-
-        public string PasswordHash { get; set; }
+        [DisplayName("Пароль")]
+        [ValidateNever]
+        public string? PasswordHash { get; set; }
+        [ValidateNever]        
         
         public string Salt { get; set; }
-        
-        public string Role { get; set; }
+
+        public string Role { get; set; } = "user";
 
 
         [MaxLength(50)]

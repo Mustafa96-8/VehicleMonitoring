@@ -73,7 +73,6 @@ namespace VehicleMonitoring.mvc.Services
                     Text = u.StateRegisterNumber + " | " + u.Model,
                     Value = u.Id.ToString(),
                 }),
-                
             };
             return driverVM;
         }

@@ -71,16 +71,16 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             return View(sensorValueList);
         }
 
-        [HttpPost]
-        public IActionResult _SensorGraph(int? id)
+        [HttpGet]
+        public IActionResult SensorGraph(int? id)
         {
             if (id == null || id == 0) { return BadRequest(); }
 
             Sensor sensor = _sensorService.Get((int)id);
 
-            (Sensor, List<SensorValue>) sensorValue = (sensor, _sensorValueService.GetAll().Where(u=>u.SensorId==id).OrderBy(u=>u.CreationTime).ToList());
+            Tuple<Sensor, List<SensorValue>> sensorValue = new Tuple<Sensor, List<SensorValue>> (sensor, _sensorValueService.GetAll().Where(u=>u.SensorId==id).OrderBy(u=>u.CreationTime).ToList());
 
-            return PartialView(sensorValue);
+            return View(sensorValue);
         }
     }
 }

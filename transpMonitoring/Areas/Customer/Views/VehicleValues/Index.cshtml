@@ -1,6 +1,6 @@
 ﻿@model List<Vehicle>
 @{
-    ViewData["Title"] = "Мои транспортные средства";
+    ViewData["Title"] = "Датчики на ТС";
     List<(Sensor, SensorValue)> sensorValueList = new List<(Sensor, SensorValue)>();
 }
 
@@ -9,8 +9,8 @@
 </div>
 
 <div class="container d-flex justify-content-start">
-    <div class="container p-3" >
-        <table class="w-100 table table-light table-striped table-hover m-3">
+    <div>
+        <table class="w-auto table table-light table-striped table-hover m-3">
             <thead class="tab-content">
                 <tr>
                     <th>Номер</th>

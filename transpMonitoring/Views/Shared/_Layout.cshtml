@@ -9,16 +9,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - МониторТехТранспорт</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <script src="https://kit.fontawesome.com/46354009ec.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body >
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">МониторТехТранспорт</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -28,15 +26,15 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="VehicleValues" asp-action="Index">Значения датчиков</a>
+                            <a class="nav-link" asp-area="" asp-controller="VehicleValues" asp-action="Index">Значения датчиков</a>
                         </li>
                         
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a>
-                        </li>
+                        @* <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a>
+                        </li> *@
                         @if(IsAdmin){
                             <li>
                                 @{
@@ -49,29 +47,32 @@
                 
             </div>
             <div class="navbar-collapse collapse d-sm-inline-flex">
-                <a class="nav-link text-dark " asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
+                <a class="nav-link text-light pe-4 " asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
             </div>
         </nav>
     </header>
-    <div class="container ">
+    <div class="container " style="min-height: calc(100vh - 147px);">
         <main role="main" style="font-size:large " class="pb-3">
             <partial name="_Notification" />
             @RenderBody()
         </main>
     </div>
 
-    <footer class=" fixed-bottom border-bottom border-top text-muted bg-light ">
-        <div class="text-center">
-            &copy; 2024 - МониторТехТранспорт - <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        </div>
-        <div class="text-end">
-            @DateTime.UtcNow.ToString()
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
+
 </html>
+
+<footer class="   border-bottom bg-primary border-top text-muted" data-bs-theme="dark" >
+    <div class="text-center p-2 pb-0">
+        &copy; 2024 - МониторТехТранспорт - <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </div>
+    <div class="text-end pe-4">
+        Проект студента ФГБОУ ВО УУНиТ ИИМРТ Мустафин Вильдана
+    </div>
+</footer>

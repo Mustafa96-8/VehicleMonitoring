@@ -32,8 +32,9 @@
                 <input asp-for="Role" class="form-control" type="text" />
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
+            @{Model.PasswordHash = "";}
             <div class="p-3 ">
-                <label asp-for="PasswordHash" class="p-0"></label>
+                <label asp-for="PasswordHash" class="p-0">Установить новый пароль?</label>
                 <input asp-for="PasswordHash" class="form-control" type="text"/>
                 <span asp-validation-for="PasswordHash" class="text-danger"></span>
             </div>
@@ -41,23 +42,23 @@
                 <div class="p-3">
                     @if (@Model.Id != 0)
                     {
-                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                        <button type="submit" class="btn btn-outline-primary"> <i class="bi bi-pencil-square"></i> Обновить</button>
                     }
                     else
                     {
-                        <button type="submit" class="btn btn-outline-primary">Create</button>
+                        <button type="submit" class="btn btn-outline-primary"> <i class="bi bi-plus-circle"></i> Создать</button>
                     }
                 </div>
                 <div class="p-3">
                     <a asp-controller="User" asp-action="Index" class="btn btn-outline-primary" style="padding-block-end">
-                        К списку записей
+                        <i class="bi bi-box-arrow-in-left"></i>К списку пользователей
                     </a>
                 </div>
                 @if (@Model.Id != 0)
                 {
                     <div class="p-3">
                         <a asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger" style="padding-block-end">
-                            Удалить
+                            <i class="bi bi-trash3"></i> Удалить
                         </a>
                     </div>
                 }

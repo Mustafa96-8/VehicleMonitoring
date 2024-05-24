@@ -1,12 +1,13 @@
 ﻿@model List<SensorValue>
 @{
 
-    ViewData["Title"] = "Список датчиков";
+    ViewData["Title"] = "Показания датчиков";
 }
+<h2>@ViewData["Title"]</h2>
 <div class="container">
     <div class="container d-flex justify-content-end">
         <a asp-controller="SensorValue" asp-action="Upsert" type="button" class="btn btn-outline-primary btn">
-            <i class="bi bi-plus-circle"></i> Добавить сообщение
+            <i class="bi bi-plus-circle"></i> Добавить показание датчика
         </a>
     </div>
     <table class="table table-light table-striped table-hover m-3 ">
@@ -30,9 +31,17 @@
             @foreach (var obj in Model.OrderBy(u => u.Id))
             {
                 <tr>
-                    <td class="tab-content">
-                        @obj.SensorId
-                    </td>
+                    @if(obj.Sensor!=null){
+                        <td class="tab-content">
+                            @obj.Sensor.Name
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="tab-content">
+                            Датчик не найден в системе
+                        </td>
+                    }
                     <td class="tab-content">
                         @obj.Value
                     </td>
