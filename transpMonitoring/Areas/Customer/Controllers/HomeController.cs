@@ -24,7 +24,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
         private readonly IUserService _userService;
         private readonly IVehicleService _vehicleService;
         private readonly IReportService _reportService;
-        public HomeController(ILogger<HomeController> logger,IUserService userService,IVehicleService vehicleService,IReportService reportService)
+        public HomeController(ILogger<HomeController> logger, IUserService userService, IVehicleService vehicleService, IReportService reportService)
         {
             _logger = logger;
             _userService = userService;
@@ -35,7 +35,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if(CurrentUserId == 0)
+            if (CurrentUserId == 0)
             {
                 return RedirectToAction("logout", "Account", new { area = "Customer" });
             }
@@ -55,7 +55,7 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             if (vehicle == null) { return NotFound(); }
             return View(vehicle);
         }
-        
+
 
         [HttpPost]
         public IActionResult _Vehicle(int id)
@@ -63,18 +63,24 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             Vehicle? vehicle = _vehicleService.Get(id);
 
             if (vehicle == null) { return NotFound(); }
-            _reportService.ReportHandler.GenerateReport(id);
-            Report? report = _reportService.GetByVehicleId(id).OrderBy(u=>u.CreationTime).LastOrDefault();
+            /*_reportService.ReportHandler.GenerateReport(id);*/
+            Report? report = _reportService.GetByVehicleId(id).OrderBy(u => u.CreationTime).LastOrDefault();
 
-            HomePartialVM homePartialVM = new HomePartialVM(report,vehicle);
+            HomePartialVM homePartialVM = new HomePartialVM(report, vehicle);
 
             return PartialView(homePartialVM);
+        }
+
+        [HttpPost]
+        public void GenerateReportBtn(int id)
+        {
+            _reportService.ReportHandler.GenerateReport(id);
+            return;
         }
 
         [HttpGet]
         public IActionResult ReportPage(int vehicleId)
         {
-            _reportService.ReportHandler.GenerateReport(vehicleId);
             List<Report> reports = _reportService.GetByVehicleId(vehicleId).OrderBy(u => u.CreationTime).ToList();
 
             return View(reports);
