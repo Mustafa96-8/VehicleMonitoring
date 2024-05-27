@@ -7,11 +7,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VehicleMonitoring.Domain.Data;
 using VehicleMonitoring.Domain.Entities;
+using VehicleMonitoring.Domain.Repository;
+using VehicleMonitoring.Domain.Repository.IRepository;
+using VehicleMonitoring.mvc.Extensions;
+using VehicleMonitoring.mvc.Services;
+using VehicleMonitoring.mvc.Services.IServices;
 
 namespace SensorDataApp
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -21,12 +27,14 @@ namespace SensorDataApp
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<ApplicationDbContext>();
 
-                /*ReportService reportService = services.GetRequiredService<ReportService>();
+                IUnitOfWork unitOfWork = new UnitOfWork(context);
+                ReportHandler reportHandler= new ReportHandler(unitOfWork);
+
                 var vehicleList = context.Vehicles.ToList();
                 foreach (var vehicle in vehicleList)
                 {
-                    reportService.ReportHandler.GenerateReport(vehicle.Id);
-                }*/
+                    reportHandler.GenerateReport(vehicle.Id);
+                }
 
                 SeedData(context);
 
@@ -46,7 +54,6 @@ namespace SensorDataApp
                     services.AddDbContext<ApplicationDbContext>(options =>
                         options.UseNpgsql(
                             hostContext.Configuration.GetConnectionString("WebApiDatabase")));
-                    /*services.AddScoped<ReportService>();*/
                 });
 
         private static void SeedData(ApplicationDbContext context)
@@ -75,14 +82,8 @@ namespace SensorDataApp
             switch (sensor.Name)
             {
                 case "Давление колеса 1":
-                    newValue = faker.Random.Double(sensor.ParametrLower.Value, sensor.ParametrUpper.Value*errorValue);
-                    break;
                 case "Давление колеса 2":
-                    newValue = faker.Random.Double(sensor.ParametrLower.Value, sensor.ParametrUpper.Value * errorValue);
-                    break;
                 case "Давление колеса 3":
-                    newValue = faker.Random.Double(sensor.ParametrLower.Value, sensor.ParametrUpper.Value * errorValue);
-                    break;
                 case "Давление колеса 4":
                     newValue = faker.Random.Double(sensor.ParametrLower.Value, sensor.ParametrUpper.Value * errorValue);
                     break;
@@ -106,7 +107,7 @@ namespace SensorDataApp
                         .FirstOrDefault()?.Value ?? 0;
                     if (ignition == 1)
                     {
-                        newValue = faker.Random.Double(0, sensor.ParametrUpper * errorValue ?? 200);
+                        newValue = faker.Random.Double(20, sensor.ParametrUpper * errorValue ?? 200);
                     }
                     else
                     {
@@ -123,26 +124,24 @@ namespace SensorDataApp
                     break;
 
                 case "Уровень топлива в баке 1":
-                    ignition = context.SensorValues
+                    /*ignition = context.SensorValues
                         .Where(u => u.SensorId == 5)
                         .OrderByDescending(u => u.CreationTime)
-                        .FirstOrDefault()?.Value ?? 0;
-                    if (ignition == 1)
-                    {
-                        newValue = lastValue - 0.01;
-                        newValue = Math.Max(newValue, 0.05) * errorValue;
-                    }
+                        .FirstOrDefault()?.Value ?? 0;*/
+
+                    double difference = faker.Random.Double(sensor.ParametrUpper*errorValue??0.1, sensor.ParametrUpper * errorValue??0.1*errorValue);
+                        newValue = lastValue - difference;
                     break;
             }
 
-            return new SensorValue[]
-            {
+            return
+            [
                 new SensorValue
                 {
                     Value = newValue,
                     SensorId = sensor.Id
                 }
-            };
+            ];
         }
     }
 }

@@ -30,6 +30,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
   </ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\transpMonitoring\VehicleMonitoring.mvc.csproj" />
 		<ProjectReference Include="..\VehicleMonitoring.Domain\VehicleMonitoring.Domain.csproj" />
 	</ItemGroup>
 </Project>

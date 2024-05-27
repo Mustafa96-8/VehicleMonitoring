@@ -41,13 +41,13 @@ namespace VehicleMonitoring.mvc.Extensions
             if (upperValue < actualValue)
             {
                 double difference = PercentageDifference((double)upperValue, actualValue);
-                content = "Показания выше нормы на " + difference.ToString("P2");
+                content = "Показания выше нормы на " + (difference / 100d).ToString("P2");
                 grade = GradeCalc(difference, 5, 15);
             }
             if (lowerValue > actualValue)
             {
                 double difference = PercentageDifference((double)lowerValue, actualValue) * -1;
-                content="Показания ниже нормы на " + difference.ToString("P2");
+                content="Показания ниже нормы на " + (difference/100d).ToString("P2");
                 grade = GradeCalc(difference, 5, 15);
             }
             if (content == null || grade == 0)
@@ -100,13 +100,13 @@ namespace VehicleMonitoring.mvc.Extensions
             string? content = null;
             int grade = 0;
             sensorValues = sensorValues.OrderBy(u => u.CreationTime).ToList();
-            if (sensorValues.Count < windowSize)
+            if (sensorValues.Count-1 < windowSize)
             {
-                windowSize = sensorValues.Count;
+                windowSize = sensorValues.Count-1;
             }
             //Calculation of the average fuel level for the last time intervals window Size
             double sum = 0;
-            for (int i = sensorValues.Count - windowSize; i < sensorValues.Count; i++)
+            for (int i = 0; i < windowSize; i++)
             {
                 sum += sensorValues[i].Value;
             }
@@ -114,8 +114,8 @@ namespace VehicleMonitoring.mvc.Extensions
             SensorValue lastSensorValue = sensorValues[sensorValues.Count - 1];
 
             // Время между последним значением и значением из окна
-            TimeSpan timeDifference = lastSensorValue.CreationTime - sensorValues[0].CreationTime;
-            double SecondDifference = timeDifference.TotalSeconds;
+            TimeSpan timeDifference = lastSensorValue.CreationTime - sensorValues[sensorValues.Count-2].CreationTime;
+            double SecondDifference = Math.Min(timeDifference.TotalSeconds,20);
 
             if (SecondDifference <= 0)
             {

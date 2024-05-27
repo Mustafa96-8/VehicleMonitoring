@@ -82,7 +82,7 @@ namespace VehicleMonitoring.mvc.Extensions
                         break;
                     case "Fuel Level":
                         bool ignition = true; 
-                        List<SensorValue> sensorValues = _unitOfWork.SensorValue.GetAll().Where(u => u.SensorId == sensor.Id).OrderBy(u => u.CreationTime).Take(5).ToList();
+                        List<SensorValue> sensorValues = _unitOfWork.SensorValue.GetAll().Where(u => u.SensorId == sensor.Id).OrderBy(u => u.CreationTime).TakeLast(5).ToList();
                         
                         SensorType? ignitionType = _unitOfWork.SensorType.GetAll().FirstOrDefault(u => u.Name == "Ignition");
                         Sensor? ignitionSensor = sensors.FirstOrDefault(u => u.SensorTypeId == ignitionType.Id);
