@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="VehicleMonitoring.Domain.Entities.Driver">
+    <Position X="19.75" Y="7.25" Width="2.5" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="9.5" />
+        <Point X="19.25" Y="8.125" />
+        <Point X="19.75" Y="8.125" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAEEAAAAAAAAAAAAAQAAAAAAAAgAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Entities\Driver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.Entity&lt;TPrimatyKey&gt;">
+    <Position X="20.75" Y="9.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.Entity">
+    <Position X="18.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.GPSData">
+    <Position X="27.75" Y="4.75" Width="2" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="9.5" />
+        <Point X="19.25" Y="4.547" />
+        <Point X="28.688" Y="4.547" />
+        <Point X="28.688" Y="4.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\GPSData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.GPSReading">
+    <Position X="30.75" Y="4.75" Width="2.75" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="9.5" />
+        <Point X="19.25" Y="4.475" />
+        <Point X="32.125" Y="4.475" />
+        <Point X="32.125" Y="4.75" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="GPSData" Type="VehicleMonitoring.Domain.Entities.GPSData" FixedFromPoint="true">
+      <Path>
+        <Point X="30.75" Y="5.375" />
+        <Point X="30.376" Y="5.375" Type="JumpStart" />
+        <Point X="30.209" Y="5.375" Type="JumpEnd" />
+        <Point X="29.75" Y="5.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAQAAAAAAAAAABAAAgAAAACIAAAQAAAAAAgAAAAAA=</HashCode>
+      <FileName>Entities\GPSReading.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="GPSData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.Message">
+    <Position X="31.75" Y="9.25" Width="2.25" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="10.497" />
+        <Point X="19.25" Y="10.763" />
+        <Point X="27.022" Y="10.763" />
+        <Point X="27.022" Y="10.065" />
+        <Point X="27.375" Y="10.065" Type="JumpStart" />
+        <Point X="27.542" Y="10.065" Type="JumpEnd" />
+        <Point X="31.114" Y="10.065" />
+        <Point X="31.114" Y="9.625" />
+        <Point X="31.75" Y="9.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAMABAA=</HashCode>
+      <FileName>Entities\Message.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Report" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.Report">
+    <Position X="27.75" Y="10.25" Width="3.25" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true">
+      <Path>
+        <Point X="19.25" Y="10.497" />
+        <Point X="19.25" Y="10.763" />
+        <Point X="27.041" Y="10.763" />
+        <Point X="27.041" Y="10.104" />
+        <Point X="27.375" Y="10.104" Type="JumpStart" />
+        <Point X="27.542" Y="10.104" Type="JumpEnd" />
+        <Point X="29.375" Y="10.104" />
+        <Point X="29.375" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="Vehicle" Type="VehicleMonitoring.Domain.Entities.Vehicle" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="27.75" Y="11.25" />
+        <Point X="27.458" Y="11.25" />
+        <Point X="27.458" Y="7.312" />
+        <Point X="26.5" Y="7.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Messages" Type="VehicleMonitoring.Domain.Entities.Message" FixedToPoint="true">
+      <Path>
+        <Point X="31" Y="10.75" />
+        <Point X="31.75" Y="10.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.967" Y="-0.46" Height="0.182" Width="2.699" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAgAAAAAAAgQAAAAA=</HashCode>
+      <FileName>Entities\Report.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Vehicle" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Messages" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.Sensor">
+    <Position X="27.75" Y="8" Width="2.75" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="10.497" />
+        <Point X="19.25" Y="10.763" />
+        <Point X="27.057" Y="10.763" />
+        <Point X="27.057" Y="10.114" />
+        <Point X="27.375" Y="10.114" Type="JumpStart" />
+        <Point X="27.542" Y="10.114" Type="JumpEnd" />
+        <Point X="29.063" Y="10.114" />
+        <Point X="29.063" Y="10.002" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="Vehicle" Type="VehicleMonitoring.Domain.Entities.Vehicle" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="27.75" Y="8.439" />
+        <Point X="27.609" Y="8.439" />
+        <Point X="27.609" Y="6.875" />
+        <Point X="26.5" Y="6.875" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAEAAAAAAAAAAQABACAgAACAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Sensor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Vehicle" />
+      <Property Name="SensorType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.SensorType">
+    <Position X="28" Y="6.25" Width="2" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="9.5" />
+        <Point X="19.25" Y="4.522" />
+        <Point X="30.292" Y="4.522" />
+        <Point X="30.292" Y="6.812" />
+        <Point X="30" Y="6.812" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\SensorType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.SensorValue">
+    <Position X="31.25" Y="7.25" Width="2.75" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="10.497" />
+        <Point X="19.25" Y="10.763" />
+        <Point X="27.048" Y="10.763" />
+        <Point X="27.048" Y="10.106" />
+        <Point X="27.375" Y="10.106" Type="JumpStart" />
+        <Point X="27.542" Y="10.106" Type="JumpEnd" />
+        <Point X="31.125" Y="10.106" />
+        <Point X="31.125" Y="8.438" />
+        <Point X="31.25" Y="8.438" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="Sensor" Type="VehicleMonitoring.Domain.Entities.Sensor">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.036" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAggAAAAAA=</HashCode>
+      <FileName>Entities\SensorValue.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Sensor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.User">
+    <Position X="19.5" Y="4.75" Width="3" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="9.5" />
+        <Point X="19.25" Y="5.812" />
+        <Point X="19.5" Y="5.812" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="Vehicles" Type="VehicleMonitoring.Domain.Entities.Vehicle" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="21.875" Y="6.944" />
+        <Point X="21.875" Y="7" />
+        <Point X="23.5" Y="7" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.884" Y="-0.208" Height="0.182" Width="2.132" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AADAAEAAAAAAgAAAEAAAAAAAAAAAAAAAAAAQAAAAAAg=</HashCode>
+      <FileName>Entities\User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Vehicles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.Vehicle">
+    <Position X="23.5" Y="6" Width="3" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="10.497" />
+        <Point X="19.25" Y="10.7" />
+        <Point X="23.75" Y="10.7" />
+        <Point X="23.75" Y="8.194" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="GPSData" Type="VehicleMonitoring.Domain.Entities.GPSData" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="26.5" Y="6.431" />
+        <Point X="27.065" Y="6.431" />
+        <Point X="27.065" Y="5.938" />
+        <Point X="27.75" Y="5.938" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Driver" Type="VehicleMonitoring.Domain.Entities.Driver" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="23.5" Y="7.628" />
+        <Point X="23.125" Y="7.628" />
+        <Point X="23.125" Y="8.625" />
+        <Point X="22.25" Y="8.625" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.159" Y="0.028" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="User" Type="VehicleMonitoring.Domain.Entities.User" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="24.25" Y="6" />
+        <Point X="24.25" Y="5.75" />
+        <Point X="23.25" Y="5.75" />
+        <Point X="23.25" Y="6" />
+        <Point X="22.5" Y="6" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Descriptions" Type="VehicleMonitoring.Domain.Entities.VehicleDescription" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="23.875" Y="8.194" />
+        <Point X="23.875" Y="9" />
+        <Point X="24.5" Y="9" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-2.253" Y="0.351" Height="0.182" Width="3.051" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAgABABAAAgAAgAAAAAgAAAAAgAAAABAAA=</HashCode>
+      <FileName>Entities\Vehicle.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="GPSData" />
+      <Property Name="Driver" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Descriptions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="VehicleMonitoring.Domain.Entities.VehicleDescription">
+    <Position X="24.5" Y="8.75" Width="2.25" />
+    <InheritanceLine Type="VehicleMonitoring.Domain.Entities.Entity" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="19.25" Y="10.497" />
+        <Point X="19.25" Y="10.763" />
+        <Point X="23.75" Y="10.763" />
+        <Point X="23.75" Y="9.715" />
+        <Point X="24.5" Y="9.715" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="Vehicle" Type="VehicleMonitoring.Domain.Entities.Vehicle" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="26.75" Y="9.625" />
+        <Point X="27.278" Y="9.625" />
+        <Point X="27.278" Y="7.688" />
+        <Point X="26.5" Y="7.688" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAQABAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\VehicleDescription.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Vehicle" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

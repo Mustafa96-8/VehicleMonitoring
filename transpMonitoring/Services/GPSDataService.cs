@@ -42,6 +42,10 @@ namespace VehicleMonitoring.mvc.Services
         {
             return _unitOfWork.GPSData.Get(u => u.Id == id);
         }
+        public GPSData? GetbyVehicleId(int vehicleId)
+        {
+            return _unitOfWork.GPSData.Get(u => u.VehicleId == vehicleId);
+        }
 
         public IEnumerable<GPSData> GetAll()
         {

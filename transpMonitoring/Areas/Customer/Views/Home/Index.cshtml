@@ -4,19 +4,19 @@
     HomePartialVM partialVM = new HomePartialVM(null,null);
 }
 
-<div class="container">
+<div class="container w-100">
     <h2>Мои транспортные средства</h2>
 </div>
 
 <div class="container d-flex justify-content-start">
-    <div>
-        <table class="w-auto table table-light table-striped table-hover m-3 ">
+    <div class="container w-50">
+        <table class="w-100 table table-light table-striped table-hover m-3 ">
             <thead class="tab-content">
                 <tr>
                     <th>Номер</th>
                     <th>Бренд</th>
                     <th>Модель</th>
-                    <th>    </th>
+                    @* <th>    </th> *@
                 </tr>
             </thead>
             <tbody>
@@ -26,11 +26,11 @@
                         <td href="#"  class="tab-content vehicle-link" data-id="@obj.Id">@obj.StateRegisterNumber</td>
                         <td href="#" class="tab-content vehicle-link" data-id="@obj.Id">@obj.Brand</td>
                         <td href="#" class="tab-content vehicle-link" data-id="@obj.Id">@obj.Model</td>
-                        <td class="container">
+                        @* <td class="container">
                             <button href="#" class="btn btn-info generate-report " data-id="@obj.Id">
                                 создать отчёт
                             </button>
-                        </td>
+                        </td> *@
                     </tr>
                 }
             </tbody>

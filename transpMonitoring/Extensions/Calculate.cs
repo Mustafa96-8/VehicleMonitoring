@@ -96,7 +96,7 @@ namespace VehicleMonitoring.mvc.Extensions
             {
                 return null;
             }
-            double _maxFuelConsumptionPerMinute = maxFuelConsumptionPerMinute ?? 0.08;
+            double _maxFuelConsumptionPerMinute = maxFuelConsumptionPerMinute ?? 0.05;
             string? content = null;
             int grade = 0;
             sensorValues = sensorValues.OrderBy(u => u.CreationTime).ToList();

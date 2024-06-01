@@ -14,14 +14,16 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
         private readonly IVehicleService _vehicleService;
         private readonly ISensorValueService _sensorValueService;
         private readonly ISensorService _sensorService;
-
-        public VehicleValuesController(IUserService userService, IVehicleService vehicleService,  ISensorService sensorService, ISensorValueService sensorValueService)
+        private readonly IGPSDataService _gpsDataService;
+        private readonly IGPSReadingService _gpsReadingService;
+        public VehicleValuesController(IUserService userService, IVehicleService vehicleService,  ISensorService sensorService, ISensorValueService sensorValueService,IGPSDataService gPSDataService,IGPSReadingService gPSReadingService)
         {
             _userService = userService;
             _vehicleService = vehicleService;
             _sensorValueService = sensorValueService;
             _sensorService = sensorService;
-
+            _gpsDataService = gPSDataService;
+            _gpsReadingService = gPSReadingService;
         }
         [HttpGet]
         public IActionResult Index()
@@ -81,6 +83,22 @@ namespace VehicleMonitoring.mvc.Areas.Customer.Controllers
             Tuple<Sensor, List<SensorValue>> sensorValue = new Tuple<Sensor, List<SensorValue>> (sensor, _sensorValueService.GetAll().Where(u=>u.SensorId==id).OrderBy(u=>u.CreationTime).ToList());
 
             return View(sensorValue);
+        }
+
+
+        [HttpGet]
+        public IActionResult MapPage(int? id)
+        {
+            if (id == null || id == 0) { return BadRequest(); }
+
+            GPSData gpsData = _gpsDataService.GetbyVehicleId((int)id);
+
+            GPSReading gPSReading = _gpsReadingService.GetAll().Where(u => u.GPSDataId == gpsData.Id).LastOrDefault();
+            Tuple<GPSData, List<GPSReading>> readings = new Tuple<GPSData, List<GPSReading>>(gpsData, _gpsReadingService.GetAll().Where(u => u.GPSDataId == gpsData.Id).OrderBy(u => u.CreationTime).Reverse().ToList());
+            if (readings.Item2.Count==0) {
+                return NotFound();
+            }
+            return View(readings);
         }
     }
 }

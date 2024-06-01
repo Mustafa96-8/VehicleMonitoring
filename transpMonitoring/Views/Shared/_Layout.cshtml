@@ -13,8 +13,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <script src="https://kit.fontawesome.com/46354009ec.js" crossorigin="anonymous"></script>
+    <script src="https://api-maps.yandex.ru/v3/?apikey=12ab40f5-86b9-4c08-8cbc-14bd0027a493&lang=ru_RU"></script>
+
 </head>
-<body >
+<body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
@@ -51,8 +53,8 @@
             </div>
         </nav>
     </header>
-    <div class="container " style="min-height: calc(100vh - 147px);">
-        <main role="main" style="font-size:large " class="pb-3">
+    <div class="container-fluid " style="min-height: calc(100vh - 147px);">
+        <main role="main" style="font-size:large " class="pb-3 ">
             <partial name="_Notification" />
             @RenderBody()
         </main>

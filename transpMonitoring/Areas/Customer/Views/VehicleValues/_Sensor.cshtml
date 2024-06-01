@@ -18,7 +18,10 @@
             @foreach (var sensor in Model)
             {
                 <div class="border-1 p-2 pb-1 d-flex ">
-                    <div class="container w-100">
+                        <a asp-controller="VehicleValues" asp-action="SensorGraph" asp-route-id="@sensor.Item1.Id" type="button" class="w-50 text-nowrap btn btn-primary btn">
+                            История показаний
+                        </a>
+                    <div class="container">
                         <label>@sensor.Item1.Name</label>:  
                         @if(sensor.Item2!=null){
                             <label>@sensor.Item2.Value.ToString("F3")</label>
@@ -27,11 +30,6 @@
                             <label>Нет показаний</label>
                         }
                         
-                    </div>
-                    <div class="container d-flex justify-content-end ">
-                        <a asp-controller="VehicleValues" asp-action="SensorGraph" asp-route-id="@sensor.Item1.Id" type="button" class="btn btn-primary btn">
-                            История показаний
-                        </a>
                     </div>
                 </div>
             }

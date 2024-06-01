@@ -9,13 +9,14 @@
 </div>
 
 <div class="container d-flex justify-content-start">
-    <div>
-        <table class="w-auto table table-light table-striped table-hover m-3">
+    <div class="container w-75">
+        <table class="w-100 table table-light table-striped table-hover m-3">
             <thead class="tab-content">
                 <tr>
                     <th>Номер</th>
                     <th>Бренд</th>
                     <th>Модель</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,9 @@
                         <td class="tab-content">@obj.StateRegisterNumber</td>
                         <td class="tab-content">@obj.Brand</td>
                         <td class="tab-content">@obj.Model</td>
+                        <td class="tab-content">
+                            <a asp-controller="VehicleValues" asp-action="MapPage" asp-route-id="@obj.Id" type="button" class="text-nowrap btn btn-primary">Карта</a>
+                        </td>
                     </tr>
                 }
             </tbody>

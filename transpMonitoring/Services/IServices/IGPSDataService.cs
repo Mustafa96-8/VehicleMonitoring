@@ -6,5 +6,6 @@ namespace VehicleMonitoring.mvc.Services.IServices
     public interface IGPSDataService : IService<GPSData>
     {
         GPSDataVM CreateVM(GPSData gPSData);
+        GPSData? GetbyVehicleId(int vehicleId);
     }
 }
