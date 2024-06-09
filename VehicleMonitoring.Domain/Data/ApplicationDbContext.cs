@@ -38,7 +38,7 @@ namespace VehicleMonitoring.Domain.Data
                 new SensorType { Id = 3, Name = "Total Fuel level" },
                 new SensorType { Id = 4, Name = "Velocity" },
                 new SensorType { Id = 5, Name = "Acceleration sensor" },
-                new SensorType { Id = 6, Name = "Lambda sensor" },
+                new SensorType { Id = 6, Name = "Without processing" },
                 new SensorType { Id = 7, Name = "Ignition" }
                 );
         }
