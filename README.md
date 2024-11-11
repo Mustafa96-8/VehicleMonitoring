@@ -29,3 +29,6 @@ VehicleMonitoring платформа направленная на хранен�
 ![image](https://github.com/Mustafa96-8/VehicleMonitoring/assets/81869299/5d5cda48-4e47-4c5c-bad3-2f8bb8b2957d)
 
 ![image](https://github.com/Mustafa96-8/VehicleMonitoring/assets/81869299/c1707ea7-0bbb-4973-a7ed-7b9522837d14)
+
+Схема разработанной базы данных под систему
+![image](https://github.com/user-attachments/assets/37128494-80d2-47b7-a600-167257d6e23b)
